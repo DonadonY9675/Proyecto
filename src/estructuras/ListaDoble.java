@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author
+ * @author jhhhhjjhjg
  */
 public class ListaDoble<T> implements Iterable<T> {
 
