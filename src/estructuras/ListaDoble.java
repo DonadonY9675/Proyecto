@@ -1,6 +1,15 @@
 
+package estructuras;
+
+import java.util.Comparator;
+import java.util.Iterator;
+
+/**
+ *
+ * @author 
+ */
 public class ListaDoble<T> implements Iterable<T> {
-//cambio en pagina web
+
     private NodoDoble<T> cabecera;
     private NodoDoble<T> ultimo;
     Comparator<T> comparador;
@@ -28,7 +37,7 @@ public class ListaDoble<T> implements Iterable<T> {
 
     public void setCabecera(NodoDoble<T> cabecera) {
         this.cabecera = cabecera;
-    }//cambio en pagina web
+    }
 
     public Comparator<T> getComparador() {
         return comparador;
@@ -37,7 +46,7 @@ public class ListaDoble<T> implements Iterable<T> {
     public void setComparador(Comparator<T> comparador) {
         this.comparador = comparador;
     }
-    //cambio en pagina web
+    
     private class MiIteradorAscendente implements Iterator<T> {
 
         NodoDoble<T> aux;
@@ -58,7 +67,7 @@ public class ListaDoble<T> implements Iterable<T> {
             return datoG;
         }
 
-    }//cambio en pagina web
+    }
     
     /*
         Recorre la lista comenzando del ultimo elemento y finalizando en el primero
@@ -66,7 +75,7 @@ public class ListaDoble<T> implements Iterable<T> {
     private class MiIteradorDescendente implements Iterator<T> {
 
         NodoDoble<T> aux;
-//cambio en pagina web
+
         public MiIteradorDescendente() {
             aux = ultimo;
         }
