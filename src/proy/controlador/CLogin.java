@@ -5,12 +5,14 @@
  */
 package proy.controlador;
 
-import proy.dominio.RegistroEntrada;
+import java.awt.event.ActionEvent;
 
 /**
  *
  * @author Miguel
  */
 public interface CLogin extends MantenimientoControlador {
+    void clickbtnEntrar(ActionEvent evt);
     
+    void clickbtnSalir(ActionEvent evt);
 }

@@ -49,19 +49,9 @@ public class VentanaLogIn extends javax.swing.JFrame {
 
         jButtonEntrar.setBackground(new java.awt.Color(204, 204, 204));
         jButtonEntrar.setText("Entrar");
-        jButtonEntrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEntrarActionPerformed(evt);
-            }
-        });
 
         jButtonCancelar.setBackground(new java.awt.Color(204, 204, 204));
         jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
 
         jTextFieldUsuario.setBackground(new java.awt.Color(153, 153, 153));
         jTextFieldUsuario.setToolTipText("Usuario");
@@ -153,14 +143,6 @@ public class VentanaLogIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
-        ;
-    }//GEN-LAST:event_jButtonEntrarActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jPasswordFieldContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseniaActionPerformed
         // TODO add your handling code here:

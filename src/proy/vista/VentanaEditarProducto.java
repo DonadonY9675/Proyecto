@@ -272,8 +272,8 @@ public class VentanaEditarProducto extends javax.swing.JDialog {
         p.setModelo(modelo.getText());
         p.setUnidadDeMedida(umd.getText());
         p.setUbicacion(ubicacion.getText());
-        p.setCantidadMinima(cm.getText());
-        p.setExistencia(exist.getText());
+        p.setCantidadMinima(Integer.valueOf(cm.getText()));
+        p.setExistencia(Integer.valueOf(exist.getText()));
         p.setPrecioUnitario(Float.parseFloat(pu.getText()));
         inventario.reemplazaProducto(p,Integer.parseInt(cod.getText()));
         cod.setText("");
@@ -294,8 +294,8 @@ public class VentanaEditarProducto extends javax.swing.JDialog {
         modelo.setText(inventario.buscar(pos).getModelo());
         umd.setText(inventario.buscar(pos).getUnidadDeMedida());
         ubicacion.setText(inventario.buscar(pos).getUbicacion());
-        cm.setText(inventario.buscar(pos).getCantidadMinima());
-        exist.setText(inventario.buscar(pos).getExistencia());
+        cm.setText(String.valueOf(inventario.buscar(pos).getCantidadMinima()));
+        exist.setText(String.valueOf(inventario.buscar(pos).getExistencia()));
         pu.setText(String.format("%f",inventario.buscar(pos).getPrecioUnitario()));
     }
     
@@ -324,6 +324,7 @@ public class VentanaEditarProducto extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaEditarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

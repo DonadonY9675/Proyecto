@@ -18,6 +18,7 @@ public class RegistroEntrada {
     private Date Fecha;
     private String Ususario;
     private String Proveedor;
+    // Sub total es el monto sin considerar impuestos
     private String SubTotal;
     private ListaDoble<Producto> listaProductos;
     private Float Impuestos;

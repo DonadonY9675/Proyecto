@@ -17,8 +17,8 @@ public class Producto{
     private Categoria cat;
     private String unidadDeMedida;
     private String ubicacion;
-    private String cantidadMinima;
-    private String existencia;
+    private float cantidadMinima;
+    private float existencia;
     private float precioUnitario;
     //private  imagen;
 
@@ -78,19 +78,19 @@ public class Producto{
         this.ubicacion = ubicacion;
     }
 
-    public String getCantidadMinima() {
+    public float getCantidadMinima() {
         return cantidadMinima;
     }
 
-    public void setCantidadMinima(String cantidadMinima) {
+    public void setCantidadMinima(int cantidadMinima) {
         this.cantidadMinima = cantidadMinima;
     }
 
-    public String getExistencia() {
+    public float getExistencia() {
         return existencia;
     }
 
-    public void setExistencia(String existencia) {
+    public void setExistencia(int existencia) {
         this.existencia = existencia;
     }
 

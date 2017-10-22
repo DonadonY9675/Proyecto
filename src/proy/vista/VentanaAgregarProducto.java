@@ -279,8 +279,8 @@ public class VentanaAgregarProducto extends javax.swing.JDialog {
         p.setModelo(modelo.getText());
 //        p.setUnidadDeMedida(umd.getText());
         p.setUbicacion(ubicacion.getText());
-        p.setCantidadMinima(cm.getText());
-        p.setExistencia(exist.getText());
+        p.setCantidadMinima(Integer.valueOf(cm.getText()));
+        p.setExistencia(Integer.valueOf(exist.getText()));
         p.setPrecioUnitario(Float.parseFloat(pU.getText()));
         inventario.agregarProducto(p);
         cod.setText("");
@@ -319,6 +319,7 @@ public class VentanaAgregarProducto extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaAgregarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
