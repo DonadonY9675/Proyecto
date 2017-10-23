@@ -310,7 +310,7 @@ public abstract class ModeloNuevoIngresoSalida extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable;
+    public javax.swing.JTable jTable;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFolio;

@@ -8,6 +8,8 @@ package proy.controlador.impl;
 import estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import proy.vista.ModeloNuevoIngresoSalida;
 import proy.controlador.CModeloNuevoIngresoSalida;
@@ -22,10 +24,10 @@ import proy.vista.VentanaProductos;
  */
 public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSalida {
 
-    ModeloNuevoIngresoSalida miModeloIngSal;
+    ModeloNuevoIngresoSalida vModeloIngSal;
 
     public void setMiModeloNuevoIngresoSalida(ModeloNuevoIngresoSalida miModeloIngSal) {
-        this.miModeloIngSal = miModeloIngSal;
+        this.vModeloIngSal = miModeloIngSal;
 
         miModeloIngSal.btnProductos.addActionListener(this::clickBtnProductos);
         miModeloIngSal.btnEliminar.addActionListener(this::clickBtnEliminar);
@@ -40,7 +42,7 @@ public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSal
         VentanaProductos ventanaProductos;
         ListaDoble<Producto> listaProductos = (new ProductoDAOImpl()).getAll();
 
-        if (miModeloIngSal instanceof VentanaNuevaSalida) {
+        if (vModeloIngSal instanceof VentanaNuevaSalida) {
             int cont = 0;
             for (Producto p : listaProductos) {
                 if (p.getExistencia() == 0) {
@@ -73,7 +75,22 @@ public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSal
 
     @Override
     public void clickBtnCancelar(ActionEvent evt) {
-        miModeloIngSal.dispose();
+        vModeloIngSal.dispose();
+    }
+
+    public void llenarTabla(ListaDoble <Producto> listaProductos) {
+
+        String Titulo[] = {"Titulo1", "Titulo2"};
+        String registro[] = new String[2];
+        DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
+
+        for(Producto p: listaProductos){
+            registro[0] = p.getNombre();
+            registro[1] = p.getModelo();
+            modelo.addRow(registro);
+        }
+//        nombreTabla.setModel(modelo);
+//        vModeloIngSal.jTable.setModel(dataModel);
     }
 
 }
