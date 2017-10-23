@@ -11,7 +11,7 @@ import proy.dominio.Producto;
 public class VentanaAgregarProducto extends javax.swing.JDialog {
     
     Inventario inventario = new Inventario();
-    Producto p=new Producto();
+    Producto p=null;
     public VentanaAgregarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 /**
  *
  */
-public interface CModeloNuevoIngresoSalida {
+public interface CModeloNuevoIngresoSalida extends MantenimientoControlador{
 
     public void clickBtnProductos(ActionEvent evt);
 

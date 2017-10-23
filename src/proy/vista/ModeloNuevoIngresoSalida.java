@@ -22,7 +22,6 @@ public abstract class ModeloNuevoIngresoSalida extends javax.swing.JDialog {
     public ModeloNuevoIngresoSalida(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        iniciarComponentes();
     }
 
     /**
@@ -298,38 +297,7 @@ public abstract class ModeloNuevoIngresoSalida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 
-   
-    /**
-     * carga los datos que tiene la listRegistrosEntrada aactualmente 
-     * en la tabla (jTable) 
-     */
-    public void actualizarTabla(){
-        
-    }
     
-    /**
-     * Se cargara la fecha actual en el txtFecha,
-     * se asignara un numero de folio consecutivo,
-     * se cargara el nombre del ususario que se logeo.
-     * Se cargara el logo de la empresa
-     * 
-     */
-    public void iniciarComponentes(){
-        
-        //PREBA PARA PSAR DATOS ENTRE VENTANAS
-//         vProductos = new VentanaProductos(null,true);
-//        vProductos.setLocationRelativeTo(null);
-//        vProductos.setVisible(true);
-//        miListaProductos = new ListaDoble();
-//        
-//        JOptionPane.showMessageDialog(null,"Prueba,El codigo seleccionado es: " + vProductos.productoSeleccionado.getCodigo());
-//        
-//        miListaProductos.insertarAlFinal(vProductos.productoSeleccionado);
-//        actualizarTabla();
-    }
-    
-   
-
     VentanaProductos vProductos;
     ListaDoble<Producto> miListaProductos;
     RegistroEntradaDAOImpl miRegistroEntradaDao = new RegistroEntradaDAOImpl();

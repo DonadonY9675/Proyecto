@@ -26,7 +26,18 @@ public class ProductoDAOImpl implements ProductoDAO{
         //Logica para buscar todos
         //SELECT
         
-        return null;
+        //prueba
+        ListaDoble<Producto> miLista = new ListaDoble();
+        miLista.insertarAlInicio(new Producto(1,"Televisor","LG","HG002",
+                "Unidades","ESTAND 01",1,0,730));
+        miLista.insertarAlInicio(new Producto(2,"Lavadora","LG","LV002",
+                "Unidades","ESTAND 02",1,5,650));
+         miLista.insertarAlInicio(new Producto(3,"Laptop","Razer","RZ002",
+                "Unidades","ESTAND 01",1,0,3000));
+        miLista.insertarAlInicio(new Producto(2,"Iphone 8","Apple","SC0001",
+                "Unidades","ESTAND 03",1,5,3600));
+        return miLista;
+        
     }
 
     @Override

@@ -10,8 +10,7 @@ import proy.dominio.Categoria;
 import proy.service.CategoriaService;
 
 /**
- *
- * @author Miguel
+ * En esta clase se implementa la logica de negocio (validaciones) para cada funcion
  */
 public class CategoriaServiceImpl implements CategoriaService{
 

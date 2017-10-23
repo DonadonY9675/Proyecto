@@ -9,7 +9,8 @@ package proy.dominio;
  *
  * @author Miguel
  */
-public class Producto{
+public class Producto {
+
     private int codigo;
     private String nombre;
     private String marca;
@@ -21,6 +22,20 @@ public class Producto{
     private float existencia;
     private float precioUnitario;
     //private  imagen;
+
+    public Producto(int codigo, String nombre, String marca, String modelo,
+            String unidadDeMedida, String ubicacion,
+            float cantidadMinima, float existencia, float precioUnitario) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.unidadDeMedida = unidadDeMedida;
+        this.ubicacion = ubicacion;
+        this.cantidadMinima = cantidadMinima;
+        this.existencia = existencia;
+        this.precioUnitario = precioUnitario;
+    }
 
     public int getCodigo() {
         return codigo;
@@ -102,5 +117,4 @@ public class Producto{
         this.precioUnitario = precioUnitario;
     }
 
-   
 }

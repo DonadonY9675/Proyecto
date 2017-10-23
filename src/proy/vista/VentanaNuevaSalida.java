@@ -14,7 +14,6 @@ import java.awt.Frame;
 public class VentanaNuevaSalida extends ModeloNuevoIngresoSalida {
 
     public VentanaNuevaSalida(Frame parent, boolean modal) {
-
         super(parent, modal);
         lblTitulo.setText("Nueva Salida");
         lblProveedor.setText("Cliente");

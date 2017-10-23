@@ -5,10 +5,16 @@
  */
 package proy.controlador.impl;
 
+import estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 
 import proy.vista.ModeloNuevoIngresoSalida;
 import proy.controlador.CModeloNuevoIngresoSalida;
+import proy.dao.impl.ProductoDAOImpl;
+import proy.dominio.Producto;
+import proy.vista.VentanaNuevaSalida;
+import proy.vista.VentanaNuevoIngreso;
 import proy.vista.VentanaProductos;
 
 /**
@@ -31,7 +37,21 @@ public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSal
 
     @Override
     public void clickBtnProductos(ActionEvent evt) {
-        VentanaProductos ventanaProductos = new VentanaProductos(null, true);
+        VentanaProductos ventanaProductos;
+        ListaDoble<Producto> listaProductos = (new ProductoDAOImpl()).getAll();
+
+        if (miModeloIngSal instanceof VentanaNuevaSalida) {
+            int cont = 0;
+            for (Producto p : listaProductos) {
+                if (p.getExistencia() == 0) {
+                    listaProductos.eliminar(cont);
+                } else {
+                    cont++;
+                }
+            }
+        }
+
+        ventanaProductos = new VentanaProductos(null, true, listaProductos);
         CProductoImpl coordinadorProdutos = new CProductoImpl(ventanaProductos);
         ventanaProductos.setLocationRelativeTo(null);
         ventanaProductos.setVisible(true);

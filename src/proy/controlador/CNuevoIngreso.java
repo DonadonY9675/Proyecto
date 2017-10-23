@@ -9,6 +9,6 @@ package proy.controlador;
  *
  * @author Miguel
  */
-public interface CNuevoIngreso extends MantenimientoControlador, CModeloNuevoIngresoSalida{
+public interface CNuevoIngreso extends CModeloNuevoIngresoSalida{
     
 }

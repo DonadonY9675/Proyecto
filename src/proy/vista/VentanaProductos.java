@@ -18,8 +18,9 @@ public class VentanaProductos extends javax.swing.JDialog {
     /**
      * Creates new form VentanaProductos
      */
-    public VentanaProductos(java.awt.Frame parent, boolean modal) {
+    public VentanaProductos(java.awt.Frame parent, boolean modal, ListaDoble<Producto> listaProductos) {
         super(parent, modal);
+        this.listaProductos = listaProductos;
         initComponents();
     }
 
@@ -35,20 +36,20 @@ public class VentanaProductos extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         lblProducto = new javax.swing.JLabel();
         lblCodigo = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtProducto = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
+        txtModelo = new javax.swing.JTextField();
+        txtExistencia = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         lblMarca = new javax.swing.JLabel();
         lblModelo = new javax.swing.JLabel();
         lblExistencia = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
         lblCantidad = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lblImagen = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -56,7 +57,7 @@ public class VentanaProductos extends javax.swing.JDialog {
         lstProductos = new javax.swing.JList<>();
         btnAgregar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        txtNomBus = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
@@ -127,14 +128,14 @@ public class VentanaProductos extends javax.swing.JDialog {
                                     .addComponent(lblModelo, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField8)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField4)
+                            .addComponent(txtCantidad)
+                            .addComponent(txtPrecio)
+                            .addComponent(txtExistencia)
+                            .addComponent(txtModelo)
+                            .addComponent(txtMarca)
                             .addComponent(txtCodigo)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -142,7 +143,7 @@ public class VentanaProductos extends javax.swing.JDialog {
                         .addGap(15, 15, 15)
                         .addComponent(lblProducto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2)))
+                        .addComponent(txtProducto)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,7 +152,7 @@ public class VentanaProductos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblProducto)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -160,27 +161,27 @@ public class VentanaProductos extends javax.swing.JDialog {
                             .addComponent(lblCodigo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblMarca))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblModelo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblExistencia))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPrecio)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCantidad))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTotal)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -216,12 +217,12 @@ public class VentanaProductos extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        txtNomBus.setText("Buscar por nombre de producto");
+        txtBuscar.setText("Buscar por nombre de producto");
 
         btnBuscar.setText("Buscar");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel10.setText("Productos en Stock");
+        jLabel10.setText("Productos");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -233,7 +234,7 @@ public class VentanaProductos extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtNomBus))
+                    .addComponent(txtBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar)
                 .addContainerGap())
@@ -245,7 +246,7 @@ public class VentanaProductos extends javax.swing.JDialog {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -327,8 +328,7 @@ public class VentanaProductos extends javax.swing.JDialog {
         
        
     }
-   
-    Producto productoSeleccionado = new Producto();
+    public ListaDoble <Producto> listaProductos;
     ProductoDAOImpl miProductoDao = new ProductoDAOImpl();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregar;
@@ -339,13 +339,6 @@ public class VentanaProductos extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblExistencia;
@@ -355,8 +348,15 @@ public class VentanaProductos extends javax.swing.JDialog {
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblTotal;
-    private javax.swing.JList<String> lstProductos;
+    public javax.swing.JList<String> lstProductos;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtNomBus;
+    private javax.swing.JTextField txtExistencia;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtProducto;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
