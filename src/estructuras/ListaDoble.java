@@ -178,6 +178,23 @@ public class ListaDoble<T> implements Iterable<T> {
         return null;
     }
 
+    public T get(int pos) {
+        if (cabecera != null && pos >= 0 && pos < tam) {
+
+            NodoDoble<T> aux = cabecera;
+            int cont = 0;
+            while (cont != pos && aux != null) {
+                cont++;
+                aux = aux.sig;
+            }
+            return aux.dato;
+
+        } else {
+            System.out.println("Cabecera es null, o la posicion a eliminar esta fuera de rango");
+            return null;
+        }
+    }
+
     public void eliminar(int pos) {//pos inicia de 0
 
         if (cabecera != null && pos >= 0 && pos < tam) {

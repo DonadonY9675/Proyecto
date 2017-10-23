@@ -116,5 +116,5 @@ public class Producto {
     public void setPrecioUnitario(float precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-
+    
 }

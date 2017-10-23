@@ -342,7 +342,7 @@ public class VentanaProductos extends javax.swing.JDialog {
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblExistencia;
-    private javax.swing.JLabel lblImagen;
+    public javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblModelo;
     private javax.swing.JLabel lblPrecio;
@@ -350,13 +350,13 @@ public class VentanaProductos extends javax.swing.JDialog {
     private javax.swing.JLabel lblTotal;
     public javax.swing.JList<String> lstProductos;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtExistencia;
-    private javax.swing.JTextField txtMarca;
-    private javax.swing.JTextField txtModelo;
-    private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtProducto;
-    private javax.swing.JTextField txtTotal;
+    public javax.swing.JTextField txtCantidad;
+    public javax.swing.JTextField txtCodigo;
+    public javax.swing.JTextField txtExistencia;
+    public javax.swing.JTextField txtMarca;
+    public javax.swing.JTextField txtModelo;
+    public javax.swing.JTextField txtPrecio;
+    public javax.swing.JTextField txtProducto;
+    public javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
