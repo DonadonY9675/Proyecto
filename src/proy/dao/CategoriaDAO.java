@@ -5,6 +5,8 @@
  */
 package proy.dao;
 
+import java.util.ArrayList;
+import java.util.Map;
 import proy.dominio.Categoria;
 
 /**
@@ -12,5 +14,5 @@ import proy.dominio.Categoria;
  * @author Miguel
  */
 public interface CategoriaDAO extends AbstractDAO<Categoria,Integer> {
-    //prototipos d emetodos propios de CategoriaDaOImpl, falta llenar segun lo que usemos en el proy
+
 }
