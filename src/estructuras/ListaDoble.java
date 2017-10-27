@@ -198,20 +198,20 @@ public class ListaDoble<T> implements Iterable<T> {
     public void eliminar(int pos) {//pos inicia de 0
 
         if (cabecera != null && pos >= 0 && pos < tam) {
-
-            if (pos == 0) {
-                if (tam != 1) {
+            
+            if (pos == 0) {                     //eliminar primer elemento
+                if (tam != 1) {                 //si tiene mas de un elemento
                     cabecera = cabecera.sig;
                     cabecera.ant.sig = null;
                     cabecera.ant = null;
-                } else {
+                } else {                        //si tiene 1 elemento
                     cabecera = null;
                 }
-            } else if (pos == tam - 1) {
+            } else if (pos == tam - 1) {        //si se quiere eliminar el ultimo elemento
                 ultimo = ultimo.ant;
                 ultimo.sig.ant = null;
                 ultimo.sig = null;
-            } else {
+            } else {                            //eliminar elemento intermedio
 
                 NodoDoble<T> aux = cabecera;
                 int cont = 0;

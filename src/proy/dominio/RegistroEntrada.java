@@ -20,11 +20,11 @@ public class RegistroEntrada {
     private String Proveedor;
     // Sub total es el monto sin considerar impuestos
     private String SubTotal;
-    private ListaDoble<Producto> listaProductos;
+    private ListaDoble<EntradaSalida> listaProductos;
     private Float Impuestos;
     private Float Total;
 
-    public RegistroEntrada(int Folio, Date Fecha, String Ususario, String Proveedor, String SubTotal, ListaDoble<Producto> listaProductos, Float Impuestos, Float Total) {
+    public RegistroEntrada(int Folio, Date Fecha, String Ususario, String Proveedor, String SubTotal, ListaDoble<EntradaSalida> listaProductos, Float Impuestos, Float Total) {
         this.Folio = Folio;
         this.Fecha = Fecha;
         this.Ususario = Ususario;
@@ -75,11 +75,11 @@ public class RegistroEntrada {
         this.SubTotal = SubTotal;
     }
 
-    public ListaDoble<Producto> getListaProductos() {
+    public ListaDoble<EntradaSalida> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(ListaDoble<Producto> listaProductos) {
+    public void setListaProductos(ListaDoble<EntradaSalida> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
@@ -98,7 +98,9 @@ public class RegistroEntrada {
     public void setTotal(Float Total) {
         this.Total = Total;
     }
+
     
+
     
 
 }

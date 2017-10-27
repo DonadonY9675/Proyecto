@@ -5,10 +5,9 @@
  */
 package proy.vista;
 
-import proy.dominio.Producto;
 import estructuras.ListaDoble;
-import proy.dao.impl.RegistroEntradaDAOImpl;
-
+import javax.swing.table.DefaultTableModel;
+import proy.dominio.EntradaSalida;
 
 /**
  *
@@ -22,6 +21,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
     public VPadreNuevoIngresoSalida(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -296,11 +296,32 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void hi() {
 
-    
-    
-    public ListaDoble<Producto> miListaProductos;
-    
+    }
+
+    public void actualizarTabla() {
+
+        String Titulo[] = {"Código", "Nombre", "Marca", "Modelo",
+             "Precio Unitario", "Cantidad", "Total"};
+        String registro[] = new String[7];
+        DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
+
+        for (EntradaSalida p : miListaProductos) {
+            registro[0] = String.valueOf(p.getProducto().getCodigo());
+            registro[1] = p.getProducto().getNombre();
+            registro[2] = p.getProducto().getMarca();
+            registro[3] = p.getProducto().getModelo();
+            registro[4] = String.valueOf(p.getProducto().getPrecioUnitario());
+            registro[5] = String.valueOf(p.getCantidad());
+            registro[6] = String.valueOf(p.getTotal());
+            modelo.addRow(registro);
+        }
+        jTable.setModel(modelo);
+    }
+
+    public ListaDoble<EntradaSalida> miListaProductos = new ListaDoble();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnEliminar;

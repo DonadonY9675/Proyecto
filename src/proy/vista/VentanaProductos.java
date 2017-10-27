@@ -22,7 +22,6 @@ public class VentanaProductos extends javax.swing.JDialog {
     public VentanaProductos(java.awt.Frame parent, boolean modal, ListaDoble<Producto> listaProductos) {
         super(parent, modal);
         this.listaProductos = listaProductos;
-        this.ventanaAnterior = ventanaAnterior;
         initComponents();
     }
 
@@ -330,7 +329,6 @@ public class VentanaProductos extends javax.swing.JDialog {
         
        
     }
-    public JDialog ventanaAnterior;
     public ListaDoble <Producto> listaProductos;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

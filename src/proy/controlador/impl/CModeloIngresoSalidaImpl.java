@@ -7,6 +7,7 @@ package proy.controlador.impl;
 
 import estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import proy.vista.VPadreNuevoIngresoSalida;
@@ -15,33 +16,35 @@ import proy.dao.impl.ProductoDAOImpl;
 import proy.dominio.Producto;
 import proy.vista.VentanaNuevaSalida;
 import proy.vista.VentanaProductos;
+import javax.swing.JTable;
+import proy.dominio.EntradaSalida;
 
 /**
  *
  */
 public abstract class CModeloIngresoSalidaImpl extends CoordinadorDeCoordinadores implements CModeloNuevoIngresoSalida {
-
-    VPadreNuevoIngresoSalida miVentanaIngSal;
-
+    
+    VPadreNuevoIngresoSalida vIngSal;
+    
     ListaDoble<Producto> listaProductosTabla = new ListaDoble<>();
-
+    
     public void setMiModeloNuevoIngresoSalida(VPadreNuevoIngresoSalida miModeloIngSal) {
-        miVentanaIngSal = miModeloIngSal; // miVentanaIngSal se encuentra el el padre
+        vIngSal = miModeloIngSal; // vIngSal se encuentra el el padre
 
         miModeloIngSal.btnProductos.addActionListener(this::clickBtnProductos);
         miModeloIngSal.btnEliminar.addActionListener(this::clickBtnEliminar);
-
+        
         miModeloIngSal.btnIncluirImpuesto.addActionListener(this::clickBtnIncluirImpuesto);
         miModeloIngSal.btnGuardar.addActionListener(this::clickBtnGuardar);
         miModeloIngSal.btnCancelar.addActionListener(this::clickBtnCancelar);
     }
-
+    
     @Override
     public void clickBtnProductos(ActionEvent evt) {
         ListaDoble<Producto> listaProductos = (new ProductoDAOImpl()).getAll();
         VentanaProductos miVentanaProducto;
-
-        if (miVentanaIngSal instanceof VentanaNuevaSalida) {
+        
+        if (vIngSal instanceof VentanaNuevaSalida) {
             int cont = 0;
             for (Producto p : listaProductos) {
                 if (p.getExistencia() == 0) {
@@ -51,47 +54,45 @@ public abstract class CModeloIngresoSalidaImpl extends CoordinadorDeCoordinadore
                 }
             }
         }
-
+        
         miVentanaProducto = new VentanaProductos(null, true, listaProductos);
-
+        
         CProductoImpl coordinadorProdutos = new CProductoImpl(miVentanaProducto);
-        coordinadorProdutos.setvIngSal(miVentanaIngSal);
+        coordinadorProdutos.setvIngSal(vIngSal);
         miVentanaProducto.setLocationRelativeTo(null);
         miVentanaProducto.setVisible(true);
-
+        
     }
-
+    
     @Override
     public void clickBtnEliminar(ActionEvent evt) {
-        System.out.println("clickBtnEliminar");
+        
+        int seleccion = vIngSal.jTable.getSelectedRow();
+        if (seleccion != -1) {
+            vIngSal.miListaProductos.eliminar(seleccion);
+            vIngSal.actualizarTabla();
+        }
+        
     }
-
+    
     @Override
     public void clickBtnIncluirImpuesto(ActionEvent evt) {
         System.out.println("clickBtnIncluirImpuesto");
     }
-
+    
     @Override
     public abstract void clickBtnGuardar(ActionEvent evt);
-
+    
     @Override
     public void clickBtnCancelar(ActionEvent evt) {
-        miVentanaIngSal.dispose();
+        
+        int opc = JOptionPane.showConfirmDialog(vIngSal,
+                "Desea salir sin guardar los cambios", "Cancelar Registro",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        
+        if (opc == 0) {
+            vIngSal.dispose();
+        }        
     }
-
-    public void llenarTabla(ListaDoble<Producto> listaProductos) {
-
-        String Titulo[] = {"Titulo1", "Titulo2"};
-        String registro[] = new String[2];
-        DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
-
-        for (Producto p : listaProductos) {
-            registro[0] = p.getNombre();
-            registro[1] = p.getModelo();
-            modelo.addRow(registro);
-        }
-//        nombreTabla.setModel(modelo);
-//        miVentanaIngSal.jTable.setModel(dataModel);
-    }
-
+    
 }
