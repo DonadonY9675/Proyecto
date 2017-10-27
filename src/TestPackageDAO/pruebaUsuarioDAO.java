@@ -16,9 +16,10 @@ import proy.dominio.Usuario;
  */
 public class pruebaUsuarioDAO {
     public static void main(String[] args) {
-//        Usuario us = new Usuario("us003", "022", true);
+        
         UsuarioDao dao = new UsuarioDAOImpl();
-//        
+//        Usuario us = new Usuario("us003", "022", true);
+        
 //        dao.registrar(us);
 //        dao.eliminar("segundoUs03");
 //        Usuario p = dao.get("admin01");

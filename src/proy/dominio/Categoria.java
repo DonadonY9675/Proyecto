@@ -14,12 +14,10 @@ import estructuras.ListaDoble;
 public class Categoria {
     private int codigo;
     private String descripcion;
-    private ListaDoble listaProductos;
-
-    public Categoria(int codigo, String descripcion, ListaDoble listaProductos) {
+    
+    public Categoria(int codigo, String descripcion) {
         this.codigo = codigo;
         this.descripcion = descripcion;
-        this.listaProductos = listaProductos;
     }
 
     public int getCodigo() {
@@ -38,14 +36,7 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    public ListaDoble getListaProductos() {
-        return listaProductos;
+    public String toString(){
+        return "Codigo: "+codigo+" Descripcion: "+descripcion;
     }
-
-    public void setListaProductos(ListaDoble listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-    
-    
-    
 }

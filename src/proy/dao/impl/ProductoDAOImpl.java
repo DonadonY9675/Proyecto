@@ -13,7 +13,19 @@ import proy.dao.ProductoDAO;
  * 
  */
 public class ProductoDAOImpl implements ProductoDAO{
-
+    
+    // Nombre de la tabla y sus campos en la base de datos
+    private final String nombreTabla="producto";
+    private final String campoNombre="nombre";
+    private final String campoMarca="marca";
+    private final String campoModelo="modelo";
+    private final String campoUniMed="unidadDeMedida";
+    private final String campoUbic="ubicacion";
+    private final String campoCantMin="cantidadMinima";
+    private final String campoExsMin="existencias";
+    private final String campoPrecUnit="precioUnitario";
+    private final String campoCodCat="codigoCategoria";
+    
     @Override
     public boolean registrar(Producto elem) {
         //Logica de registro en BD
