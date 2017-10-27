@@ -12,7 +12,7 @@ import proy.dominio.Usuario;
 
 /**
  *
- * @author Josecarlos
+ * @author Josecarlos miu
  */
 public class pruebaUsuarioDAO {
     public static void main(String[] args) {
