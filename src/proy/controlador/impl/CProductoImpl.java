@@ -52,28 +52,42 @@ public class CProductoImpl extends CoordinadorDeCoordinadores implements CProduc
 
     //falta culminar con las validaciones de errores
     public void ingresarCantidad(KeyEvent evt) {
-        if (evt.getKeyChar() >= 48 && evt.getKeyChar() <= 57 ) {
+        if (evt.getKeyChar() >= 48 && evt.getKeyChar() <= 57) {
             Double precio = Double.parseDouble(vProd.txtPrecio.getText());
             int cant = Integer.parseInt(vProd.txtCantidad.getText());
             vProd.txtTotal.setText(Math.rint(precio * cant * 100) / 100 + "");
         } else {
-            
+
         }
     }
 
     public void clickBtnBuscar(ActionEvent evt) {
         System.out.println("clickbtnBuscar");
-        
+
     }
 
     public void clickBtnAgregar(ActionEvent evt) {
         Producto prodSelec = vProd.listaProductos.get(vProd.lstProductos.getSelectedIndex());
         int cant = Integer.parseInt(vProd.txtCantidad.getText());
         double total = Double.parseDouble(vProd.txtTotal.getText());
-        vIngSal.miListaProductos.insertarAlInicio(
-                new EntradaSalida(prodSelec,cant,total));
+        
+        //validando si ya existe algun producto en la listaProducto
+        boolean existe = false;
+        for (EntradaSalida p : vIngSal.miListaProductos) {
+            if (p.getProducto().getCodigo() == prodSelec.getCodigo()) {
+                p.setCant(p.getCantidad() + cant);
+                p.setTotal(p.getTotal() + total);
+                existe = true;
+                break;
+            }
+        }
+        
+        if (!existe) {
+            vIngSal.miListaProductos.insertarAlInicio(
+                    new EntradaSalida(prodSelec, cant, total));
+        }
         vIngSal.actualizarTabla();
-        vProd.dispose();   
+        vProd.dispose();
     }
 
     public void clickLstProductos(MouseEvent evt) {

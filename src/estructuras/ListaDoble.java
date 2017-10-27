@@ -47,6 +47,7 @@ public class ListaDoble<T> implements Iterable<T> {
         this.comparador = comparador;
     }
 
+    
     private class MiIteradorAscendente implements Iterator<T> {
 
         NodoDoble<T> aux;

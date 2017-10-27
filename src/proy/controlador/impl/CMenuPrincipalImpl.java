@@ -20,7 +20,7 @@ public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CM
 
     public void setVentanaMenuPrincipal(VentanaMenuPrincipal miVenanaMenuPrincipal) {
         this.ventPrincipal = miVenanaMenuPrincipal;
-
+        //agregando action listener de los botones del menuprincipal
         ventPrincipal.btnNuevaEntrada.addActionListener((evt) -> this.clickBtnNuevaEntrada(evt));
         ventPrincipal.btnNuevaSalida.addActionListener((evt) -> this.clickBtnNuevaSalida(evt));
         ventPrincipal.btnMiInventario.addActionListener((evt) -> this.clickBtnMiInventario(evt));
