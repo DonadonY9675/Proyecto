@@ -12,6 +12,9 @@ import estructuras.ListaDoble;
  * K: tipo de dato de valor buscados
  */
 public interface AbstractDAO<E, K> {
+    final String URL_BASEDEDATOS = "jdbc:mysql://localhost:3306/almacen";
+    final String USUARIO = "root";
+    final String PASSWORD = "root";
     
     boolean registrar(E e);
     boolean modificar(E e);
