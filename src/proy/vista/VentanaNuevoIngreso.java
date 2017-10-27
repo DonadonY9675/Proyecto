@@ -5,14 +5,16 @@
  */
 package proy.vista;
 
+import estructuras.ListaDoble;
 import java.awt.Frame;
+import proy.dominio.Producto;
 
 /**
  *
  * @author Miguel
  */
-public class VentanaNuevoIngreso extends ModeloNuevoIngresoSalida {
-
+public class VentanaNuevoIngreso extends VPadreNuevoIngresoSalida {
+public ListaDoble<Producto> miListaProductos;
     public VentanaNuevoIngreso(Frame parent, boolean modal) {
         super(parent, modal);
         lblTitulo.setText("Nuevo Ingreso");

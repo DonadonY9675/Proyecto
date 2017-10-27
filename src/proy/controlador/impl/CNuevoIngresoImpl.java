@@ -13,7 +13,7 @@ import proy.controlador.CNuevoIngreso;
  * @author Miguel
  */
 public class CNuevoIngresoImpl extends CModeloIngresoSalidaImpl implements CNuevoIngreso {
-
+    
     @Override
     public void clickBtnGuardar(ActionEvent evt) {
         System.out.println("clickBtnGuardar de vingreso");    

@@ -7,6 +7,7 @@ package proy.vista;
 
 import proy.dominio.Producto;
 import estructuras.ListaDoble;
+import javax.swing.JDialog;
 import proy.dao.impl.ProductoDAOImpl;
 
 /**
@@ -21,6 +22,7 @@ public class VentanaProductos extends javax.swing.JDialog {
     public VentanaProductos(java.awt.Frame parent, boolean modal, ListaDoble<Producto> listaProductos) {
         super(parent, modal);
         this.listaProductos = listaProductos;
+        this.ventanaAnterior = ventanaAnterior;
         initComponents();
     }
 
@@ -328,8 +330,9 @@ public class VentanaProductos extends javax.swing.JDialog {
         
        
     }
+    public JDialog ventanaAnterior;
     public ListaDoble <Producto> listaProductos;
-    ProductoDAOImpl miProductoDao = new ProductoDAOImpl();
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnBuscar;

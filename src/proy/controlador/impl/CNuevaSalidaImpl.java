@@ -16,6 +16,7 @@ public class CNuevaSalidaImpl extends CModeloIngresoSalidaImpl implements CNueva
 
     @Override
     public void clickBtnGuardar(ActionEvent evt) {
+        System.out.println(igv);
         System.out.println("clickBtnGuardar de vsalida");
     }
 

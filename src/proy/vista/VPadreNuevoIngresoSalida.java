@@ -14,12 +14,12 @@ import proy.dao.impl.RegistroEntradaDAOImpl;
  *
  * @author Miguel
  */
-public abstract class ModeloNuevoIngresoSalida extends javax.swing.JDialog {
+public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
 
     /**
      * Creates new form VentanaNuevoIngreso
      */
-    public ModeloNuevoIngresoSalida(java.awt.Frame parent, boolean modal) {
+    public VPadreNuevoIngresoSalida(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -298,9 +298,9 @@ public abstract class ModeloNuevoIngresoSalida extends javax.swing.JDialog {
 
 
     
-    VentanaProductos vProductos;
-    ListaDoble<Producto> miListaProductos;
-    RegistroEntradaDAOImpl miRegistroEntradaDao = new RegistroEntradaDAOImpl();
+    
+    public ListaDoble<Producto> miListaProductos;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnEliminar;

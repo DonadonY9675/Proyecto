@@ -14,7 +14,7 @@ import proy.controlador.CMenuPrincipal;
 /**
  *
  */
-public class CMenuPrincipalImpl implements CMenuPrincipal {
+public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CMenuPrincipal {
 
     VentanaMenuPrincipal ventPrincipal;
 
@@ -31,7 +31,7 @@ public class CMenuPrincipalImpl implements CMenuPrincipal {
 
     @Override
     public void clickBtnNuevaEntrada(ActionEvent evt) {
-        VentanaNuevoIngreso ventanaNuevoIngreso = new VentanaNuevoIngreso(null, true);
+        VentanaNuevoIngreso ventanaNuevoIngreso;ventanaNuevoIngreso = new VentanaNuevoIngreso(null, true);
         CNuevoIngresoImpl coordinadorNuevoIngreso = new CNuevoIngresoImpl();
         coordinadorNuevoIngreso.setMiModeloNuevoIngresoSalida(ventanaNuevoIngreso);
         ventanaNuevoIngreso.setLocationRelativeTo(null);

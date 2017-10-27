@@ -10,5 +10,6 @@ package proy.controlador;
  * @author Miguel
  */
 public interface MantenimientoControlador {
-    //Prototipo de funciones comunes o constantes de todas las interfaces Controlador
+   double igv = 0.18;
+//Prototipo de funciones comunes o constantes de todas las interfaces Controlador
 }

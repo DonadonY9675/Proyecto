@@ -20,14 +20,17 @@ public class CLoginImpl implements CLogin{
     private String usuario;
     private String password;
     
-    public CLoginImpl(){
+    public CLoginImpl(VentanaLogIn ventana){
+        this.miVentanaLogIn = ventana;
         miVentanaLogIn.jButtonEntrar.addActionListener((evt) -> this.clickbtnEntrar(evt));
         miVentanaLogIn.jButtonCancelar.addActionListener((evt) -> this.clickbtnSalir(evt));
     }
     
+    
     public void obtenerEntradas(){
         usuario = miVentanaLogIn.jTextFieldUsuario.getText();
         password = String.valueOf(miVentanaLogIn.jPasswordFieldContrasenia.getPassword());
+        
     }
     
     public void iniciarVentana(){

@@ -6,15 +6,15 @@
 package proy.main;
 
 import proy.controlador.impl.CMenuPrincipalImpl;
-import proy.controlador.impl.CModeloIngresoSalidaImpl;
+import proy.controlador.impl.CoordinadorDeCoordinadores;
 import proy.vista.*;
 
 /**
  *
  */
-public class Main {
+public class Main extends CoordinadorDeCoordinadores{
+   
     VentanaMenuPrincipal miVentanaPrincipal;
-    ModeloNuevoIngresoSalida miVentanaNuevoIngreso;
     CMenuPrincipalImpl miCoordinadorVPrincipal;
     
     public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class Main {
         miVentanaPrincipal = new VentanaMenuPrincipal();
         miVentanaPrincipal.setVisible(true);
         miCoordinadorVPrincipal = new CMenuPrincipalImpl();
-        
+
         miCoordinadorVPrincipal.setVentanaMenuPrincipal(miVentanaPrincipal);
         
         

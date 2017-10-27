@@ -7,27 +7,26 @@ package proy.controlador.impl;
 
 import estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import proy.vista.ModeloNuevoIngresoSalida;
+import proy.vista.VPadreNuevoIngresoSalida;
 import proy.controlador.CModeloNuevoIngresoSalida;
 import proy.dao.impl.ProductoDAOImpl;
 import proy.dominio.Producto;
 import proy.vista.VentanaNuevaSalida;
-import proy.vista.VentanaNuevoIngreso;
 import proy.vista.VentanaProductos;
 
 /**
  *
  */
-public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSalida {
+public abstract class CModeloIngresoSalidaImpl extends CoordinadorDeCoordinadores implements CModeloNuevoIngresoSalida {
 
-    ModeloNuevoIngresoSalida vModeloIngSal;
+    VPadreNuevoIngresoSalida miVentanaIngSal;
 
-    public void setMiModeloNuevoIngresoSalida(ModeloNuevoIngresoSalida miModeloIngSal) {
-        this.vModeloIngSal = miModeloIngSal;
+    ListaDoble<Producto> listaProductosTabla = new ListaDoble<>();
+
+    public void setMiModeloNuevoIngresoSalida(VPadreNuevoIngresoSalida miModeloIngSal) {
+        miVentanaIngSal = miModeloIngSal; // miVentanaIngSal se encuentra el el padre
 
         miModeloIngSal.btnProductos.addActionListener(this::clickBtnProductos);
         miModeloIngSal.btnEliminar.addActionListener(this::clickBtnEliminar);
@@ -39,10 +38,10 @@ public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSal
 
     @Override
     public void clickBtnProductos(ActionEvent evt) {
-        VentanaProductos ventanaProductos;
         ListaDoble<Producto> listaProductos = (new ProductoDAOImpl()).getAll();
+        VentanaProductos miVentanaProducto;
 
-        if (vModeloIngSal instanceof VentanaNuevaSalida) {
+        if (miVentanaIngSal instanceof VentanaNuevaSalida) {
             int cont = 0;
             for (Producto p : listaProductos) {
                 if (p.getExistencia() == 0) {
@@ -53,10 +52,12 @@ public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSal
             }
         }
 
-        ventanaProductos = new VentanaProductos(null, true, listaProductos);
-        CProductoImpl coordinadorProdutos = new CProductoImpl(ventanaProductos);
-        ventanaProductos.setLocationRelativeTo(null);
-        ventanaProductos.setVisible(true);
+        miVentanaProducto = new VentanaProductos(null, true, listaProductos);
+
+        CProductoImpl coordinadorProdutos = new CProductoImpl(miVentanaProducto);
+        coordinadorProdutos.setvIngSal(miVentanaIngSal);
+        miVentanaProducto.setLocationRelativeTo(null);
+        miVentanaProducto.setVisible(true);
 
     }
 
@@ -75,22 +76,22 @@ public abstract class CModeloIngresoSalidaImpl implements CModeloNuevoIngresoSal
 
     @Override
     public void clickBtnCancelar(ActionEvent evt) {
-        vModeloIngSal.dispose();
+        miVentanaIngSal.dispose();
     }
 
-    public void llenarTabla(ListaDoble <Producto> listaProductos) {
+    public void llenarTabla(ListaDoble<Producto> listaProductos) {
 
         String Titulo[] = {"Titulo1", "Titulo2"};
         String registro[] = new String[2];
         DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
 
-        for(Producto p: listaProductos){
+        for (Producto p : listaProductos) {
             registro[0] = p.getNombre();
             registro[1] = p.getModelo();
             modelo.addRow(registro);
         }
 //        nombreTabla.setModel(modelo);
-//        vModeloIngSal.jTable.setModel(dataModel);
+//        miVentanaIngSal.jTable.setModel(dataModel);
     }
 
 }

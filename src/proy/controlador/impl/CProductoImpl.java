@@ -18,10 +18,16 @@ import javax.swing.DefaultListModel;
 import proy.vista.VentanaProductos;
 import proy.controlador.CProductos;
 import proy.dominio.Producto;
+import proy.vista.VPadreNuevoIngresoSalida;
 
-public class CProductoImpl implements CProductos {
+public class CProductoImpl extends CoordinadorDeCoordinadores implements CProductos {
 
     VentanaProductos vProd;
+    VPadreNuevoIngresoSalida vIngSal;
+
+    public void setvIngSal(VPadreNuevoIngresoSalida vIngSal) {
+        this.vIngSal = vIngSal;
+    }
 
     public CProductoImpl(VentanaProductos miVentanaProductos) {
         this.vProd = miVentanaProductos;
@@ -60,6 +66,8 @@ public class CProductoImpl implements CProductos {
 
     public void clickBtnAgregar(ActionEvent evt) {
         Producto prodSelec = vProd.listaProductos.get(vProd.lstProductos.getSelectedIndex());
+        vIngSal.btnCancelar.setText("esta esa mejor o");
+        vProd.dispose();
         
     }
 

@@ -13,4 +13,5 @@ import proy.controlador.CAgregarProducto;
  */
 public class CAgregarProductoImpl implements CAgregarProducto{
     //se implementan los actionlistener aqui
+    
 }

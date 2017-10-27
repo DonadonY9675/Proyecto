@@ -106,11 +106,6 @@ public class VentanaEditarProducto extends javax.swing.JDialog {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("EDITAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -264,28 +259,6 @@ public class VentanaEditarProducto extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        p.setCodigo(Integer.parseInt(cod.getText()));
-        p.setNombre(nom.getText());
-        p.setMarca(marca.getText());
-        p.setModelo(modelo.getText());
-        p.setUnidadDeMedida(umd.getText());
-        p.setUbicacion(ubicacion.getText());
-        p.setCantidadMinima(Integer.valueOf(cm.getText()));
-        p.setExistencia(Integer.valueOf(exist.getText()));
-        p.setPrecioUnitario(Float.parseFloat(pu.getText()));
-        inventario.reemplazaProducto(p,Integer.parseInt(cod.getText()));
-        cod.setText("");
-        nom.setText("");
-        marca.setText("");
-        modelo.setText("");
-        umd.setText("");
-        ubicacion.setText("");
-        cm.setText("");
-        exist.setText("");
-        pu.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
     
     public void llenarDatos(int pos){
         cod.setText(String.format("%d",inventario.buscar(pos).getCodigo()));
@@ -347,7 +320,7 @@ public class VentanaEditarProducto extends javax.swing.JDialog {
     private javax.swing.JTextField cod;
     private javax.swing.JTextField exist;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
