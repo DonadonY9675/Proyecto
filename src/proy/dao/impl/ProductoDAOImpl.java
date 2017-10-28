@@ -46,7 +46,7 @@ public class ProductoDAOImpl implements ProductoDAO{
                 "Unidades","ESTAND 02",1,5,650));
          miLista.insertarAlInicio(new Producto(3,"Laptop","Razer","RZ002",
                 "Unidades","ESTAND 01",1,0,3000));
-        miLista.insertarAlInicio(new Producto(2,"Iphone 8","Apple","SC0001",
+        miLista.insertarAlInicio(new Producto(4,"Iphone 8","Apple","SC0001",
                 "Unidades","ESTAND 03",1,5,3600));
         return miLista;
         

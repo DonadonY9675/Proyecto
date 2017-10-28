@@ -7,6 +7,7 @@ package proy.vista;
 
 import estructuras.ListaDoble;
 import javax.swing.table.DefaultTableModel;
+import proy.dominio.Constantes;
 import proy.dominio.EntradaSalida;
 
 /**
@@ -296,9 +297,6 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void hi() {
-
-    }
 
     public void actualizarTabla() {
 
@@ -318,10 +316,33 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
             modelo.addRow(registro);
         }
         jTable.setModel(modelo);
+        calcularTotal();
+    }
+    
+    public void calcularTotal(){
+        double subTotal = calcularSubTotal();
+        txtSubTotal.setText(Constantes.redondearStr(subTotal));
+        double impuesto = 0;
+        if(btnIncluirImpuesto.isSelected()){
+            impuesto = subTotal * Constantes.IGV;
+            txtImpuesto.setText(Constantes.redondearStr(impuesto));
+        } else {
+            txtImpuesto.setText(" - ");
+        }
+        
+        txtTotal.setText(Constantes.redondearStr(subTotal + impuesto));
     }
 
+    public double calcularSubTotal(){
+        double subTotal = 0;
+        for(EntradaSalida p : miListaProductos){
+            subTotal += p.getTotal();
+        }
+        return subTotal;
+    }
+    
+   
     public ListaDoble<EntradaSalida> miListaProductos = new ListaDoble();
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnEliminar;
