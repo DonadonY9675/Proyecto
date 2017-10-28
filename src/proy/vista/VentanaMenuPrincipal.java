@@ -5,6 +5,13 @@
  */
 package proy.vista;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import proy.dominio.Constantes;
+
 /**
  *
  */
@@ -27,13 +34,18 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblLogo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblUsuarioActual = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        lblP = new javax.swing.JLabel();
+        lblPermisos = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         btnNuevaEntrada = new javax.swing.JButton();
         btnNuevaSalida = new javax.swing.JButton();
-        btnReportesDeEntrada = new javax.swing.JButton();
-        btnReportesDeSalida = new javax.swing.JButton();
         btnMiInventario = new javax.swing.JButton();
-        lblLogo = new javax.swing.JLabel();
-        lblUsuarioActual = new javax.swing.JLabel();
+        btnReportesDeSalida = new javax.swing.JButton();
+        btnReportesDeEntrada = new javax.swing.JButton();
         mnBarPrincipal = new javax.swing.JMenuBar();
         mnClientes = new javax.swing.JMenu();
         mnItmRegistroClientes = new javax.swing.JMenuItem();
@@ -44,22 +56,91 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         mnArchivos = new javax.swing.JMenu();
         mnItmSalir = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        mnConfiguracion = new javax.swing.JMenu();
+        mnItmDatos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblUsuarioActual.setText("user");
+
+        lblUsuario.setText("Usuario Actual:");
+
+        lblP.setText("Permisos:");
+
+        lblPermisos.setText("permisos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblP))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuarioActual)
+                    .addComponent(lblPermisos))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblUsuarioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblP)
+                    .addComponent(lblPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         btnNuevaEntrada.setText("Nueva Entrada");
 
         btnNuevaSalida.setText("Nueva Salida");
 
-        btnReportesDeEntrada.setText("Reportes de entrada");
+        btnMiInventario.setText("Mi inventario");
 
         btnReportesDeSalida.setText("Reportes de salida");
 
-        btnMiInventario.setText("Mi inventario");
+        btnReportesDeEntrada.setText("Reportes de entrada");
 
-        lblLogo.setText("Logo Empresa");
-
-        lblUsuarioActual.setText("Usuario Actual:");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnNuevaEntrada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNuevaSalida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMiInventario))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnReportesDeEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReportesDeSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMiInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReportesDeSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReportesDeEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         mnClientes.setText("Clientes");
 
@@ -92,6 +173,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
         mnBarPrincipal.add(mnArchivos);
 
+        mnConfiguracion.setText("Configuracion");
+
+        mnItmDatos.setText("Datos de empresa");
+        mnConfiguracion.add(mnItmDatos);
+
+        mnBarPrincipal.add(mnConfiguracion);
+
         setJMenuBar(mnBarPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,63 +189,67 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 266, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevaEntrada)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNuevaSalida)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMiInventario))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnReportesDeEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnReportesDeSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUsuarioActual)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUsuarioActual)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMiInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReportesDeSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReportesDeEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 103, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public String getUsuarioActual(){
-        return usuarioActual;
-    }
-    
     /**
-     * Inicia componentes de MenuPrincipal
-     * Da el nombre al lblUsuarioActual
-     * Carga el logotipo de la empresa
-     * Centra el formulario al inciar
+     * Inicia componentes de MenuPrincipal Da el nombre al lblUsuarioActual
+     * Carga el logotipo de la empresa Centra el formulario al inciar
      */
-    public void iniciarComponentes(){
+    public void iniciarComponentes() {
         setLocationRelativeTo(null);
 
+        //cargando lbl
+        lblUsuarioActual.setText(Constantes.USER.getNombre());
+        lblPermisos.setText((Constantes.USER.isEsAdmin()) ? "Administrador" : "Usuario");
+
+        //cargando el icono
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/proy/images/logo.png"));
+        setIconImage(icon);
+
+        //cargando logo
+        cargarLogo();
+        
+        //getClass().getResource("/proy/images/logo.png")
+//ImageIcon(getClass().getResource("/proy/images/pass.png"))
+
+//  vConf.txtLogo.setText(String.valueOf(file));
+//            Image logo = vConf.getToolkit().getImage(vConf.txtLogo.getText());
+//            logo = logo.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
+//            vConf.lblLogo.setIcon(new ImageIcon(logo));
     }
-    private String usuarioActual;
+    public void cargarLogo(){
+        
+//        URL url = getClass().getResource("/proy/images/logo.png");
+        
+        Image logo = getToolkit().getImage(Constantes.logo); 
+        logo = logo.getScaledInstance(110, 110, Image.SCALE_DEFAULT); // redimensiona la imagen
+        lblLogo.setIcon(new ImageIcon(logo));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnMiInventario;
     public javax.swing.JButton btnNuevaEntrada;
@@ -165,11 +257,18 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton btnReportesDeEntrada;
     public javax.swing.JButton btnReportesDeSalida;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblP;
+    private javax.swing.JLabel lblPermisos;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JMenu mnArchivos;
     private javax.swing.JMenuBar mnBarPrincipal;
     private javax.swing.JMenu mnClientes;
+    private javax.swing.JMenu mnConfiguracion;
+    public javax.swing.JMenuItem mnItmDatos;
     private javax.swing.JMenuItem mnItmProveedores;
     private javax.swing.JMenuItem mnItmRegistroClientes;
     private javax.swing.JMenuItem mnItmRegistroUsuarios;

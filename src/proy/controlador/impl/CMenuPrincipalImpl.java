@@ -6,10 +6,12 @@
 package proy.controlador.impl;
 
 import java.awt.event.ActionEvent;
+import proy.controlador.CConfiguracion;
 import proy.vista.VentanaMenuPrincipal;
 import proy.vista.VentanaNuevaSalida;
 import proy.vista.VentanaNuevoIngreso;
 import proy.controlador.CMenuPrincipal;
+import proy.vista.VentanaConfiguracion;
 
 /**
  *
@@ -26,12 +28,12 @@ public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CM
         ventPrincipal.btnMiInventario.addActionListener((evt) -> this.clickBtnMiInventario(evt));
         ventPrincipal.btnReportesDeEntrada.addActionListener((evt) -> this.clickBtnReportesDeEntrada(evt));
         ventPrincipal.btnReportesDeSalida.addActionListener((evt) -> this.clickBtnReportesDeSalida(evt));
-
+        ventPrincipal.mnItmDatos.addActionListener(this::clickBtnConfiguracion);
     }
 
     @Override
     public void clickBtnNuevaEntrada(ActionEvent evt) {
-        VentanaNuevoIngreso ventanaNuevoIngreso;ventanaNuevoIngreso = new VentanaNuevoIngreso(null, true);
+        VentanaNuevoIngreso ventanaNuevoIngreso;ventanaNuevoIngreso = new VentanaNuevoIngreso(ventPrincipal, true);
         CNuevoIngresoImpl coordinadorNuevoIngreso = new CNuevoIngresoImpl();
         coordinadorNuevoIngreso.setMiModeloNuevoIngresoSalida(ventanaNuevoIngreso);
         ventanaNuevoIngreso.setLocationRelativeTo(null);
@@ -41,7 +43,7 @@ public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CM
 
     @Override
     public void clickBtnNuevaSalida(ActionEvent evt) {
-        VentanaNuevaSalida ventanaNuevaSalida = new VentanaNuevaSalida(null, true);
+        VentanaNuevaSalida ventanaNuevaSalida = new VentanaNuevaSalida(ventPrincipal, true);
         CNuevaSalidaImpl coordinadorNuevaSalida = new CNuevaSalidaImpl();
         coordinadorNuevaSalida.setMiModeloNuevoIngresoSalida(ventanaNuevaSalida);
         ventanaNuevaSalida.setLocationRelativeTo(null);
@@ -61,6 +63,15 @@ public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CM
     @Override
     public void clickBtnReportesDeSalida(ActionEvent evt) {
 
+    }
+    
+    public void clickBtnConfiguracion(ActionEvent evt){
+        VentanaConfiguracion ventanaConfiguracion = new VentanaConfiguracion(ventPrincipal, true);
+        CConfiguracionImpl coordinadorVConfiguracion = new CConfiguracionImpl();
+        System.out.println("seteando ventPriciapl");
+        coordinadorVConfiguracion.setVConfiguracion(ventanaConfiguracion, ventPrincipal);
+        ventanaConfiguracion.setLocationRelativeTo(null);
+        ventanaConfiguracion.setVisible(true);
     }
 
 }
