@@ -51,7 +51,7 @@ public class Main extends CoordinadorDeCoordinadores {
 
     public void cargarConfiguracionInicial() {
 
-        Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get("scads");
+        Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get("1");
         Constantes.IGV = miConfiguracionInicial.getIGV();
         Constantes.logo = miConfiguracionInicial.getLogo();
 
