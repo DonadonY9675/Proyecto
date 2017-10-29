@@ -22,6 +22,7 @@ public abstract class Constantes {
     public static String logo ;
     public static double IGV;
 
+    
     //redondea un double a 2 decimales readondeando al numero superior
     public static double redondear(double numero, int cantidad_decimales) {
         String val = numero + "";

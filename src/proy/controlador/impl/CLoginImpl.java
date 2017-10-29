@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import proy.controlador.CLogin;
 import proy.vista.VentanaLogIn;
+import proy.vista.VentanaMenuPrincipal;
 /**
  *
  * @author Miguel
@@ -20,23 +21,16 @@ public class CLoginImpl implements CLogin{
     private String usuario;
     private String password;
     
-    public CLoginImpl(VentanaLogIn ventana){
+    public void setVentanaLogin(VentanaLogIn ventana){
         this.miVentanaLogIn = ventana;
         miVentanaLogIn.jButtonEntrar.addActionListener((evt) -> this.clickbtnEntrar(evt));
         miVentanaLogIn.jButtonCancelar.addActionListener((evt) -> this.clickbtnSalir(evt));
     }
     
-    
     public void obtenerEntradas(){
         usuario = miVentanaLogIn.jTextFieldUsuario.getText();
         password = String.valueOf(miVentanaLogIn.jPasswordFieldContrasenia.getPassword());
         
-    }
-    
-    public void iniciarVentana(){
-        miVentanaLogIn = new VentanaLogIn(this);
-        miVentanaLogIn.setLocationRelativeTo(null);
-        miVentanaLogIn.setVisible(true);
     }
 
     @Override
@@ -50,8 +44,13 @@ public class CLoginImpl implements CLogin{
         //---------------------------------------------------
         
         if(existe){
-//            VMenuPrincipal miMenu = new VMenuPrincipalImpl();
-//            miVentanaLogIn.dispose();
+            VentanaMenuPrincipal ventanaPrincipal = new VentanaMenuPrincipal();
+            CMenuPrincipalImpl coordinadorNuevaSalida = new CMenuPrincipalImpl();
+            coordinadorNuevaSalida.setVentanaMenuPrincipal(ventanaPrincipal);
+            ventanaPrincipal.setLocationRelativeTo(null);
+            ventanaPrincipal.setVisible(true);
+            miVentanaLogIn.dispose();
+    
         }else{
             JOptionPane.showMessageDialog(this.miVentanaLogIn,"Nombre de usuario"
                     + " o contraseña invalidos");
@@ -64,11 +63,4 @@ public class CLoginImpl implements CLogin{
         System.exit(0);
     }
     
-    /* ------------------------------
-        PODRIA IR COMO UN METODO DE LA INTERFAZ MANTENIMIENTO CONTROLADOR
-        ESTE METODO SIRVE PARA ESTABLECER PARENTS CON OTRAS VENTANAS
-    */
-    public Window getUIComponent(){
-        return miVentanaLogIn;
-    }
 }

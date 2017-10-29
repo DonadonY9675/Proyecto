@@ -7,6 +7,7 @@ package proy.main;
 
 import java.awt.Color;
 import javax.swing.UIManager;
+import proy.controlador.impl.CLoginImpl;
 import proy.controlador.impl.CMenuPrincipalImpl;
 import proy.controlador.impl.CoordinadorDeCoordinadores;
 import proy.dao.impl.ConfiguracionDAOImpl;
@@ -19,8 +20,10 @@ import proy.vista.*;
  */
 public class Main extends CoordinadorDeCoordinadores {
 
-    VentanaMenuPrincipal miVentanaPrincipal;
-    CMenuPrincipalImpl miCoordinadorVPrincipal;
+//    VentanaMenuPrincipal miVentanaPrincipal;
+//    CMenuPrincipalImpl miCoordinadorVPrincipal;
+    VentanaLogIn miVentanaLogIn;
+    CLoginImpl miCoordinadorLogin;
 
     public static void main(String[] args) {
         Main principal = new Main();
@@ -32,16 +35,23 @@ public class Main extends CoordinadorDeCoordinadores {
     public void iniciar() {
         UIManager.put("Button.background", Color.white); //da color blanco a los botones
 
-        miVentanaPrincipal = new VentanaMenuPrincipal();
-        miVentanaPrincipal.setVisible(true);
-        miCoordinadorVPrincipal = new CMenuPrincipalImpl();
-
-        miCoordinadorVPrincipal.setVentanaMenuPrincipal(miVentanaPrincipal);
+        miVentanaLogIn =new VentanaLogIn();
+        miVentanaLogIn.setVisible(true);
+        miVentanaLogIn.setLocationRelativeTo(null);
+        miCoordinadorLogin = new CLoginImpl();
+        
+        miCoordinadorLogin.setVentanaLogin(miVentanaLogIn);
+        
+//        miVentanaPrincipal = new VentanaMenuPrincipal();
+//        miVentanaPrincipal.setVisible(true);
+//        miCoordinadorVPrincipal = new CMenuPrincipalImpl();
+//
+//        miCoordinadorVPrincipal.setVentanaMenuPrincipal(miVentanaPrincipal);
     }
 
     public void cargarConfiguracionInicial() {
 
-        Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get(1);
+        Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get("scads");
         Constantes.IGV = miConfiguracionInicial.getIGV();
         Constantes.logo = miConfiguracionInicial.getLogo();
 

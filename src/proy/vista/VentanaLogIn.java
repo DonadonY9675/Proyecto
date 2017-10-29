@@ -12,12 +12,10 @@ import proy.controlador.CLogin;
  * @author Josecarlos
  */
 public class VentanaLogIn extends javax.swing.JFrame {
-    private final CLogin controlador;
     /**
      * Creates new form VentanaLogIn
      */
-    public VentanaLogIn(CLogin controlador) {
-        this.controlador = controlador;
+    public VentanaLogIn() {
         initComponents();
     }
 

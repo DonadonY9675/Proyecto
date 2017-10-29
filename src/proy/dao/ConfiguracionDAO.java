@@ -11,6 +11,6 @@ import proy.dominio.Configuracion;
  *
  * @author Miguel
  */
-public interface ConfiguracionDAO extends AbstractDAO<Configuracion, Integer>{
+public interface ConfiguracionDAO extends AbstractDAO<Configuracion, String>{
     
 }
