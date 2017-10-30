@@ -17,6 +17,7 @@ import proy.dominio.RegistroEntrada;
 import proy.service.impl.RegistroEntradaServiceImpl;
 import proy.service.impl.RegistroSalidaServiceImpl;
 import proy.vista.VentanaConfiguracion;
+import proy.vista.VentanaInventario;
 import proy.vista.VentanaReporteEntrada;
 import proy.vista.VentanaReporteSalida;
 
@@ -59,7 +60,11 @@ public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CM
     
     @Override
     public void clickBtnMiInventario(ActionEvent evt) {
-        
+        VentanaInventario ventanaInventario = new VentanaInventario(ventPrincipal, true);
+        CInventarioImpl coordinadorInventario = new CInventarioImpl();
+        coordinadorInventario.setVentanaInventario(ventanaInventario);
+        ventanaInventario.setLocationRelativeTo(null);
+        ventanaInventario.setVisible(true);
     }
     
     @Override

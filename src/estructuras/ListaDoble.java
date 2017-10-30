@@ -2,6 +2,8 @@ package estructuras;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.Predicate;
+import proy.dominio.Producto;
 
 /**
  *
@@ -232,6 +234,27 @@ public class ListaDoble<T> implements Iterable<T> {
             System.out.println("Cabecera es null, o la posicion a eliminar esta fuera de rango");
         }
     }
+    
+    /*
+        Devuelve una sub lista doble donde cada elemento de esta cumple el requisito
+        especificado como argumento. IMPORTANTE! Es solo una sublista con
+        referencias a los objetos originales. Cualquier cambio en esta sublista
+        afecta a la otra.
+    */
+    public ListaDoble<T> filtrar(Predicate<T> predicado){
+        ListaDoble<T> nuevaLista = new ListaDoble<>();
+        NodoDoble<T> aux = cabecera;
+                
+        while(aux!=null){
+            if(predicado.test(aux.dato)){
+                nuevaLista.insertarAlInicio(aux.dato);
+            }
+            aux=aux.sig;
+        }
+        
+        return nuevaLista;
+    }
+    
     public int size(){
         return tam;
     }

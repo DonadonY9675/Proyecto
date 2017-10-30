@@ -48,6 +48,16 @@ public class ProductoDAOImpl implements ProductoDAO{
                 "Unidades","ESTAND 01",1,0,3000));
         miLista.insertarAlInicio(new Producto(4,"Iphone 8","Apple","SC0001",
                 "Unidades","ESTAND 03",1,5,3600));
+        miLista.insertarAlInicio(new Producto(5,"Comida para perros","Ricocan","N/A",
+                "Kg","ESTAND 01",3,5.5f,4.5f));
+        miLista.insertarAlInicio(new Producto(6,"Cereal","Angel","N/A",
+                "Bolsas de 50g c/u","ESTAND 02",5,25,4));
+         miLista.insertarAlInicio(new Producto(7,"Televisor","Samsung","KI000",
+                "Unidades","ESTAND 01",1,0,3000));
+        miLista.insertarAlInicio(new Producto(8,"Celular","Sony","SG001",
+                "Unidades","ESTAND 03",5,25,200));
+        
+        
         return miLista;
         
     }

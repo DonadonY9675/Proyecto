@@ -9,6 +9,9 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import proy.controlador.CLogin;
+import proy.dao.UsuarioDao;
+import proy.dao.impl.UsuarioDAOImpl;
+import proy.dominio.Usuario;
 import proy.vista.VentanaLogIn;
 import proy.vista.VentanaMenuPrincipal;
 /**
@@ -17,9 +20,7 @@ import proy.vista.VentanaMenuPrincipal;
  */
 public class CLoginImpl implements CLogin{
     private VentanaLogIn miVentanaLogIn;
-    
-    private String usuario;
-    private String password;
+    private UsuarioDao usuarioDao = new UsuarioDAOImpl();
     
     public void setVentanaLogin(VentanaLogIn ventana){
         this.miVentanaLogIn = ventana;
@@ -27,23 +28,20 @@ public class CLoginImpl implements CLogin{
         miVentanaLogIn.jButtonCancelar.addActionListener((evt) -> this.clickbtnSalir(evt));
     }
     
-    public void obtenerEntradas(){
-        usuario = miVentanaLogIn.jTextFieldUsuario.getText();
-        password = String.valueOf(miVentanaLogIn.jPasswordFieldContrasenia.getPassword());
-        
-    }
-
+    
     @Override
     public void clickbtnEntrar(ActionEvent evt) {
         boolean existe=false;
-        obtenerEntradas();
-        
+        String usuario = miVentanaLogIn.jTextFieldUsuario.getText();
+        String password = String.valueOf(miVentanaLogIn.jPasswordFieldContrasenia.getPassword());
+         
         //COMPROBAR EXISTENCIA DE USUARIO
         //---------------------------------------------------
         existe=true;
         //---------------------------------------------------
         
         if(existe){
+            
             VentanaMenuPrincipal ventanaPrincipal = new VentanaMenuPrincipal();
             CMenuPrincipalImpl coordinadorNuevaSalida = new CMenuPrincipalImpl();
             coordinadorNuevaSalida.setVentanaMenuPrincipal(ventanaPrincipal);

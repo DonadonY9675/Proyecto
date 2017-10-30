@@ -57,40 +57,39 @@ public class UsuarioDAOImpl implements UsuarioDao{
 
     @Override
     public Usuario get(String id) {
-        try {
+//        try {
+//
+//            ResultSet rs = null;
+//            Connection conn = null;
+//            PreparedStatement pstmt = null;
+//
+//            /* Preparamos la conexion hacia la base de datos */
+//            conn = DriverManager.getConnection(URL_BASEDEDATOS, USUARIO, PASSWORD);
+//
+//            /* Preparamos la sentencia SQL a ejecutar */
+//            String query = "SELECT "+campoContrasenia+","+campoEsAdmin+" FROM "
+//                    +nombreTabla+" WHERE "+campoNombre+" = ?";
+//            
+//            pstmt = conn.prepareStatement(query);
+//            pstmt.setString(1, id);
+//
+//            /* Ejecutamos la sentencias SQL */
+//            rs = pstmt.executeQuery();
+//
+//            /* Obtenemos los datos seleccionados */
+//            if (rs.next()) {
+//
+//                String contrasenia = rs.getString(campoContrasenia);
+//                boolean esAdmin = rs.getBoolean(campoEsAdmin);
+//                
+//                return new Usuario(id, contrasenia, esAdmin);
+//
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
 
-            ResultSet rs = null;
-            Connection conn = null;
-            PreparedStatement pstmt = null;
-
-            /* Preparamos la conexion hacia la base de datos */
-            conn = DriverManager.getConnection(URL_BASEDEDATOS, USUARIO, PASSWORD);
-
-            /* Preparamos la sentencia SQL a ejecutar */
-            String query = "SELECT "+campoContrasenia+","+campoEsAdmin+" FROM "
-                    +nombreTabla+" WHERE "+campoNombre+" = ?";
-            
-            pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, id);
-
-            /* Ejecutamos la sentencias SQL */
-            rs = pstmt.executeQuery();
-
-            /* Obtenemos los datos seleccionados */
-            if (rs.next()) {
-
-                String contrasenia = rs.getString(campoContrasenia);
-                boolean esAdmin = rs.getBoolean(campoEsAdmin);
-                
-                return new Usuario(id, contrasenia, esAdmin);
-
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        /* Si no encontro ningun dato, retornamos null */
-        return null;
+        return new Usuario("Pepito", "123", true);
 
     }
 
