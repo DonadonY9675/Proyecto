@@ -61,6 +61,8 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblLogo.setText("Logo");
+
         lblUsuarioActual.setText("user");
 
         lblUsuario.setText("Usuario Actual:");
@@ -99,6 +101,11 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         );
 
         btnNuevaEntrada.setText("Nueva Entrada");
+        btnNuevaEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaEntradaActionPerformed(evt);
+            }
+        });
 
         btnNuevaSalida.setText("Nueva Salida");
 
@@ -189,13 +196,10 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -215,6 +219,10 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNuevaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNuevaEntradaActionPerformed
+
     /**
      * Inicia componentes de MenuPrincipal Da el nombre al lblUsuarioActual
      * Carga el logotipo de la empresa Centra el formulario al inciar
@@ -231,7 +239,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         setIconImage(icon);
 
         //cargando logo
-        cargarLogo();
+        Constantes.cargarLogo(this, lblLogo);
         
         //getClass().getResource("/proy/images/logo.png")
 //ImageIcon(getClass().getResource("/proy/images/pass.png"))
@@ -241,14 +249,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 //            logo = logo.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
 //            vConf.lblLogo.setIcon(new ImageIcon(logo));
     }
-    public void cargarLogo(){
-        
-//        URL url = getClass().getResource("/proy/images/logo.png");
-        
-        Image logo = getToolkit().getImage(Constantes.logo); 
-        logo = logo.getScaledInstance(110, 110, Image.SCALE_DEFAULT); // redimensiona la imagen
-        lblLogo.setIcon(new ImageIcon(logo));
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnMiInventario;
@@ -259,7 +260,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblLogo;
+    public javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblP;
     private javax.swing.JLabel lblPermisos;
     private javax.swing.JLabel lblUsuario;

@@ -5,11 +5,12 @@
  */
 package proy.dao;
 
+import proy.dominio.Registro;
 import proy.dominio.RegistroSalida;
 
 /**
  *
  */
-public interface RegistroSalidaDAO extends AbstractDAO<RegistroSalida,Integer>{
+public interface RegistroSalidaDAO extends AbstractDAO<Registro,Integer>{
     //faltan llenar atributos, similares a RegistroEntrada
 }

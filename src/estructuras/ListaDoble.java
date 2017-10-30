@@ -232,4 +232,7 @@ public class ListaDoble<T> implements Iterable<T> {
             System.out.println("Cabecera es null, o la posicion a eliminar esta fuera de rango");
         }
     }
+    public int size(){
+        return tam;
+    }
 }

@@ -6,19 +6,19 @@
 package proy.controlador.impl;
 
 import java.awt.event.ActionEvent;
-import proy.controlador.CReporteEntrada;
+import proy.controlador.CReporteSalida;
 import proy.vista.VentanaReporteEntrada;
+import proy.vista.VentanaReporteSalida;
 
 /**
  *
  * @author Miguel
  */
-public class CReporteEntradaImpl extends CPadreReportesIngresoSalida implements CReporteEntrada {
-    
+public class CReporteSalidaImpl extends CPadreReportesIngresoSalida implements CReporteSalida{
+  
     
     @Override
     public void clickBtnEliminar(ActionEvent e){
-        System.out.println("clickBtnEliminar de ventana Entrada");
+        System.out.println("clickBtnEliminar de ventana salida");
     }
-    
 }

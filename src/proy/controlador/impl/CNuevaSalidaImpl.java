@@ -12,12 +12,11 @@ import proy.controlador.CNuevaSalida;
  *
  * @author Miguel
  */
-public class CNuevaSalidaImpl extends CModeloIngresoSalidaImpl implements CNuevaSalida {
+public class CNuevaSalidaImpl extends CPadreNuevoIngresoSalidaImpl implements CNuevaSalida {
 
     @Override
     public void clickBtnGuardar(ActionEvent evt) {
-        System.out.println(igv);
-        System.out.println("clickBtnGuardar de vsalida");
+        
     }
 
 }

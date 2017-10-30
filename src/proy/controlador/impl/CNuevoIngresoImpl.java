@@ -7,16 +7,20 @@ package proy.controlador.impl;
 
 import java.awt.event.ActionEvent;
 import proy.controlador.CNuevoIngreso;
+import proy.service.impl.RegistroEntradaServiceImpl;
 
 /**
  *
  * @author Miguel
  */
-public class CNuevoIngresoImpl extends CModeloIngresoSalidaImpl implements CNuevoIngreso {
+public class CNuevoIngresoImpl extends CPadreNuevoIngresoSalidaImpl implements CNuevoIngreso {
     
     @Override
     public void clickBtnGuardar(ActionEvent evt) {
-        System.out.println("clickBtnGuardar de vingreso");    
+        RegistroEntradaServiceImpl  validacionRegistroDAO =  new RegistroEntradaServiceImpl();
+        
+//        validacionRegistroDAO.registrar(e);
+
     }
     
 }

@@ -5,12 +5,13 @@
  */
 package proy.service;
 
-import proy.dominio.RegistroEntrada;
+import proy.dominio.Registro;
+
 
 /**
  *
  * @author Miguel
  */
-public interface RegistroEntradaService extends MantenimientoService<RegistroEntrada,Integer> {
+public interface RegistroEntradaService extends MantenimientoService<Registro,Integer> {
     
 }

@@ -25,7 +25,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         iniciarComponentes();
-        actualizarTabla();
+        actualizarDatos();
         
     }
 
@@ -93,6 +93,8 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         lblUsuario.setText("Usuario de turno");
 
         lblProveedor.setText("Proveedor");
+
+        lblLogo.setText("Logo");
 
         btnEliminar.setText("Eliminar");
 
@@ -297,33 +299,15 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
     public void iniciarComponentes(){
         txtUsuario.setText(Constantes.USER.getNombre());
         txtFecha.setText(Constantes.fechaActual());
-        Image logo = getToolkit().getImage(Constantes.logo); 
-        logo = logo.getScaledInstance(110, 110, Image.SCALE_DEFAULT); // redimensiona la imagen
-        lblLogo.setIcon(new ImageIcon(logo));
+        Constantes.cargarLogo(this,lblLogo);
     }
 
-    public void actualizarTabla() {
-
-        String Titulo[] = {"Código", "Nombre", "Marca", "Modelo",
-             "Precio Unitario", "Cantidad", "Total"};
-        String registro[] = new String[7];
-        DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
-
-        for (EntradaSalida p : miListaProductos) {
-            registro[0] = String.valueOf(p.getProducto().getCodigo());
-            registro[1] = p.getProducto().getNombre();
-            registro[2] = p.getProducto().getMarca();
-            registro[3] = p.getProducto().getModelo();
-            registro[4] = String.valueOf(p.getProducto().getPrecioUnitario());
-            registro[5] = String.valueOf(p.getCantidad());
-            registro[6] = String.valueOf(p.getTotal());
-            modelo.addRow(registro);
-        }
-        jTable.setModel(modelo);
-        calcularTotal();
+    public void actualizarDatos() {
+        Constantes.llenarTabla(jTable, miListaProductos);
+        calcularTotalyLlenar();
     }
     
-    public void calcularTotal(){
+    public void calcularTotalyLlenar(){
         double subTotal = calcularSubTotal();
         txtSubTotal.setText(Constantes.redondearStr(subTotal));
         double impuesto = 0;

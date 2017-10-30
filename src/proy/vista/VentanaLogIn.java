@@ -58,11 +58,6 @@ public class VentanaLogIn extends javax.swing.JFrame {
         jPasswordFieldContrasenia.setBackground(new java.awt.Color(153, 153, 153));
         jPasswordFieldContrasenia.setToolTipText("Usuario");
         jPasswordFieldContrasenia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPasswordFieldContrasenia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordFieldContraseniaActionPerformed(evt);
-            }
-        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proy/images/pass.png"))); // NOI18N
 
@@ -141,10 +136,6 @@ public class VentanaLogIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPasswordFieldContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordFieldContraseniaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonCancelar;

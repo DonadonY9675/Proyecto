@@ -5,11 +5,23 @@
  */
 package proy.dominio;
 
+import estructuras.ListaDoble;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,10 +31,9 @@ public abstract class Constantes {
 
     //USER SE INSTANCIÓ DE PRUEBA, BORRAR CUANDO SEA NECESARIO
     public static Usuario USER = new Usuario("Timoteo", "123456", true);
-    public static String logo ;
+    public static String logo;
     public static double IGV;
 
-    
     //redondea un double a 2 decimales readondeando al numero superior
     public static double redondear(double numero, int cantidad_decimales) {
         String val = numero + "";
@@ -48,27 +59,36 @@ public abstract class Constantes {
         return cadenaFecha;
 
     }
-    
-    public FileCopy(String sourceFile, String destinationFile) {
-		System.out.println("Desde: " + sourceFile);
-		System.out.println("Hacia: " + destinationFile);
 
-		try {
-			File inFile = new File(sourceFile);
-			File outFile = new File(destinationFile);
+    public static void cargarLogo(java.awt.Component fm, JLabel lblLogo) {
+        lblLogo.setText("");
 
-			FileInputStream in = new FileInputStream(inFile);
-			FileOutputStream out = new FileOutputStream(outFile);
+        Image imagen = fm.getToolkit().getImage(logo);
 
-			int c;
-			while( (c = in.read() ) != -1)
-				out.write(c);
+        imagen = imagen.getScaledInstance(lblLogo.getWidth(), -1, Image.SCALE_AREA_AVERAGING);
 
-			in.close();
-			out.close();
-		} catch(IOException e) {
-			System.err.println("Hubo un error de entrada/salida!!!");
-		}
-	} 
+        lblLogo.setIcon(new ImageIcon(imagen));
+    }
+
+    public static void llenarTabla(JTable jTable, ListaDoble<EntradaSalida> miListaProductos) {
+
+        String Titulo[] = {"Código", "Nombre", "Marca", "Modelo",
+            "Precio Unitario", "Cantidad", "Total"};
+        String registro[] = new String[7];
+        DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
+        DecimalFormat df = new DecimalFormat("0.00");
+        for (EntradaSalida p : miListaProductos) {
+            registro[0] = String.valueOf(p.getProducto().getCodigo());
+            registro[1] = p.getProducto().getNombre();
+            registro[2] = p.getProducto().getMarca();
+            registro[3] = p.getProducto().getModelo();
+            registro[4] = df.format(p.getProducto().getPrecioUnitario());
+            registro[5] = String.valueOf(p.getCantidad());
+            registro[6] = df.format(p.getTotal());
+            modelo.addRow(registro);
+        }
+        jTable.setModel(modelo);
+
+    }
 
 }

@@ -35,8 +35,8 @@ public class ConfiguracionServiceImpl implements CategoriaService {
 
     public boolean modificar(VentanaConfiguracion v) {
 
-        if (true/*VALIDACIONES*/) {
-            //
+        if (true/*VALIDACIONES*/) {            
+//
             //TODAS LAS VALCIDACIONES DE DATOS 
             //
             String logo = v.txtLogo.getText();

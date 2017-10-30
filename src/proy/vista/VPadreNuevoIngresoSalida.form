@@ -199,6 +199,9 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLogo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Logo"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>

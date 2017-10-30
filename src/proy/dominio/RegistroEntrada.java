@@ -12,95 +12,22 @@ import java.util.Date;
  *
  * @author Miguel
  */
-public class RegistroEntrada {
+public class RegistroEntrada extends Registro{
+    private String proveedor;
 
-    private int Folio;
-    private Date Fecha;
-    private String Ususario;
-    private String Proveedor;
-    // Sub total es el monto sin considerar impuestos
-    private String SubTotal;
-    private ListaDoble<EntradaSalida> listaProductos;
-    private Float Impuestos;
-    private Float Total;
-
-    public RegistroEntrada(int Folio, Date Fecha, String Ususario, String Proveedor, String SubTotal, ListaDoble<EntradaSalida> listaProductos, Float Impuestos, Float Total) {
-        this.Folio = Folio;
-        this.Fecha = Fecha;
-        this.Ususario = Ususario;
-        this.Proveedor = Proveedor;
-        this.SubTotal = SubTotal;
-        this.listaProductos = listaProductos;
-        this.Impuestos = Impuestos;
-        this.Total = Total;
+    public RegistroEntrada( int folio, Date fecha, String ususario,String proveedor, ListaDoble<EntradaSalida> listaProductos, String observaciones, float subTotal, float impuestos, float total) {
+        super(folio, fecha, ususario, listaProductos, observaciones, subTotal, impuestos, total);
+        this.proveedor = proveedor;
     }
-
-    public int getFolio() {
-        return Folio;
-    }
-
-    public void setFolio(int Folio) {
-        this.Folio = Folio;
-    }
-
-    public Date getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(Date Fecha) {
-        this.Fecha = Fecha;
-    }
-
-    public String getUsusario() {
-        return Ususario;
-    }
-
-    public void setUsusario(String Ususario) {
-        this.Ususario = Ususario;
-    }
+    
+  
 
     public String getProveedor() {
-        return Proveedor;
+        return proveedor;
     }
 
-    public void setProveedor(String Proveedor) {
-        this.Proveedor = Proveedor;
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
     }
-
-    public String getSubTotal() {
-        return SubTotal;
-    }
-
-    public void setSubTotal(String SubTotal) {
-        this.SubTotal = SubTotal;
-    }
-
-    public ListaDoble<EntradaSalida> getListaProductos() {
-        return listaProductos;
-    }
-
-    public void setListaProductos(ListaDoble<EntradaSalida> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-
-    public Float getImpuestos() {
-        return Impuestos;
-    }
-
-    public void setImpuestos(Float Impuestos) {
-        this.Impuestos = Impuestos;
-    }
-
-    public Float getTotal() {
-        return Total;
-    }
-
-    public void setTotal(Float Total) {
-        this.Total = Total;
-    }
-
     
-
-    
-
 }

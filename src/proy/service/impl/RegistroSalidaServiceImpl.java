@@ -6,6 +6,8 @@
 package proy.service.impl;
 
 import estructuras.ListaDoble;
+import proy.dao.impl.RegistroSalidaDAOImpl;
+import proy.dominio.Registro;
 import proy.dominio.RegistroSalida;
 import proy.service.RegistroSalidaService;
 
@@ -13,31 +15,39 @@ import proy.service.RegistroSalidaService;
  *
  * @author Miguel
  */
-public class RegistroEntradaSalidaService implements RegistroSalidaService {
+public class RegistroSalidaServiceImpl implements RegistroSalidaService{
 
+    RegistroSalidaDAOImpl registroSalidaDAO = new RegistroSalidaDAOImpl();
+            
     @Override
-    public boolean registrar(RegistroSalida e) {
+    public boolean registrar(Registro e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(RegistroSalida e) {
+    public boolean modificar(Registro e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public RegistroSalida get(Integer id) {
+    public Registro get(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ListaDoble<RegistroSalida> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ListaDoble<Registro> getAll() {
+        /**
+         * validaciones
+         * 
+         */
+        return registroSalidaDAO.getAll();
     }
 
     @Override
     public boolean eliminar(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
     
 }

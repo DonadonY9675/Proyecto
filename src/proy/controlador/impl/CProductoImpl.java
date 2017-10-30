@@ -57,7 +57,7 @@ public class CProductoImpl extends CoordinadorDeCoordinadores implements CProduc
             int cant = Integer.parseInt(vProd.txtCantidad.getText());
             vProd.txtTotal.setText(Math.rint(precio * cant * 100) / 100 + "");
         } else {
-
+            evt.consume();
         }
     }
 
@@ -86,7 +86,7 @@ public class CProductoImpl extends CoordinadorDeCoordinadores implements CProduc
             vIngSal.miListaProductos.insertarAlInicio(
                     new EntradaSalida(prodSelec, cant, total));
         }
-        vIngSal.actualizarTabla();
+        vIngSal.actualizarDatos();
         vProd.dispose();
     }
 

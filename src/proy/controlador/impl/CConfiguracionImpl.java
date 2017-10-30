@@ -40,7 +40,7 @@ public class CConfiguracionImpl implements CConfiguracion {
     public void clickBtnGuardar(ActionEvent evt) {
         configService.modificar(vConf);
         Constantes.logo = vConf.txtLogo.getText();
-        vMenuPrincipal.cargarLogo();
+        Constantes.cargarLogo(vMenuPrincipal, vMenuPrincipal.lblLogo);
         vConf.dispose();
     }
 

@@ -5,12 +5,13 @@
  */
 package proy.service;
 
-import proy.dominio.RegistroSalida;
+import proy.dominio.Registro;
+
 
 /**
  *
  * @author Miguel
  */
-public interface RegistroSalidaService extends MantenimientoService<RegistroSalida,Integer>{
+public interface RegistroSalidaService extends MantenimientoService<Registro,Integer>{
     
 }

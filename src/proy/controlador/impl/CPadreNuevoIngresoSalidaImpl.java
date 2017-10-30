@@ -18,7 +18,7 @@ import proy.vista.VentanaProductos;
 /**
  *
  */
-public abstract class CModeloIngresoSalidaImpl extends CoordinadorDeCoordinadores implements CModeloNuevoIngresoSalida {
+public abstract class CPadreNuevoIngresoSalidaImpl extends CoordinadorDeCoordinadores implements CModeloNuevoIngresoSalida {
 
     VPadreNuevoIngresoSalida vIngSal;
 
@@ -66,14 +66,14 @@ public abstract class CModeloIngresoSalidaImpl extends CoordinadorDeCoordinadore
         int seleccion = vIngSal.jTable.getSelectedRow();
         if (seleccion != -1) {
             vIngSal.miListaProductos.eliminar(seleccion);
-            vIngSal.actualizarTabla();
+            vIngSal.actualizarDatos();
         }
 
     }
 
     @Override
     public void clickBtnIncluirImpuesto(ActionEvent evt) {
-        vIngSal.calcularTotal();
+        vIngSal.calcularTotalyLlenar();
         if (vIngSal.btnIncluirImpuesto.isSelected()) {
             vIngSal.btnIncluirImpuesto.setText("Excluir impuestos");
         } else {
