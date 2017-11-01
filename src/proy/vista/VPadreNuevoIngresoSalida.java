@@ -7,6 +7,8 @@ package proy.vista;
 
 import estructuras.ListaDoble;
 import java.awt.Image;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import proy.dominio.Constantes;
@@ -88,15 +90,22 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
 
         lblFolio.setText("Folio");
 
+        txtFolio.setEditable(false);
+
         lblFecha.setText("Fecha");
 
+        txtFecha.setEditable(false);
+
         lblUsuario.setText("Usuario de turno");
+
+        txtUsuario.setEditable(false);
 
         lblProveedor.setText("Proveedor");
 
         lblLogo.setText("Logo");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
 
         btnProductos.setText("Productos");
 
@@ -170,11 +179,18 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
 
         lblTotal.setText("Total");
 
+        txtSubTotal.setEditable(false);
+
+        txtImpuesto.setEditable(false);
+
+        txtTotal.setEditable(false);
+
         btnCancelar.setText("Cancelar");
 
         btnIncluirImpuesto.setText("Incluir impuestos");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
 
         javax.swing.GroupLayout pnlDatos2Layout = new javax.swing.GroupLayout(pnlDatos2);
         pnlDatos2.setLayout(pnlDatos2Layout);
@@ -297,7 +313,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public void iniciarComponentes(){
-        txtUsuario.setText(Constantes.USER.getNombre());
+        txtUsuario.setText(Constantes.USER.getNombre());   
         txtFecha.setText(Constantes.fechaActual());
         Constantes.cargarLogo(this,lblLogo);
     }
@@ -312,8 +328,6 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         txtSubTotal.setText(Constantes.redondearStr(subTotal));
         double impuesto = 0;
         if(btnIncluirImpuesto.isSelected()){
-            System.out.println("subtotal= "+ subTotal);
-            System.out.println("IGV= "+ Constantes.IGV);
             impuesto = subTotal * Constantes.IGV;
             txtImpuesto.setText(Constantes.redondearStr(impuesto));
         } else {
@@ -331,7 +345,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         return subTotal;
     }
     
-   
+    public boolean estaGuardado = false;
     public ListaDoble<EntradaSalida> miListaProductos = new ListaDoble();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
@@ -356,13 +370,13 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
     private javax.swing.JPanel pnlDatos;
     private javax.swing.JPanel pnlDatos2;
     private javax.swing.JPanel pnlTabla;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtFolio;
-    private javax.swing.JTextField txtImpuesto;
-    private javax.swing.JTextArea txtObservaciones;
-    private javax.swing.JTextField txtProveedor;
-    private javax.swing.JTextField txtSubTotal;
-    private javax.swing.JTextField txtTotal;
+    public javax.swing.JTextField txtFecha;
+    public javax.swing.JTextField txtFolio;
+    public javax.swing.JTextField txtImpuesto;
+    public javax.swing.JTextArea txtObservaciones;
+    public javax.swing.JTextField txtProveedor;
+    public javax.swing.JTextField txtSubTotal;
+    public javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

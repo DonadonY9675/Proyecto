@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -50,14 +52,30 @@ public abstract class Constantes {
         return df.format(num);
     }
 
+    /**
+     * @return retorna la fecha actual convertida en String dd/mm/aaaa
+     */
     public static String fechaActual() {
-        Calendar fechaActual = Calendar.getInstance();
-        String cadenaFecha = String.format("%02d/%02d/%04d",
-                fechaActual.get(Calendar.DAY_OF_MONTH),
-                fechaActual.get(Calendar.MONTH) + 1,
-                fechaActual.get(Calendar.YEAR));
-        return cadenaFecha;
+        DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd/LL/yyyy");
+        return fechaFormateada.format(LocalDate.now());
+    }
 
+    /**
+     * convierte un string en un java.sql.Date
+     * @param fecha: fecha formateada dd/mm/aa, ejm 01/01/1999
+     * @return fecha convertida en java.sql.Date
+     */
+    public static Date convertirFechaAdateSQL(String fecha) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/LL/yyyy");
+        LocalDate ld = LocalDate.parse(fecha, dtf);
+        Date fechaSQL = Date.valueOf(ld);
+        return fechaSQL;
+    }
+    
+    public static String convertirDateSQLaString(java.sql.Date date){
+        LocalDate ld = date.toLocalDate();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/LL/yyyy");
+        return dtf.format(ld);
     }
 
     public static void cargarLogo(java.awt.Component fm, JLabel lblLogo) {
@@ -75,7 +93,12 @@ public abstract class Constantes {
         String Titulo[] = {"Código", "Nombre", "Marca", "Modelo",
             "Precio Unitario", "Cantidad", "Total"};
         String registro[] = new String[7];
-        DefaultTableModel modelo = new DefaultTableModel(null, Titulo);
+        DefaultTableModel modelo = new DefaultTableModel(null, Titulo) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
         DecimalFormat df = new DecimalFormat("0.00");
         for (EntradaSalida p : miListaProductos) {
             registro[0] = String.valueOf(p.getProducto().getCodigo());
