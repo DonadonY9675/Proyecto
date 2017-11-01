@@ -37,7 +37,18 @@ public abstract class CPadreReportesIngresoSalida {
     }
 
     public void clickBtnBuscar(ActionEvent e) {
-        
+        if(vRepIngSal.rbtnUsuario.isSelected()){
+//            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistrosFiltrado
+//                    .filtrar(u->u.getUsusario().equals(vRepIngSal.txtBuscar.getText()));
+//            vRepIngSal.actualizarLista();
+
+        } else if(vRepIngSal.rbtnProveedor.isSelected()){
+            
+        } else if(vRepIngSal.rbrnFecha.isSelected()){
+            
+        } else {
+            
+        }
     }
 
     public abstract void clickBtnEliminar(ActionEvent evt);

@@ -16,6 +16,8 @@ import proy.controlador.CInventario;
 import proy.dao.ProductoDAO;
 import proy.dao.impl.ProductoDAOImpl;
 import proy.dominio.Producto;
+import proy.vista.VentanaAgregarProducto;
+import proy.vista.VentanaEditarProducto;
 import proy.vista.VentanaInventario;
 
 
@@ -49,7 +51,7 @@ public class CInventarioImpl implements CInventario{
         miVentanaInventario.rBtnGroup.add(miVentanaInventario.rBtnCodigo);
         
         miVentanaInventario.rBtnNombre.setSelected(true);
-        
+
         miVentanaInventario.jListProductos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -99,10 +101,14 @@ public class CInventarioImpl implements CInventario{
     }
     
     public void clickBtnAgregar(ActionEvent e){
-        
+        VentanaAgregarProducto vAgregarProducto = new VentanaAgregarProducto(null,true);
+        vAgregarProducto.setLocationRelativeTo(null);
+        vAgregarProducto.setVisible(true);
     }
     public void clickBtnEditar(ActionEvent e){
-        
+        VentanaEditarProducto   vEditarProducto = new VentanaEditarProducto(null,true);
+        vEditarProducto.setLocationRelativeTo(null);
+        vEditarProducto.setVisible(true);
     }
     public void clickBtnEliminar(ActionEvent e){
         

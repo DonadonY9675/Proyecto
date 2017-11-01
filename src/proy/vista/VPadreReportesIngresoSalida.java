@@ -25,8 +25,8 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     public VPadreReportesIngresoSalida(java.awt.Frame parent, boolean modal, ListaDoble<Registro> miListaRegistros) {
         super(parent, modal);
         initComponents();
-
-        this.miListaRegistros = miListaRegistros;
+        this.miListaRegistroCompleta = miListaRegistros;
+        this.miListaRegistrosFiltrado = miListaRegistros;
         iniciarComponentes();
     }
 
@@ -63,7 +63,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         lblTotal = new javax.swing.JLabel();
         lblSubTotal1 = new javax.swing.JLabel();
         jpBuscarPor = new javax.swing.JPanel();
-        jtProveedor = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         rbtnFolio = new javax.swing.JRadioButton();
         rbtnProveedor = new javax.swing.JRadioButton();
@@ -260,7 +260,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             .addGroup(jpBuscarPorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtProveedor)
+                    .addComponent(txtBuscar)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBuscarPorLayout.createSequentialGroup()
                         .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +275,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         jpBuscarPorLayout.setVerticalGroup(
             jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBuscarPorLayout.createSequentialGroup()
-                .addComponent(jtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -361,10 +361,9 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     public void iniciarComponentes() {
         actualizarLista();
-        if (miListaRegistros.size() != 0) {
+        if (miListaRegistrosFiltrado.size() != 0) {
             lstProductos.select(0);
         }
         rbtnUsuario.setSelected(true);
@@ -374,7 +373,8 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     }
 
     public void actualizarLista() {
-        for (Registro r : miListaRegistros) {
+        lstProductos.removeAll();
+        for (Registro r : miListaRegistrosFiltrado) {
             if (r instanceof RegistroEntrada) {
                 lstProductos.add(((RegistroEntrada) r).getProveedor());
             } else {
@@ -387,7 +387,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         int pos = lstProductos.getSelectedIndex();
 
         if (pos != -1) {
-            Constantes.llenarTabla(jTable, miListaRegistros.get(pos).getListaProductos());
+            Constantes.llenarTabla(jTable, miListaRegistrosFiltrado.get(pos).getListaProductos());
         }
     }
 
@@ -395,26 +395,27 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         int pos = lstProductos.getSelectedIndex();
         if (pos != -1) {
             DecimalFormat df = new DecimalFormat("0.00");
-            txtFolio.setText(miListaRegistros.get(pos).getFolio() + "");
-            txtTotal.setText(miListaRegistros.get(pos).getTotal() + "");
-            txtUsuario.setText(miListaRegistros.get(pos).getUsusario());
-            txtFecha.setText(Constantes.convertirDateSQLaString(miListaRegistros.get(pos).getFecha()));
-            txtObservaciones.setText(miListaRegistros.get(pos).getObservaciones());
-            txtSubTotal.setText(df.format(miListaRegistros.get(pos).getSubTotal()));
-            txtImpuesto.setText(df.format(miListaRegistros.get(pos).getImpuestos()));
-            txtTotal.setText(df.format(miListaRegistros.get(pos).getTotal()));
+            txtFolio.setText(miListaRegistrosFiltrado.get(pos).getFolio() + "");
+            txtTotal.setText(miListaRegistrosFiltrado.get(pos).getTotal() + "");
+            txtUsuario.setText(miListaRegistrosFiltrado.get(pos).getUsusario());
+            txtFecha.setText(Constantes.convertirDateSQLaString(miListaRegistrosFiltrado.get(pos).getFecha()));
+            txtObservaciones.setText(miListaRegistrosFiltrado.get(pos).getObservaciones());
+            txtSubTotal.setText(df.format(miListaRegistrosFiltrado.get(pos).getSubTotal()));
+            txtImpuesto.setText(df.format(miListaRegistrosFiltrado.get(pos).getImpuestos()));
+            txtTotal.setText(df.format(miListaRegistrosFiltrado.get(pos).getTotal()));
 
-            txtNroRegistros.setText(miListaRegistros.size() + "");
+            txtNroRegistros.setText(miListaRegistrosFiltrado.size() + "");
 
-            if (miListaRegistros.get(pos) instanceof RegistroEntrada) {
-                txtProveedorCliente.setText(((RegistroEntrada) miListaRegistros.get(pos)).getProveedor());
+            if (miListaRegistrosFiltrado.get(pos) instanceof RegistroEntrada) {
+                txtProveedorCliente.setText(((RegistroEntrada) miListaRegistrosFiltrado.get(pos)).getProveedor());
             } else {
-                txtProveedorCliente.setText(((RegistroSalida) miListaRegistros.get(pos)).getCliente());
+                txtProveedorCliente.setText(((RegistroSalida) miListaRegistrosFiltrado.get(pos)).getCliente());
             }
         }
     }
 
-    ListaDoble<Registro> miListaRegistros;
+    public ListaDoble<Registro> miListaRegistroCompleta;
+    public ListaDoble<Registro> miListaRegistrosFiltrado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEliminar;
@@ -426,7 +427,6 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     private javax.swing.JTable jTable;
     private javax.swing.JPanel jpBuscarPor;
     private javax.swing.JPanel jpRegistros;
-    private javax.swing.JTextField jtProveedor;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFolio;
     private javax.swing.JLabel lblImpuesto;
@@ -438,10 +438,11 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUsuario;
     public java.awt.List lstProductos;
-    private javax.swing.JRadioButton rbrnFecha;
-    private javax.swing.JRadioButton rbtnFolio;
-    private javax.swing.JRadioButton rbtnProveedor;
-    private javax.swing.JRadioButton rbtnUsuario;
+    public javax.swing.JRadioButton rbrnFecha;
+    public javax.swing.JRadioButton rbtnFolio;
+    public javax.swing.JRadioButton rbtnProveedor;
+    public javax.swing.JRadioButton rbtnUsuario;
+    public javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtFolio;
     private javax.swing.JTextField txtImpuesto;

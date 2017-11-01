@@ -91,6 +91,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         lblFolio.setText("Folio");
 
         txtFolio.setEditable(false);
+        txtFolio.setText("0");
 
         lblFecha.setText("Fecha");
 
