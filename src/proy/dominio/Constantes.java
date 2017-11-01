@@ -33,6 +33,12 @@ import javax.swing.table.TableRowSorter;
  */
 public abstract class Constantes {
 
+    /**
+     * Esta clase guarda funciones estaticas que se utilizaran durante todo el programa,
+     * Tambien guarda algunos valores globales que son necesarios durante toda la ejecucion,
+     * y se los puso aqui para no estar pasando estos valores mediante los coordinadores.
+     */
+    
     //USER SE INSTANCIÓ DE PRUEBA, BORRAR CUANDO SEA NECESARIO
     public static Usuario USER = new Usuario("Timoteo", "123456", true);
     public static String logo;

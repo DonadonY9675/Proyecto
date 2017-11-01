@@ -18,7 +18,5 @@ public interface CModeloNuevoIngresoSalida extends MantenimientoControlador{
 
     public void clickBtnIncluirImpuesto(ActionEvent evt);
 
-    public abstract void clickBtnGuardar(ActionEvent evt);
-
     public void clickBtnCancelar(ActionEvent evt);
 }

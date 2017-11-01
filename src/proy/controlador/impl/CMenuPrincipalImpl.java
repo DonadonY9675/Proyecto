@@ -24,10 +24,11 @@ import proy.vista.VentanaReporteSalida;
 /**
  *
  */
-public class CMenuPrincipalImpl extends CoordinadorDeCoordinadores implements CMenuPrincipal {
+public class CMenuPrincipalImpl implements CMenuPrincipal {
     
     VentanaMenuPrincipal ventPrincipal;
     
+    @Override
     public void setVentanaMenuPrincipal(VentanaMenuPrincipal miVenanaMenuPrincipal) {
         this.ventPrincipal = miVenanaMenuPrincipal;
         //agregando action listener de los botones del menuprincipal

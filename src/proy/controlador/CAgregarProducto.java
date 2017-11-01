@@ -13,4 +13,8 @@ import proy.dominio.Categoria;
  */
 public interface CAgregarProducto extends MantenimientoControlador {
     //prototipo de actionListener de la ventanaAgregarProdcuto van aqui
+    
+    /**
+     * esta opcion aun no se encuentra implementada
+     */
 }

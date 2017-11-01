@@ -12,5 +12,8 @@ import proy.dominio.Categoria;
  * Los metodos comunes a todas las categorias van en MantenimientoService
  */
 public interface CategoriaService extends MantenimientoService<Categoria,Integer>{
-    
+    /**
+     * que va a aca?
+     * :C
+     */
 }

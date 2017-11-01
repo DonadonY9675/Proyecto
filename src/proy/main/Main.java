@@ -6,10 +6,10 @@
 package proy.main;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import proy.controlador.impl.CLoginImpl;
 import proy.controlador.impl.CMenuPrincipalImpl;
-import proy.controlador.impl.CoordinadorDeCoordinadores;
 import proy.dao.impl.ConfiguracionDAOImpl;
 import proy.dominio.Configuracion;
 import proy.dominio.Constantes;
@@ -18,7 +18,7 @@ import proy.vista.*;
 /**
  *
  */
-public class Main extends CoordinadorDeCoordinadores {
+public class Main {
 
 //    VentanaMenuPrincipal miVentanaPrincipal;
 //    CMenuPrincipalImpl miCoordinadorVPrincipal;
@@ -30,6 +30,17 @@ public class Main extends CoordinadorDeCoordinadores {
         principal.cargarConfiguracionInicial();
         principal.iniciar();
         
+        String mensaje = "Por el momento se puede ingresar con cualquier usuario y contraseña"
+                + " y lo acepará como si estuviese registrado.\n Para este avance se implementaron:"
+                + " Los 5 JButton que se encuentran en el menu principal (y sus respectivas subVentanas), + el Menu configuracion"
+                + "\nLas consultas SQL no se han implementado, y "
+                + "en las clases DAO solo se devuelve una ListaDoble con productos preingresados para "
+                + "realizar las respectivas consultas,\n "
+                + " por lo que las funciones de guardar y eliminar no agregarán o quitarán productos."
+                + "\nEn caso de ser nesesario se adjunto las librerias jcalendar en el archivo del proyecto"
+                + "para que funcione el aplicativo";
+
+                JOptionPane.showMessageDialog(null, mensaje, "Entregable 3", 1);
     }
 
     public void iniciar() {

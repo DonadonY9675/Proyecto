@@ -28,6 +28,7 @@ public class CConfiguracionImpl implements CConfiguracion {
     VentanaMenuPrincipal vMenuPrincipal;
     ConfiguracionServiceImpl configService = new ConfiguracionServiceImpl();
 
+    @Override
     public void setVConfiguracion(VentanaConfiguracion vConf, VentanaMenuPrincipal vPrincipal) {
         this.vMenuPrincipal = vPrincipal;
         this.vConf = vConf;
@@ -37,6 +38,7 @@ public class CConfiguracionImpl implements CConfiguracion {
 
     }
 
+    @Override
     public void clickBtnGuardar(ActionEvent evt) {
         configService.modificar(vConf);
         Constantes.logo = vConf.txtLogo.getText();
@@ -44,10 +46,12 @@ public class CConfiguracionImpl implements CConfiguracion {
         vConf.dispose();
     }
 
+    @Override
     public void clickBtnSalir(ActionEvent evt) {
         vConf.dispose();
     }
 
+    @Override
     public void clickBtnExaminar(ActionEvent evt) {
 
         FileNameExtensionFilter filtro
@@ -73,7 +77,7 @@ public class CConfiguracionImpl implements CConfiguracion {
             logo = logo.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
             vConf.lblLogo.setIcon(new ImageIcon(logo));
         }
-        
+
     }
 
 }

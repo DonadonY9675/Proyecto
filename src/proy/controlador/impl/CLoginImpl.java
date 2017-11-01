@@ -23,6 +23,7 @@ public class CLoginImpl implements CLogin{
     private VentanaLogIn miVentanaLogIn;
     private UsuarioDao usuarioDao = new UsuarioDAOImpl();
     
+    @Override
     public void setVentanaLogin(VentanaLogIn ventana){
         this.miVentanaLogIn = ventana;
         miVentanaLogIn.jButtonEntrar.addActionListener((evt) -> this.clickbtnEntrar(evt));

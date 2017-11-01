@@ -13,4 +13,7 @@ import proy.dominio.Inventario;
  */
 public interface CEditarProducto extends MantenimientoControlador  {
     
+    /**
+     * aun no implementada
+     */
 }

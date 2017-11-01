@@ -52,6 +52,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
         jButtonCancelar.setText("Cancelar");
 
         jTextFieldUsuario.setBackground(new java.awt.Color(153, 153, 153));
+        jTextFieldUsuario.setText("CualquierNombre");
         jTextFieldUsuario.setToolTipText("Usuario");
         jTextFieldUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 

@@ -6,13 +6,17 @@
 package proy.controlador;
 
 import java.awt.event.ActionEvent;
+import proy.vista.VentanaLogIn;
 
 /**
  *
  * @author Miguel
  */
 public interface CLogin extends MantenimientoControlador {
-    void clickbtnEntrar(ActionEvent evt);
-    
-    void clickbtnSalir(ActionEvent evt);
+
+    public void setVentanaLogin(VentanaLogIn ventana);
+
+    public void clickbtnEntrar(ActionEvent evt);
+
+    public void clickbtnSalir(ActionEvent evt);
 }

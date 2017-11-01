@@ -18,7 +18,7 @@ import proy.vista.VentanaProductos;
 /**
  *
  */
-public abstract class CPadreNuevoIngresoSalidaImpl extends CoordinadorDeCoordinadores implements CModeloNuevoIngresoSalida {
+public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngresoSalida {
 
     VPadreNuevoIngresoSalida vIngSal;
 
@@ -86,7 +86,7 @@ public abstract class CPadreNuevoIngresoSalidaImpl extends CoordinadorDeCoordina
         }
     }
 
-    @Override
+    
     public abstract void clickBtnGuardar(ActionEvent evt);
 
     @Override

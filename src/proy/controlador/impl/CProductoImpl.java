@@ -22,7 +22,7 @@ import proy.dominio.Producto;
 import proy.dominio.EntradaSalida;
 import proy.vista.VPadreNuevoIngresoSalida;
 
-public class CProductoImpl extends CoordinadorDeCoordinadores implements CProductos {
+public class CProductoImpl implements CProductos {
 
     VentanaProductos vProd;
     VPadreNuevoIngresoSalida vIngSal;

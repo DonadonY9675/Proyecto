@@ -5,10 +5,16 @@
  */
 package proy.controlador;
 
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Miguel
  */
 public interface CNuevaSalida extends CModeloNuevoIngresoSalida{
+    /**
+     * hereda todos sus metodos de CModeloNuevoIngresoSalida
+     */
     
+    public void clickBtnGuardar(ActionEvent evt);
 }

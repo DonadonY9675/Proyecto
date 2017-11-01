@@ -6,12 +6,15 @@
 package proy.controlador;
 
 import java.awt.event.ActionEvent;
+import proy.vista.VentanaMenuPrincipal;
 
 /**
  *
  * @author Miguel
  */
 public interface CMenuPrincipal extends MantenimientoControlador {
+
+    public void setVentanaMenuPrincipal(VentanaMenuPrincipal miVenanaMenuPrincipal);
 
     void clickBtnNuevaEntrada(ActionEvent evt);
 
@@ -23,4 +26,5 @@ public interface CMenuPrincipal extends MantenimientoControlador {
 
     void clickBtnReportesDeSalida(ActionEvent evt);
 
+    public void clickBtnConfiguracion(ActionEvent evt);
 }
