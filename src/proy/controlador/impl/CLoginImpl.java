@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import proy.controlador.CLogin;
 import proy.dao.UsuarioDao;
 import proy.dao.impl.UsuarioDAOImpl;
+import proy.dominio.Constantes;
 import proy.dominio.Usuario;
 import proy.vista.VentanaLogIn;
 import proy.vista.VentanaMenuPrincipal;
@@ -32,7 +33,7 @@ public class CLoginImpl implements CLogin{
     @Override
     public void clickbtnEntrar(ActionEvent evt) {
         boolean existe=false;
-        String usuario = miVentanaLogIn.jTextFieldUsuario.getText();
+        String nombreUsuario = miVentanaLogIn.jTextFieldUsuario.getText();
         String password = String.valueOf(miVentanaLogIn.jPasswordFieldContrasenia.getPassword());
          
         //COMPROBAR EXISTENCIA DE USUARIO
@@ -41,6 +42,9 @@ public class CLoginImpl implements CLogin{
         //---------------------------------------------------
         
         if(existe){
+            
+            Usuario usuario = new Usuario(nombreUsuario, password, true);
+            Constantes.USER = usuario;
             
             VentanaMenuPrincipal ventanaPrincipal = new VentanaMenuPrincipal();
             CMenuPrincipalImpl coordinadorNuevaSalida = new CMenuPrincipalImpl();

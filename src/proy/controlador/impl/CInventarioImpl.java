@@ -59,6 +59,18 @@ public class CInventarioImpl implements CInventario{
             }
         });
         
+        //EL usuario no padra modificar ningun textfield
+        miVentanaInventario.txtProducto.setEditable(false);
+        miVentanaInventario.txtCodigo.setEditable(false);
+        miVentanaInventario.txtMarca.setEditable(false);
+        miVentanaInventario.txtModelo.setEditable(false);
+        miVentanaInventario.txtExist.setEditable(false);
+        miVentanaInventario.txtPrecUnit.setEditable(false);
+        miVentanaInventario.txtUnidMed.setEditable(false);
+        miVentanaInventario.txtUbicacion.setEditable(false);
+        miVentanaInventario.txtCantMin.setEditable(false);
+        miVentanaInventario.txtCategoria.setEditable(false);
+        
         listProdComp = daoProducto.getAll();
         //Al iniciar no hay filtros por lo que ambas listas se hacen iguales
         listProdFilt = listProdComp;
