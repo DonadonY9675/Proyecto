@@ -37,10 +37,12 @@ public abstract class CPadreReportesIngresoSalida {
     }
 
     public void clickBtnBuscar(ActionEvent e) {
+           
         if(vRepIngSal.rbtnUsuario.isSelected()){
-//            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistrosFiltrado
-//                    .filtrar(u->u.getUsusario().equals(vRepIngSal.txtBuscar.getText()));
-//            vRepIngSal.actualizarLista();
+            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
+                    .filtrar(u->u.getUsusario().toLowerCase().
+                            contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
+           
 
         } else if(vRepIngSal.rbtnProveedor.isSelected()){
             
@@ -49,6 +51,10 @@ public abstract class CPadreReportesIngresoSalida {
         } else {
             
         }
+         vRepIngSal.actualizarLista();
+         vRepIngSal.actualizarDatos();
+         vRepIngSal.actualizarTabla();
+        
     }
 
     public abstract void clickBtnEliminar(ActionEvent evt);

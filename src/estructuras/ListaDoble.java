@@ -247,7 +247,7 @@ public class ListaDoble<T> implements Iterable<T> {
                 
         while(aux!=null){
             if(predicado.test(aux.dato)){
-                nuevaLista.insertarAlInicio(aux.dato);
+                nuevaLista.insertarAlFinal(aux.dato);
             }
             aux=aux.sig;
         }

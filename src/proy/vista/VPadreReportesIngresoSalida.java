@@ -8,6 +8,7 @@ package proy.vista;
 import estructuras.ListaDoble;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import javax.swing.DefaultListModel;
 import proy.dominio.Constantes;
 import proy.dominio.Registro;
 import proy.dominio.RegistroEntrada;
@@ -70,10 +71,11 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         rbtnUsuario = new javax.swing.JRadioButton();
         rbrnFecha = new javax.swing.JRadioButton();
         jpRegistros = new javax.swing.JPanel();
-        lstProductos = new java.awt.List();
         jLabel6 = new javax.swing.JLabel();
         txtNroRegistros = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstProductos = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -297,14 +299,21 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
 
         btnEliminar.setText("Eliminar");
 
+        lstProductos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstProductos);
+
         javax.swing.GroupLayout jpRegistrosLayout = new javax.swing.GroupLayout(jpRegistros);
         jpRegistros.setLayout(jpRegistrosLayout);
         jpRegistrosLayout.setHorizontalGroup(
             jpRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistrosLayout.createSequentialGroup()
+            .addGroup(jpRegistrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lstProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jpRegistrosLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +330,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
                     .addComponent(txtNroRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lstProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -362,10 +371,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public void iniciarComponentes() {
-        actualizarLista();
-        if (miListaRegistrosFiltrado.size() != 0) {
-            lstProductos.select(0);
-        }
+        actualizarLista();       
         rbtnUsuario.setSelected(true);
         actualizarTabla();
         actualizarDatos();
@@ -373,13 +379,19 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     }
 
     public void actualizarLista() {
-        lstProductos.removeAll();
+        DefaultListModel lista = new DefaultListModel();
         for (Registro r : miListaRegistrosFiltrado) {
             if (r instanceof RegistroEntrada) {
-                lstProductos.add(((RegistroEntrada) r).getProveedor());
+                lista.addElement(((RegistroEntrada) r).getProveedor());
             } else {
-                lstProductos.add(((RegistroSalida) r).getCliente());
+                lista.addElement(((RegistroSalida) r).getCliente());
             }
+        }
+        lstProductos.setModel(lista);
+
+        if (miListaRegistrosFiltrado.size() != 0) {
+            lstProductos.setSelectedIndex(0);
+//            actualizarDatosConElementoSeleccionado();
         }
     }
 
@@ -422,6 +434,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
@@ -437,7 +450,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     protected javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUsuario;
-    public java.awt.List lstProductos;
+    public javax.swing.JList<String> lstProductos;
     public javax.swing.JRadioButton rbrnFecha;
     public javax.swing.JRadioButton rbtnFolio;
     public javax.swing.JRadioButton rbtnProveedor;
