@@ -259,6 +259,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable);
 
         javax.swing.GroupLayout pnlTablaLayout = new javax.swing.GroupLayout(pnlTabla);
