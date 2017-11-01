@@ -194,7 +194,7 @@ public class ListaDoble<T> implements Iterable<T> {
             return aux.dato;
 
         } else {
-            System.out.println("Cabecera es null, o la posicion a eliminar esta fuera de rango");
+            System.out.println("ERROE en metodo get de ListaDoble. Cabecera es null, o la posicion a eliminar esta fuera de rango");
             return null;
         }
     }
@@ -248,7 +248,7 @@ public class ListaDoble<T> implements Iterable<T> {
                 
         while(aux!=null){
             if(predicado.test(aux.dato)){
-                nuevaLista.insertarAlInicio(aux.dato);
+                nuevaLista.insertarAlFinal(aux.dato);
             }
             aux=aux.sig;
         }

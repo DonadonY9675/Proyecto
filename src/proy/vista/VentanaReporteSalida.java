@@ -19,6 +19,7 @@ public class VentanaReporteSalida extends VPadreReportesIngresoSalida{
         super(parent, modal, miListaRegistros);
         lblTitulo.setText("Reportes de Salida");
         lblProveedorCliente.setText("Cliente");
+        rbtnProveedor.setText("Cliente");
     }
     
 }

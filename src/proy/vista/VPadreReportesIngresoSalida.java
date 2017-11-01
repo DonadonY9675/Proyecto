@@ -5,10 +5,17 @@
  */
 package proy.vista;
 
+import com.toedter.calendar.JDateChooser;
 import estructuras.ListaDoble;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JTextField;
 import proy.dominio.Constantes;
+import proy.dominio.EntradaSalida;
 import proy.dominio.Registro;
 import proy.dominio.RegistroEntrada;
 import proy.dominio.RegistroSalida;
@@ -63,17 +70,19 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         lblTotal = new javax.swing.JLabel();
         lblSubTotal1 = new javax.swing.JLabel();
         jpBuscarPor = new javax.swing.JPanel();
-        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         rbtnFolio = new javax.swing.JRadioButton();
         rbtnProveedor = new javax.swing.JRadioButton();
         rbtnUsuario = new javax.swing.JRadioButton();
         rbrnFecha = new javax.swing.JRadioButton();
+        panelFecha = new javax.swing.JPanel();
+        btnTodos = new javax.swing.JButton();
         jpRegistros = new javax.swing.JPanel();
-        lstProductos = new java.awt.List();
         jLabel6 = new javax.swing.JLabel();
         txtNroRegistros = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstProductos = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -253,6 +262,19 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         buttonGroup1.add(rbrnFecha);
         rbrnFecha.setText("Fecha");
 
+        javax.swing.GroupLayout panelFechaLayout = new javax.swing.GroupLayout(panelFecha);
+        panelFecha.setLayout(panelFechaLayout);
+        panelFechaLayout.setHorizontalGroup(
+            panelFechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelFechaLayout.setVerticalGroup(
+            panelFechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        btnTodos.setText("Todos");
+
         javax.swing.GroupLayout jpBuscarPorLayout = new javax.swing.GroupLayout(jpBuscarPor);
         jpBuscarPor.setLayout(jpBuscarPorLayout);
         jpBuscarPorLayout.setHorizontalGroup(
@@ -260,33 +282,40 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             .addGroup(jpBuscarPorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscar)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBuscarPorLayout.createSequentialGroup()
+                    .addComponent(panelFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jpBuscarPorLayout.createSequentialGroup()
+                        .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbtnProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbtnUsuario, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbtnProveedor)
-                            .addComponent(rbtnUsuario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbtnFolio)
-                            .addComponent(rbrnFecha))))
+                            .addGroup(jpBuscarPorLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rbtnFolio)
+                                    .addComponent(rbrnFecha)))
+                            .addComponent(btnTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jpBuscarPorLayout.setVerticalGroup(
             jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBuscarPorLayout.createSequentialGroup()
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
+                .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnTodos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnFolio)
                     .addComponent(rbtnUsuario))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnProveedor)
                     .addComponent(rbrnFecha))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11))
         );
 
         jpRegistros.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Número de Registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
@@ -297,20 +326,27 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
 
         btnEliminar.setText("Eliminar");
 
+        lstProductos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstProductos);
+
         javax.swing.GroupLayout jpRegistrosLayout = new javax.swing.GroupLayout(jpRegistros);
         jpRegistros.setLayout(jpRegistrosLayout);
         jpRegistrosLayout.setHorizontalGroup(
             jpRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistrosLayout.createSequentialGroup()
+            .addGroup(jpRegistrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lstProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jpRegistrosLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNroRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jpRegistrosLayout.setVerticalGroup(
@@ -321,7 +357,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
                     .addComponent(txtNroRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lstProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -332,40 +368,61 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitulo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpBuscarPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpBuscarPor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(lblTitulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jpBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jpRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(29, 29, 29)
+                        .addComponent(jpBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void mostrarTxtBuscar(){
+        panelFecha.removeAll();
+        panelFecha.add(txtBuscar);
+        panelFecha.setVisible(false);
+        panelFecha.setVisible(true);
+    }    public void mostrarJDateChooser(){
+        panelFecha.removeAll();
+        panelFecha.add(jDateFecha);
+        panelFecha.setVisible(false);
+        panelFecha.setVisible(true);
+    }
+
     public void iniciarComponentes() {
+        
+        txtBuscar = new JTextField();
+        jDateFecha = new JDateChooser();
+        panelFecha.setLayout(new GridLayout(1, 1)); 
+//        inicialmente el panel contiene txtBuscar, posteriormente cambiara entre
+//        txtBuscar(JTextField) y jDateFecha(JDateChooser), segun la opcion que 
+//        escoja el usuario
+        panelFecha.add(txtBuscar); 
+        
+
         actualizarLista();
-        if (miListaRegistrosFiltrado.size() != 0) {
-            lstProductos.select(0);
-        }
         rbtnUsuario.setSelected(true);
         actualizarTabla();
         actualizarDatos();
@@ -373,13 +430,19 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     }
 
     public void actualizarLista() {
-        lstProductos.removeAll();
+        DefaultListModel lista = new DefaultListModel();
         for (Registro r : miListaRegistrosFiltrado) {
             if (r instanceof RegistroEntrada) {
-                lstProductos.add(((RegistroEntrada) r).getProveedor());
+                lista.addElement(((RegistroEntrada) r).getProveedor());
             } else {
-                lstProductos.add(((RegistroSalida) r).getCliente());
+                lista.addElement(((RegistroSalida) r).getCliente());
             }
+        }
+        lstProductos.setModel(lista);
+
+        if (miListaRegistrosFiltrado.size() != 0) {
+            lstProductos.setSelectedIndex(0);
+//            actualizarDatosConElementoSeleccionado();
         }
     }
 
@@ -388,6 +451,8 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
 
         if (pos != -1) {
             Constantes.llenarTabla(jTable, miListaRegistrosFiltrado.get(pos).getListaProductos());
+        } else {
+            Constantes.llenarTabla(jTable, new ListaDoble<>());
         }
     }
 
@@ -411,17 +476,31 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             } else {
                 txtProveedorCliente.setText(((RegistroSalida) miListaRegistrosFiltrado.get(pos)).getCliente());
             }
+        } else {
+            txtFolio.setText("");
+            txtTotal.setText("");
+            txtUsuario.setText("");
+            txtFecha.setText("");
+            txtObservaciones.setText("");
+            txtSubTotal.setText("");
+            txtImpuesto.setText("");
+            txtTotal.setText("");
+            txtNroRegistros.setText("");
         }
     }
 
     public ListaDoble<Registro> miListaRegistroCompleta;
     public ListaDoble<Registro> miListaRegistrosFiltrado;
+    public JDateChooser jDateFecha;
+    public javax.swing.JTextField txtBuscar;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnTodos;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
@@ -437,14 +516,14 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     protected javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUsuario;
-    public java.awt.List lstProductos;
+    public javax.swing.JList<String> lstProductos;
+    public javax.swing.JPanel panelFecha;
     public javax.swing.JRadioButton rbrnFecha;
     public javax.swing.JRadioButton rbtnFolio;
     public javax.swing.JRadioButton rbtnProveedor;
     public javax.swing.JRadioButton rbtnUsuario;
-    public javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtFolio;
+    public javax.swing.JTextField txtFolio;
     private javax.swing.JTextField txtImpuesto;
     private javax.swing.JTextField txtNroRegistros;
     private javax.swing.JTextArea txtObservaciones;

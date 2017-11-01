@@ -24,6 +24,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -111,6 +113,8 @@ public abstract class Constantes {
             modelo.addRow(registro);
         }
         jTable.setModel(modelo);
+        TableRowSorter<TableModel> ordenar = new TableRowSorter<>(modelo);
+        jTable.setRowSorter(ordenar);
 
     }
 
