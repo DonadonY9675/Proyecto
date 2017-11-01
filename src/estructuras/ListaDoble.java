@@ -2,6 +2,7 @@ package estructuras;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import proy.dominio.Producto;
 
@@ -254,6 +255,27 @@ public class ListaDoble<T> implements Iterable<T> {
         
         return nuevaLista;
     }
+    
+    /*
+        Busca y retorna un elemento de la lista doble que tiene como llave el
+        valor especificado como primer parametro, el segundo parametro es la
+        funcion que aplicada al generico del que esta conformado la lista doble
+        resulta ser la llave de ese objeto.
+        Ejm: buscar(1,Producto::getCodigo). Busca el producto de codigo 1
+    */
+    public <K> T buscar(K key, Function<T,K> funcion){
+        NodoDoble<T> aux = cabecera;
+                
+        while(aux!=null){
+           if(key.equals(funcion.apply(aux.dato))){
+               return aux.dato;
+           }
+            aux=aux.sig;
+        }
+        
+        return null;
+    }
+    
     
     public int size(){
         return tam;
