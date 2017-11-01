@@ -22,6 +22,7 @@ public class VentanaProductos extends javax.swing.JDialog {
     public VentanaProductos(java.awt.Frame parent, boolean modal, ListaDoble<Producto> listaProductos) {
         super(parent, modal);
         this.listaProductos = listaProductos;
+        this.listaProductosCompleta = listaProductos;
         initComponents();
     }
 
@@ -61,6 +62,7 @@ public class VentanaProductos extends javax.swing.JDialog {
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,6 +71,18 @@ public class VentanaProductos extends javax.swing.JDialog {
         lblProducto.setText("Producto");
 
         lblCodigo.setText("Codigo");
+
+        txtProducto.setEditable(false);
+
+        txtCodigo.setEditable(false);
+
+        txtMarca.setEditable(false);
+
+        txtModelo.setEditable(false);
+
+        txtExistencia.setEditable(false);
+
+        txtPrecio.setEditable(false);
 
         lblMarca.setText("Marca");
 
@@ -81,6 +95,8 @@ public class VentanaProductos extends javax.swing.JDialog {
         lblCantidad.setText("Cantidad");
 
         lblTotal.setText("Total");
+
+        txtTotal.setEditable(false);
 
         lblImagen.setText("Imagen");
 
@@ -143,7 +159,7 @@ public class VentanaProductos extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(lblProducto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtProducto)))
                 .addContainerGap())
         );
@@ -196,6 +212,7 @@ public class VentanaProductos extends javax.swing.JDialog {
         jScrollPane1.setViewportView(lstProductos);
 
         btnAgregar.setText("Agregar a la Lista");
+        btnAgregar.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -225,6 +242,8 @@ public class VentanaProductos extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel10.setText("Productos");
 
+        btnLimpiar.setText("Limpiar");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -235,9 +254,12 @@ public class VentanaProductos extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimpiar)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -248,7 +270,8 @@ public class VentanaProductos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(btnLimpiar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -280,60 +303,14 @@ public class VentanaProductos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-//        if (!txtCodigo.getText().isEmpty()) {
-//            int cod = Integer.parseInt(txtCodigo.getText());
-//            
-//            //Codigo final
-//            //productoSeleccionado = miProductoDao.consultarProductoPorCodigo(cod);
-//            
-//            //INICIO PRUEBA
-//            productoSeleccionado.setCodigo(cod);
-//            //FIN PRUEBA
-//            
-//            this.dispose();
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Seleccione un producto para poder agregar", "ERROR", 2);
-//        }
-    /**
-     * Crea una matriz de productos y la muestra en la jTable
-     * @param lista : Lista a mostrar
-     */
-    private void mostrarListaProductos(ListaDoble<Producto> lista) {
-        
 
-    }
+    public final ListaDoble<Producto> listaProductosCompleta;
+    public ListaDoble<Producto> listaProductos;
 
-    /**
-     * vacia los campos de los jTextField
-     */
-    private void limpiarCampos() {
-
-    }
-
-    /**
-     * Carga todos nombres de los productos con un stock minimio de 1 unidad en 
-     * el jList
-     */
-    private void cargarDatosFormulario() {
-        
-       
-    }
-    
-    /**
-     * Llena los campos del formulario (txtCodigo, txtMarca,...) con un producto definido
-     * @param codigo: codigo de producto para llenar formulario
-     */
-    private void llenarFormulario(String codigo) {
-        
-       
-    }
-    public ListaDoble <Producto> listaProductos;
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnBuscar;
+    public javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -350,7 +327,7 @@ public class VentanaProductos extends javax.swing.JDialog {
     private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblTotal;
     public javax.swing.JList<String> lstProductos;
-    private javax.swing.JTextField txtBuscar;
+    public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCantidad;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtExistencia;

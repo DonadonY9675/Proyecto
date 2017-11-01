@@ -2,7 +2,7 @@ package proy.dao.impl;
 
 import proy.dominio.RegistroEntrada;
 import estructuras.ListaDoble;
-import java.util.Date;
+import java.sql.Date;
 import proy.dao.AbstractDAO;
 import proy.dao.RegistroEntradaDAO;
 import proy.dominio.EntradaSalida;
@@ -52,13 +52,13 @@ public class RegistroEntradaDAOImpl implements RegistroEntradaDAO {
         listaIngreso1.insertarAlFinal(new EntradaSalida(prod2, 3, 3245));
         
 
-        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(1, null, "Usuario1", "Proveedor1",  listaIngreso1,"Observacion 1",1234f, 12312.0f,123123.0f));
+        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(1, new Date(7,8,9), "Usuario1", "Proveedor1",  listaIngreso1,"Observacion 1",1234f, 12312.0f,123123.0f));
         
         listaIngreso2.insertarAlFinal(new EntradaSalida(prod3, 2, 5477));
         listaIngreso2.insertarAlFinal(new EntradaSalida(prod4, 13, 1331));
         listaIngreso2.insertarAlFinal(new EntradaSalida(prod1, 23, 321));
         
-        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(2, null, "Administrador2", "Proveedor2",  listaIngreso2,"Observacion 2",21234f, 123.0f,3123.0f));
+        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(2, new Date(10,11,12), "Administrador2", "Proveedor2",  listaIngreso2,"Observacion 2",21234f, 123.0f,3123.0f));
 
         return listaRegistroEntrada;
 

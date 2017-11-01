@@ -6,7 +6,7 @@
 package proy.dominio;
 
 import estructuras.ListaDoble;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *

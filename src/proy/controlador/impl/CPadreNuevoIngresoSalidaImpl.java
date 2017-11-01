@@ -68,6 +68,11 @@ public abstract class CPadreNuevoIngresoSalidaImpl extends CoordinadorDeCoordina
             vIngSal.miListaProductos.eliminar(seleccion);
             vIngSal.actualizarDatos();
         }
+        
+        if(vIngSal.miListaProductos.size()==0){
+            vIngSal.btnGuardar.setEnabled(false);
+            vIngSal.btnEliminar.setEnabled(false);
+        }
 
     }
 
@@ -87,13 +92,18 @@ public abstract class CPadreNuevoIngresoSalidaImpl extends CoordinadorDeCoordina
     @Override
     public void clickBtnCancelar(ActionEvent evt) {
 
-        int opc = JOptionPane.showConfirmDialog(vIngSal,
-                "Desea salir sin guardar los cambios", "Cancelar Registro",
-                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-        if (opc == 0) {
+        if (vIngSal.estaGuardado || vIngSal.miListaProductos.size() == 0) {
             vIngSal.dispose();
+        } else {
+            int opc = JOptionPane.showConfirmDialog(vIngSal,
+                    "Desea salir sin guardar los cambios", "Cancelar Registro",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (opc == 0) {
+                vIngSal.dispose();
+            }
         }
+
     }
 
 }
