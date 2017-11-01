@@ -32,6 +32,8 @@ public abstract class CPadreReportesIngresoSalida {
         this.vRepIngSal = vRepIngSal;
         vRepIngSal.btnBuscar.addActionListener(this::clickBtnBuscar);
         vRepIngSal.btnEliminar.addActionListener(this::clickBtnEliminar);
+        vRepIngSal.btnTodos.addActionListener(this::clickBtnTodos);
+        
         //evento de JList
         vRepIngSal.lstProductos.addMouseListener(new MouseAdapter() {
             @Override
@@ -155,6 +157,12 @@ public abstract class CPadreReportesIngresoSalida {
         vRepIngSal.actualizarDatos();
         vRepIngSal.actualizarTabla();
 
+    }
+    public void clickBtnTodos(ActionEvent e){
+        vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta;
+        vRepIngSal.actualizarLista();
+        vRepIngSal.actualizarDatos();
+        vRepIngSal.actualizarTabla();
     }
 
     public abstract void clickBtnEliminar(ActionEvent evt);

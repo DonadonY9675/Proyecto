@@ -76,6 +76,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         rbtnUsuario = new javax.swing.JRadioButton();
         rbrnFecha = new javax.swing.JRadioButton();
         panelFecha = new javax.swing.JPanel();
+        btnTodos = new javax.swing.JButton();
         jpRegistros = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtNroRegistros = new javax.swing.JTextField();
@@ -272,6 +273,8 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
+        btnTodos.setText("Todos");
+
         javax.swing.GroupLayout jpBuscarPorLayout = new javax.swing.GroupLayout(jpBuscarPor);
         jpBuscarPor.setLayout(jpBuscarPorLayout);
         jpBuscarPorLayout.setHorizontalGroup(
@@ -280,15 +283,19 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBuscarPorLayout.createSequentialGroup()
+                    .addGroup(jpBuscarPorLayout.createSequentialGroup()
+                        .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbtnProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbtnUsuario, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbtnProveedor)
-                            .addComponent(rbtnUsuario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbtnFolio)
-                            .addComponent(rbrnFecha))))
+                            .addGroup(jpBuscarPorLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rbtnFolio)
+                                    .addComponent(rbrnFecha)))
+                            .addComponent(btnTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jpBuscarPorLayout.setVerticalGroup(
@@ -297,7 +304,9 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
+                .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnTodos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpBuscarPorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnFolio)
@@ -337,7 +346,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNroRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jpRegistrosLayout.setVerticalGroup(
@@ -487,6 +496,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnTodos;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
