@@ -106,7 +106,7 @@ public class CProductoImpl implements CProductos {
         }
     }
 
-    public void clickBtnBuscar(KeyEvent evt) {
+     public void clickBtnBuscar(KeyEvent evt) {
         String prodBuscado = vProd.txtBuscar.getText();
         vProd.listaProductos = vProd.listaProductosCompleta; 
         if (!prodBuscado.equals("")) {

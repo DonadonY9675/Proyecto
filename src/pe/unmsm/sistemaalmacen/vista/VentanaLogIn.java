@@ -60,12 +60,12 @@ public class VentanaLogIn extends javax.swing.JFrame {
         jPasswordFieldContrasenia.setToolTipText("Usuario");
         jPasswordFieldContrasenia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proy/images/pass.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/unmsm/sistemaalmacen/images/pass.png"))); // NOI18N
 
-        jLabelLogoSanMarcos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proy/images/logoSanMarcos.png"))); // NOI18N
+        jLabelLogoSanMarcos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/unmsm/sistemaalmacen/images/logoSanMarcos.png"))); // NOI18N
 
         jLabel4.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proy/images/user.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/unmsm/sistemaalmacen/images/user.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,7 +117,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
                     .addComponent(jButtonCancelar))
                 .addGap(17, 17, 17)
                 .addComponent(jLabelLogoSanMarcos)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

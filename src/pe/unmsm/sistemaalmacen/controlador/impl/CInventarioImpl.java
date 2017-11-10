@@ -5,11 +5,13 @@
  */
 package pe.unmsm.sistemaalmacen.controlador.impl;
 
+import java.awt.Event;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.function.Predicate;
 import javax.swing.DefaultListModel;
 import pe.unmsm.sistemaalmacen.controlador.CInventario;
 import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
@@ -38,7 +40,6 @@ public class CInventarioImpl implements CInventario {
     public void setVentanaInventario(VentanaInventario ventana) {
         miVentanaInventario = ventana;
 
-        miVentanaInventario.btnBuscar.addActionListener(this::clickBtnBuscar);
         miVentanaInventario.btnMostrarTodos.addActionListener(this::clickBtnMostrarTodos);
         miVentanaInventario.btnProxAgot.addActionListener(this::clickBtnProxAgot);
         miVentanaInventario.btnAgregar.addActionListener(this::clickBtnAgregar);
@@ -56,7 +57,14 @@ public class CInventarioImpl implements CInventario {
                 clickjListProductos(e);
             }
         });
-
+        
+        miVentanaInventario.txtBuscar.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent e){
+                clickBtnBuscar(e) ;
+            }
+        });
+        
         //EL usuario no padra modificar ningun textfield
         miVentanaInventario.txtProducto.setEditable(false);
         miVentanaInventario.txtCodigo.setEditable(false);
@@ -85,12 +93,12 @@ public class CInventarioImpl implements CInventario {
     }
 
     @Override
-    public void clickBtnBuscar(ActionEvent e) {
+    public void clickBtnBuscar(KeyEvent e) {
         String entrada = miVentanaInventario.txtBuscar.getText();
 
         if (miVentanaInventario.rBtnNombre.isSelected()) {
             listProdFilt = listProdComp.filtrar(
-                    (t) -> t.getNombre().contains(entrada));
+                    (t) -> t.getNombre().toLowerCase().contains(entrada.toLowerCase()));
         }
         if (miVentanaInventario.rBtnCodigo.isSelected()) {
             listProdFilt = listProdComp.filtrar(

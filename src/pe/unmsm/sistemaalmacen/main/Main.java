@@ -27,20 +27,10 @@ public class Main {
 
     public static void main(String[] args) {
         Main principal = new Main();
-        principal.cargarConfiguracionInicial();
+//        principal.cargarConfiguracionInicial();
         principal.iniciar();
         
-        String mensaje = "Por el momento se puede ingresar con cualquier usuario y contraseña"
-                + " y lo acepará como si estuviese registrado.\n Para este avance se implementaron:"
-                + " Los 5 JButton que se encuentran en el menu principal (y sus respectivas subVentanas), + el Menu configuracion"
-                + "\nLas consultas SQL no se han implementado, y "
-                + "en las clases DAO solo se devuelve una ListaDoble con productos preingresados para "
-                + "realizar las respectivas consultas,\n "
-                + " por lo que las funciones de guardar y eliminar no agregarán o quitarán productos."
-                + "\nEn caso de ser nesesario se adjunto las librerias jcalendar en el archivo del proyecto"
-                + "para que funcione el aplicativo";
-
-                JOptionPane.showMessageDialog(null, mensaje, "Entregable 3", 1);
+       
     }
 
     public void iniciar() {

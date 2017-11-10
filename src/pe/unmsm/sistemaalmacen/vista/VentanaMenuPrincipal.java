@@ -237,7 +237,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         lblPermisos.setText((Constantes.USER.isEsAdmin()) ? "Administrador" : "Usuario");
 
         //cargando el icono
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/proy/images/logo.png"));
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pe/unmsm/sistemaalmacen/images/logo.png"));
         setIconImage(icon);
 
         //cargando logo
