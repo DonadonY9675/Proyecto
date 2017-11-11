@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 /**
  *  cAMBIAR NOMBERE A PAQUTES A pe.unmsm.sistemas...
- *  Lista en doble en controlador
+ *  Lists dobles en controlador no en vista
  *  llenar tabla, etc en vista
  *  en service validaciones de fondo.Ejm si ya existe un producto con codigo repétido en la base de datos
  * Añadir fecha de caducidad para meter pilas
@@ -285,7 +285,7 @@ public class ListaDoble<T> implements Iterable<T> {
     }
     
     /*
-    Imitacion del forEach
+    Imitacion del forEach de stream
     */
     public void paraCada(Consumer<T> accion){
         NodoDoble<T> aux = cabecera;

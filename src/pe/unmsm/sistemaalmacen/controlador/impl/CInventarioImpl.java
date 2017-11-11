@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.controlador.CInventario;
 import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
@@ -118,7 +119,7 @@ public class CInventarioImpl implements CInventario {
     public void clickBtnProxAgot(ActionEvent e) {
         //MEJORAR PREDICADO, IDEAS??
         listProdFilt = listProdComp.filtrar(
-                (t) -> t.getExistencia() <= t.getCantidadMinima());
+                (t) -> t.getExistencia() <= 2*t.getCantidadMinima());
         actualizarJList();
     }
 
@@ -138,7 +139,17 @@ public class CInventarioImpl implements CInventario {
 
     @Override
     public void clickBtnEliminar(ActionEvent e) {
+        int opc = JOptionPane.showConfirmDialog(miVentanaInventario,
+                    "Esta seguro que desea eliminar el producto", "Eliminar producto",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
+        if (opc == 0) {
+            
+            int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
+            listProdFilt.eliminar(indSelec);
+            
+            actualizarJList();
+        }
     }
 
     @Override

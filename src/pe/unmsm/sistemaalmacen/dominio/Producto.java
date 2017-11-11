@@ -5,6 +5,8 @@
  */
 package pe.unmsm.sistemaalmacen.dominio;
 
+import java.sql.Blob;
+
 /**
  *
  * @author Miguel
@@ -21,6 +23,7 @@ public class Producto {
     private float cantidadMinima;
     private float existencia;
     private float precioUnitario;
+    private Blob imagen;
     //private  imagen;
 
     public Producto(int codigo, String nombre, String marca, String modelo,
@@ -35,8 +38,34 @@ public class Producto {
         this.cantidadMinima = cantidadMinima;
         this.existencia = existencia;
         this.precioUnitario = precioUnitario;
+        this.imagen = null;
     }
 
+    public Producto(int codigo, String nombre, String marca, String modelo,
+            Categoria cat, String unidadDeMedida, String ubicacion,
+            float cantidadMinima,float existencia, float precioUnitario,
+            Blob imagen) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.cat = cat;
+        this.unidadDeMedida = unidadDeMedida;
+        this.ubicacion = ubicacion;
+        this.cantidadMinima = cantidadMinima;
+        this.existencia = existencia;
+        this.precioUnitario = precioUnitario;
+        this.imagen = imagen;
+    }
+
+    public Blob getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Blob imagen) {
+        this.imagen = imagen;
+    }
+    
     public int getCodigo() {
         return codigo;
     }

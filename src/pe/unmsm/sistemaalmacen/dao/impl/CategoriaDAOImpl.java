@@ -64,7 +64,39 @@ public class CategoriaDAOImpl implements CategoriaDAO{
     }
 
     @Override
-    public Categoria get(Integer id) {
+    public Categoria get(Integer id) {try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            Categoria categoria = null;
+            
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+campoCodCategoria+","+campoDescrip+" FROM "
+                    +nombreTabla+" WHERE "+campoCodCategoria+" = "+id.toString();
+            
+            pstmt = conn.prepareStatement(query);
+            
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            if (rs.next()) {
+                String descrip = rs.getString(campoDescrip);
+                
+                categoria = new Categoria(id, descrip);
+            }
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            return categoria;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        /* Si no encontro ningun dato, retornamos null */
         return null;
     }
 

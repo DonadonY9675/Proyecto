@@ -40,7 +40,7 @@ public class ProductoDAOImpl implements ProductoDAO{
         
         //prueba
         ListaDoble<Producto> miLista = new ListaDoble();
-        miLista.insertarAlInicio(new Producto(1,"Televisor","LG","HG002",
+        miLista.insertarAlInicio(new Producto(1,"Televisor LG 55º pulgadas","LG","HG002",
                 "Unidades","ESTAND 01",1,0,730));
         miLista.insertarAlInicio(new Producto(2,"Lavadora","LG","LV002",
                 "Unidades","ESTAND 02",1,5,650));
@@ -52,7 +52,7 @@ public class ProductoDAOImpl implements ProductoDAO{
                 "Kg","ESTAND 01",3,5.5f,4.5f));
         miLista.insertarAlInicio(new Producto(6,"Cereal","Angel","N/A",
                 "Bolsas de 50g c/u","ESTAND 02",5,25,4));
-         miLista.insertarAlInicio(new Producto(7,"Televisor","Samsung","KI000",
+         miLista.insertarAlInicio(new Producto(7,"Televisor Samsung 30º pulgadas","Samsung","KI000",
                 "Unidades","ESTAND 01",1,0,3000));
         miLista.insertarAlInicio(new Producto(8,"Celular","Sony","SG001",
                 "Unidades","ESTAND 03",5,25,200));

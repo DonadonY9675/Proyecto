@@ -24,7 +24,7 @@ import pe.unmsm.sistemaalmacen.vista.VentanaReporteEntrada;
  *
  * @author Miguel
  */
-public abstract class CPadreReportesIngresoSalida {
+public abstract class CPadreReportesIngresoSalidaImpl {
 
     VPadreReportesIngresoSalida vRepIngSal;
 

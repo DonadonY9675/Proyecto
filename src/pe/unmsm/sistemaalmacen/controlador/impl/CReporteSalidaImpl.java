@@ -14,7 +14,7 @@ import pe.unmsm.sistemaalmacen.vista.VentanaReporteSalida;
  *
  * @author Miguel
  */
-public class CReporteSalidaImpl extends CPadreReportesIngresoSalida implements CReporteSalida{
+public class CReporteSalidaImpl extends CPadreReportesIngresoSalidaImpl implements CReporteSalida{
   
     
     @Override
