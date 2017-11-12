@@ -5,19 +5,24 @@
  */
 package pe.unmsm.sistemaalmacen.util;
 
+import com.mysql.jdbc.Blob;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -33,7 +38,7 @@ import pe.unmsm.sistemaalmacen.dominio.Usuario;
  *
  * @author Miguel
  */
-public abstract class Constantes {
+public abstract class Utils {
 
     /**
      * Esta clase guarda funciones estaticas que se utilizaran durante todo el programa,
@@ -124,6 +129,13 @@ public abstract class Constantes {
         TableRowSorter<TableModel> ordenar = new TableRowSorter<>(modelo);
         jTable.setRowSorter(ordenar);
 
+    }
+    
+    public Image convertirAImagen(Blob b) throws SQLException, IOException{
+        InputStream in = b.getBinaryStream();
+        BufferedImage c = ImageIO.read(in);
+        
+        return c;
     }
 
 }

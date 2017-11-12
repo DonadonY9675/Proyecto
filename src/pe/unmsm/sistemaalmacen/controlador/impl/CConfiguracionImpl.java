@@ -13,7 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.unmsm.sistemaalmacen.controlador.CConfiguracion;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.service.impl.ConfiguracionServiceImpl;
 import pe.unmsm.sistemaalmacen.vista.VentanaConfiguracion;
 import pe.unmsm.sistemaalmacen.vista.VentanaMenuPrincipal;
@@ -41,8 +41,8 @@ public class CConfiguracionImpl implements CConfiguracion {
     @Override
     public void clickBtnGuardar(ActionEvent evt) {
         configService.modificar(vConf);
-        Constantes.logo = vConf.txtLogo.getText();
-        Constantes.cargarLogo(vMenuPrincipal, vMenuPrincipal.lblLogo);
+        Utils.logo = vConf.txtLogo.getText();
+        Utils.cargarLogo(vMenuPrincipal, vMenuPrincipal.lblLogo);
         vConf.dispose();
     }
 
@@ -62,7 +62,7 @@ public class CConfiguracionImpl implements CConfiguracion {
 
         archivo.addChoosableFileFilter(filtro);
         archivo.setFileFilter(filtro);
-        archivo.setDialogTitle("Excojer Logotipo de Empresa");
+        archivo.setDialogTitle("Escoger Logotipo de Empresa");
         File ruta = new File("C:/");
 
         archivo.setCurrentDirectory(ruta);

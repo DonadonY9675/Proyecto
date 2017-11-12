@@ -117,7 +117,6 @@ public class CInventarioImpl implements CInventario {
 
     @Override
     public void clickBtnProxAgot(ActionEvent e) {
-        //MEJORAR PREDICADO, IDEAS??
         listProdFilt = listProdComp.filtrar(
                 (t) -> t.getExistencia() <= 2*t.getCantidadMinima());
         actualizarJList();

@@ -32,10 +32,37 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
     
     @Override
     public boolean modificar(Configuracion elem) {
-        //Logica de actualizacion en BD
-        //UPDATE
-        return true;
+        try {
 
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "UPDATE INTO "+nombreTabla+" ("+campoNombreEmp+","
+                    +campoLogo+","+campoRUC+","+campoDireccion+","+campoIgv+") "
+                    + "VALUES (?,?,?,?,?);";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, elem.getNombreEmpresa());
+            pstmt.setString(2, elem.getLogo());
+            pstmt.setString(3, elem.getRUC());
+            pstmt.setString(4, elem.getDireccion());
+            pstmt.setDouble(5, elem.getIGV());
+
+            pstmt.executeUpdate();
+
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        return false;
     }
     
     //solo habrá una configuracion con ID = 1

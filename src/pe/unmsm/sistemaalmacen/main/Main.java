@@ -13,7 +13,7 @@ import pe.unmsm.sistemaalmacen.controlador.impl.CLoginImpl;
 import pe.unmsm.sistemaalmacen.controlador.impl.CMenuPrincipalImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.ConfiguracionDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Configuracion;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 
 /**
  *
@@ -53,8 +53,8 @@ public class Main {
     public void cargarConfiguracionInicial() {
 
         Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get("1");
-        Constantes.IGV = miConfiguracionInicial.getIGV();
-        Constantes.logo = miConfiguracionInicial.getLogo();
+        Utils.IGV = miConfiguracionInicial.getIGV();
+        Utils.logo = miConfiguracionInicial.getLogo();
 
     }
 }

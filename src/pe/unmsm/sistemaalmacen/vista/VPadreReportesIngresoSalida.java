@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
 import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
@@ -426,7 +426,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         rbtnUsuario.setSelected(true);
         actualizarTabla();
         actualizarDatos();
-        Constantes.cargarLogo(this, lblLogo);
+        Utils.cargarLogo(this, lblLogo);
     }
 
     public void actualizarLista() {
@@ -450,9 +450,9 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         int pos = lstProductos.getSelectedIndex();
 
         if (pos != -1) {
-            Constantes.llenarTabla(jTable, miListaRegistrosFiltrado.get(pos).getListaProductos());
+            Utils.llenarTabla(jTable, miListaRegistrosFiltrado.get(pos).getListaEntradaSalida());
         } else {
-            Constantes.llenarTabla(jTable, new ListaDoble<>());
+            Utils.llenarTabla(jTable, new ListaDoble<>());
         }
     }
 
@@ -463,7 +463,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             txtFolio.setText(miListaRegistrosFiltrado.get(pos).getFolio() + "");
             txtTotal.setText(miListaRegistrosFiltrado.get(pos).getTotal() + "");
             txtUsuario.setText(miListaRegistrosFiltrado.get(pos).getUsusario());
-            txtFecha.setText(Constantes.convertirDateSQLaString(miListaRegistrosFiltrado.get(pos).getFecha()));
+            txtFecha.setText(Utils.convertirDateSQLaString(miListaRegistrosFiltrado.get(pos).getFecha()));
             txtObservaciones.setText(miListaRegistrosFiltrado.get(pos).getObservaciones());
             txtSubTotal.setText(df.format(miListaRegistrosFiltrado.get(pos).getSubTotal()));
             txtImpuesto.setText(df.format(miListaRegistrosFiltrado.get(pos).getImpuestos()));

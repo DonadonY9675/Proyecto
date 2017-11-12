@@ -6,9 +6,9 @@
 package testpackagedao;
 
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
-import pe.unmsm.sistemaalmacen.daou.UsuarioDao;
 import pe.unmsm.sistemaalmacen.dao.impl.UsuarioDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
+import pe.unmsm.sistemaalmacen.daou.UsuarioDAO;
 
 /**
  *
@@ -17,11 +17,12 @@ import pe.unmsm.sistemaalmacen.dominio.Usuario;
 public class pruebaUsuarioDAO {
     public static void main(String[] args) {
         
-        UsuarioDao dao = new UsuarioDAOImpl();
-//        Usuario us = new Usuario("us003", "022", true);
+        UsuarioDAO dao = new UsuarioDAOImpl();
+        Usuario us = new Usuario("us003", "022", true);
         
 //        dao.registrar(us);
-//        dao.eliminar("segundoUs03");
+        us.setNombre("gustavo");
+        dao.modificar(us);
 //        Usuario p = dao.get("admin01");
         
         ListaDoble<Usuario> lista = dao.getAll();

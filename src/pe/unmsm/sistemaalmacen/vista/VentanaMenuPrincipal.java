@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
 import javax.swing.ImageIcon;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 
 /**
  *
@@ -233,15 +233,15 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         //cargando lbl
-        lblUsuarioActual.setText(Constantes.USER.getNombre());
-        lblPermisos.setText((Constantes.USER.isEsAdmin()) ? "Administrador" : "Usuario");
+        lblUsuarioActual.setText(Utils.USER.getNombre());
+        lblPermisos.setText((Utils.USER.isEsAdmin()) ? "Administrador" : "Usuario");
 
         //cargando el icono
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pe/unmsm/sistemaalmacen/images/logo.png"));
         setIconImage(icon);
 
         //cargando logo
-        Constantes.cargarLogo(this, lblLogo);
+        Utils.cargarLogo(this, lblLogo);
         
         //getClass().getResource("/proy/images/logo.png")
 //ImageIcon(getClass().getResource("/proy/images/pass.png"))

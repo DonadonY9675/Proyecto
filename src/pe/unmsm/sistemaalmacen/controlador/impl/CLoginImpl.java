@@ -9,19 +9,19 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.controlador.CLogin;
-import pe.unmsm.sistemaalmacen.daou.UsuarioDao;
 import pe.unmsm.sistemaalmacen.dao.impl.UsuarioDAOImpl;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 import pe.unmsm.sistemaalmacen.vista.VentanaLogIn;
 import pe.unmsm.sistemaalmacen.vista.VentanaMenuPrincipal;
+import pe.unmsm.sistemaalmacen.daou.UsuarioDAO;
 /**
  *
  * @author Miguel
  */
 public class CLoginImpl implements CLogin{
     private VentanaLogIn miVentanaLogIn;
-    private UsuarioDao usuarioDao = new UsuarioDAOImpl();
+    private UsuarioDAO usuarioDao = new UsuarioDAOImpl();
     
     @Override
     public void setVentanaLogin(VentanaLogIn ventana){
@@ -33,23 +33,22 @@ public class CLoginImpl implements CLogin{
     
     @Override
     public void clickbtnEntrar(ActionEvent evt) {
-        boolean existe=false;
         String nombreUsuario = miVentanaLogIn.jTextFieldUsuario.getText();
         String password = String.valueOf(miVentanaLogIn.jPasswordFieldContrasenia.getPassword());
          
         //COMPROBAR EXISTENCIA DE USUARIO
         //---------------------------------------------------
-        existe=true;
+//        Usuario usuario = usuarioDao.get(nombreUsuario);
+        Usuario usuario = new Usuario(nombreUsuario, password, true);
         //---------------------------------------------------
         
-        if(existe){
+        if(usuario!=null && usuario.getContrasenia().equals(password)){
             
-            Usuario usuario = new Usuario(nombreUsuario, password, true);
-            Constantes.USER = usuario;
+            Utils.USER = usuario;
             
             VentanaMenuPrincipal ventanaPrincipal = new VentanaMenuPrincipal();
-            CMenuPrincipalImpl coordinadorNuevaSalida = new CMenuPrincipalImpl();
-            coordinadorNuevaSalida.setVentanaMenuPrincipal(ventanaPrincipal);
+            CMenuPrincipalImpl coordinadorVentPrinc = new CMenuPrincipalImpl();
+            coordinadorVentPrinc.setVentanaMenuPrincipal(ventanaPrincipal);
             ventanaPrincipal.setLocationRelativeTo(null);
             ventanaPrincipal.setVisible(true);
             miVentanaLogIn.dispose();

@@ -5,39 +5,128 @@
  */
 package pe.unmsm.sistemaalmacen.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import pe.unmsm.sistemaalmacen.daou.AccesoDB;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dominio.Usuario;
 
 /**
  * 
  */
 public class ProductoDAOImpl implements ProductoDAO{
+    private final AccesoDB accesoDB = new AccesoDB();
     
     // Nombre de la tabla y sus campos en la base de datos
     private final String nombreTabla="producto";
+    
+    private final String campoCodigo="codigoProducto";
     private final String campoNombre="nombre";
     private final String campoMarca="marca";
     private final String campoModelo="modelo";
     private final String campoUniMed="unidadDeMedida";
     private final String campoUbic="ubicacion";
     private final String campoCantMin="cantidadMinima";
-    private final String campoExsMin="existencias";
+    private final String campoExsist="existencias";
     private final String campoPrecUnit="precioUnitario";
     private final String campoCodCat="codigoCategoria";
     
     @Override
     public boolean registrar(Producto elem) {
-        //Logica de registro en BD
-        //INSERT
-        return true;
+         try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "INSERT INTO "+nombreTabla+" ("+campoCodigo+","
+                    +campoNombre+","+campoMarca+","+campoModelo+","+campoUniMed+
+                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
+                    +campoPrecUnit+")VALUES(?,?,?,?,?,?,?,?,?);";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, elem.getCodigo());
+            pstmt.setString(2, elem.getNombre());
+            pstmt.setString(3, elem.getMarca());
+            pstmt.setString(4, elem.getModelo());
+            pstmt.setString(5, elem.getUnidadDeMedida());
+            pstmt.setString(6, elem.getUbicacion());
+            pstmt.setFloat(7, elem.getCantidadMinima());
+            pstmt.setFloat(8, elem.getExistencia());
+            pstmt.setFloat(9, elem.getPrecioUnitario());
+            //pstmt.setString(10, elem.());
+
+            pstmt.executeUpdate();
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
 
     @Override
     public ListaDoble<Producto> getAll() {
         //Logica para buscar todos
         //SELECT
-        
+//        try {
+//
+//            ResultSet rs = null;
+//            Connection conn = null;
+//            PreparedStatement pstmt = null;
+//            ListaDoble<Producto> listaProductos = new ListaDoble<>();
+//            
+//            /* Preparamos la conexion hacia la base de datos */
+//            conn = accesoDB.getConexion();
+//
+//            /* Preparamos la sentencia SQL a ejecutar */
+//            String query = "SELECT "+campoCodigo+","+campoNombre+","+
+//                    campoMarca+","+campoModelo+","+campoUniMed+
+//                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
+//                    +campoPrecUnit+" FROM "
+//                    +nombreTabla;
+//            
+//            pstmt = conn.prepareStatement(query);
+//            
+//            /* Ejecutamos la sentencias SQL */
+//            rs = pstmt.executeQuery();
+//
+//            /* Obtenemos los datos seleccionados */
+//            while (rs.next()) {
+//                int codigo  = rs.getInt(campoCodigo);
+//                String nombre = rs.getString(campoNombre);
+//                String marca = rs.getString(campoMarca);
+//                String modelo = rs.getString(campoModelo);
+//                String unidadMedida = rs.getString(campoUniMed);
+//                String ubicacion = rs.getString(campoUbic);
+//                float cantidadMin = rs.getFloat(campoCantMin);
+//                float existencias = rs.getFloat(campoExsist);
+//                float precioUni = rs.getFloat(campoPrecUnit);
+//                
+//                listaProductos.insertarAlInicio(new Producto(codigo, nombre,
+//                        marca, modelo, unidadMedida, ubicacion, cantidadMin,
+//                        existencias, precioUni));
+//            }
+//            
+//            accesoDB.cerrarConexion(conn, pstmt);
+//            
+//            return listaProductos;
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//
+//        /* Si no encontro ningun dato, retornamos null */
+//        return null;
+    
         //prueba
         ListaDoble<Producto> miLista = new ListaDoble();
         miLista.insertarAlInicio(new Producto(1,"Televisor LG 55º pulgadas","LG","HG002",
@@ -64,25 +153,128 @@ public class ProductoDAOImpl implements ProductoDAO{
 
     @Override
     public Producto get(Integer ID) {
-        //Logica de buscar por ID
-        //SELECT
-        //WHERE ID = ELEM
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            Producto producto = null;
+            
+            /* Preparamos la conexion hacia la base de datos */
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+campoCodigo+","+campoNombre+","+
+                    campoMarca+","+campoModelo+","+campoUniMed+
+                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
+                    +campoPrecUnit+" FROM "
+                    +nombreTabla+ " WHERE "+campoCodigo+ " = ?";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, ID);
+            
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            if (rs.next()) {
+                int codigo  = rs.getInt(campoCodigo);
+                String nombre = rs.getString(campoNombre);
+                String marca = rs.getString(campoMarca);
+                String modelo = rs.getString(campoModelo);
+                String unidadMedida = rs.getString(campoUniMed);
+                String ubicacion = rs.getString(campoUbic);
+                float cantidadMin = rs.getFloat(campoCantMin);
+                float existencias = rs.getFloat(campoExsist);
+                float precioUni = rs.getFloat(campoPrecUnit);
+                
+                producto = new Producto(codigo, nombre,
+                        marca, modelo, unidadMedida, ubicacion, cantidadMin,
+                        existencias, precioUni);
+            }
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            return producto;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
         return null;
     }
 
     @Override
     public boolean modificar(Producto elem) {
-        //Logica de actualizacion en BD
-        //UPDATE
-        return true;
+        try {
 
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            Producto producto = null;
+            
+            /* Preparamos la conexion hacia la base de datos */
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "UPDATE "+nombreTabla+" SET "+campoCodigo+"= ?,"+
+                    campoNombre+" = ?,"+campoMarca+" = ?,"+campoModelo+" = ?,"+
+                    campoUniMed+" = ?,"+campoUbic+" = ?,"+campoCantMin+" = ?,"+
+                    campoExsist+" = ?,"+campoPrecUnit+" = ? WHERE "+campoCodigo+
+                    " = ?;";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, elem.getCodigo());
+            pstmt.setString(2,elem.getNombre());
+            pstmt.setString(3,elem.getMarca());
+            pstmt.setString(4,elem.getModelo());
+            pstmt.setString(5,elem.getUnidadDeMedida());
+            pstmt.setString(6,elem.getUbicacion());
+            pstmt.setFloat(7, elem.getCantidadMinima());
+            pstmt.setFloat(8, elem.getExistencia());
+            pstmt.setFloat(9, elem.getPrecioUnitario());
+                
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        return false;
+        
     }
 
     @Override
-    public boolean eliminar(Integer elem) {
-        //Logica de eliminacion en BD
-        //DELETE
-        return true;
+    public boolean eliminar(Integer ID) {
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "DELETE FROM "+nombreTabla+" WHERE "
+                    +campoCodigo+" = ?;";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, ID);
+
+            pstmt.executeUpdate();
+
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
 
 

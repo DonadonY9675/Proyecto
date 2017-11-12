@@ -13,7 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
 import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
 import pe.unmsm.sistemaalmacen.dominio.RegistroSalida;
@@ -86,10 +86,10 @@ public abstract class CPadreReportesIngresoSalidaImpl {
         if (vRepIngSal.jDateFecha.getDate() == null) {
             JOptionPane.showMessageDialog(vRepIngSal, "ERROR!!!, Seleccione una fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            String fecha = Constantes.convertirDateSQLaString(
+            String fecha = Utils.convertirDateSQLaString(
                     new java.sql.Date(vRepIngSal.jDateFecha.getDate().getTime()));
             vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                    .filtrar(u -> Constantes.convertirDateSQLaString(u.getFecha()).equals(fecha));
+                    .filtrar(u -> Utils.convertirDateSQLaString(u.getFecha()).equals(fecha));
         }
     }
 
@@ -144,10 +144,10 @@ public abstract class CPadreReportesIngresoSalidaImpl {
             if (vRepIngSal.jDateFecha.getDate() == null) {
                 JOptionPane.showMessageDialog(vRepIngSal, "ERROR!!!, Seleccione una fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
-                String fecha = Constantes.convertirDateSQLaString(
+                String fecha = Utils.convertirDateSQLaString(
                         new java.sql.Date(vRepIngSal.jDateFecha.getDate().getTime()));
                 vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                        .filtrar(u -> Constantes.convertirDateSQLaString(u.getFecha()).equals(fecha));
+                        .filtrar(u -> Utils.convertirDateSQLaString(u.getFecha()).equals(fecha));
             }
         } else if (vRepIngSal.rbtnFolio.isSelected()) {
             vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta

@@ -8,6 +8,7 @@ package pe.unmsm.sistemaalmacen.service.impl;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.dao.impl.RegistroEntradaDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
+import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
 import pe.unmsm.sistemaalmacen.service.RegistroEntradaService;
 
 /**
@@ -16,7 +17,7 @@ import pe.unmsm.sistemaalmacen.service.RegistroEntradaService;
  */
 public class RegistroEntradaServiceImpl implements RegistroEntradaService{
 
-    RegistroEntradaDAOImpl registroEnradaDAO  = new RegistroEntradaDAOImpl();
+    RegistroEntradaDAOImpl registroEntradaDAO  = new RegistroEntradaDAOImpl();
     
     @Override
     public boolean registrar(Registro e) {
@@ -29,7 +30,7 @@ public class RegistroEntradaServiceImpl implements RegistroEntradaService{
     }
 
     @Override
-    public Registro get(Integer id) {
+    public RegistroEntrada get(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -38,7 +39,7 @@ public class RegistroEntradaServiceImpl implements RegistroEntradaService{
         /**
          * validacion de todos los datos
          */
-        return registroEnradaDAO.getAll();
+        return registroEntradaDAO.getAll();
     }
 
     @Override

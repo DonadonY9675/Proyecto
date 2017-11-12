@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 
 /**
@@ -315,28 +315,28 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public void iniciarComponentes(){
-        txtUsuario.setText(Constantes.USER.getNombre());   
-        txtFecha.setText(Constantes.fechaActual());
-        Constantes.cargarLogo(this,lblLogo);
+        txtUsuario.setText(Utils.USER.getNombre());   
+        txtFecha.setText(Utils.fechaActual());
+        Utils.cargarLogo(this,lblLogo);
     }
 
     public void actualizarDatos() {
-        Constantes.llenarTabla(jTable, miListaProductos);
+        Utils.llenarTabla(jTable, miListaProductos);
         calcularTotalyLlenar();
     }
     
     public void calcularTotalyLlenar(){
         double subTotal = calcularSubTotal();
-        txtSubTotal.setText(Constantes.redondearStr(subTotal));
+        txtSubTotal.setText(Utils.redondearStr(subTotal));
         double impuesto = 0;
         if(btnIncluirImpuesto.isSelected()){
-            impuesto = subTotal * Constantes.IGV;
-            txtImpuesto.setText(Constantes.redondearStr(impuesto));
+            impuesto = subTotal * Utils.IGV;
+            txtImpuesto.setText(Utils.redondearStr(impuesto));
         } else {
             txtImpuesto.setText(" - ");
         }
         
-        txtTotal.setText(Constantes.redondearStr(subTotal + impuesto));
+        txtTotal.setText(Utils.redondearStr(subTotal + impuesto));
     }
 
     public double calcularSubTotal(){

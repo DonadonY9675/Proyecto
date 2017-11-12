@@ -6,13 +6,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.daou.AccesoDB;
-import pe.unmsm.sistemaalmacen.daou.UsuarioDao;
+import pe.unmsm.sistemaalmacen.daou.UsuarioDAO;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 /**
  *
  * @author Josecarlos
  */
-public class UsuarioDAOImpl implements UsuarioDao{
+public class UsuarioDAOImpl implements UsuarioDAO{
 
     private final AccesoDB accesoDB = new AccesoDB();
     
@@ -53,46 +53,71 @@ public class UsuarioDAOImpl implements UsuarioDao{
     }
 
     @Override
-    public boolean modificar(Usuario e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean modificar(Usuario usuario) {
+    try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "INSERT INTO "+nombreTabla+" ("+campoNombre
+                    +","+campoContrasenia+","+campoEsAdmin+") VALUES (?,?,?);";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, usuario.getNombre());
+            pstmt.setString(2, usuario.getContrasenia());
+            pstmt.setBoolean(3, usuario.isEsAdmin());
+
+            pstmt.executeUpdate();
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
 
     @Override
     public Usuario get(String id) {
-//        try {
-//
-//            ResultSet rs = null;
-//            Connection conn = null;
-//            PreparedStatement pstmt = null;
-//
-//            /* Preparamos la conexion hacia la base de datos */
-//            conn = DriverManager.getConnection(URL_BASEDEDATOS, USUARIO, PASSWORD);
-//
-//            /* Preparamos la sentencia SQL a ejecutar */
-//            String query = "SELECT "+campoContrasenia+","+campoEsAdmin+" FROM "
-//                    +nombreTabla+" WHERE "+campoNombre+" = ?";
-//            
-//            pstmt = conn.prepareStatement(query);
-//            pstmt.setString(1, id);
-//
-//            /* Ejecutamos la sentencias SQL */
-//            rs = pstmt.executeQuery();
-//
-//            /* Obtenemos los datos seleccionados */
-//            if (rs.next()) {
-//
-//                String contrasenia = rs.getString(campoContrasenia);
-//                boolean esAdmin = rs.getBoolean(campoEsAdmin);
-//                
-//                return new Usuario(id, contrasenia, esAdmin);
-//
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
+        try {
 
-        return new Usuario("Pepito", "123", true);
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
 
+            /* Preparamos la conexion hacia la base de datos */
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+campoContrasenia+","+campoEsAdmin+" FROM "
+                    +nombreTabla+" WHERE "+campoNombre+" = ?";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, id);
+
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            if (rs.next()) {
+
+                String contrasenia = rs.getString(campoContrasenia);
+                boolean esAdmin = rs.getBoolean(campoEsAdmin);
+                
+                return new Usuario(id, contrasenia, esAdmin);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            
+        return null;
     }
 
     @Override
@@ -122,7 +147,8 @@ public class UsuarioDAOImpl implements UsuarioDao{
                 String contrasenia = rs.getString(campoContrasenia);
                 boolean esAdmin = rs.getBoolean(campoEsAdmin);
                 
-                listaUsuarios.insertarAlInicio(new Usuario(nombre, contrasenia, esAdmin));
+                listaUsuarios.insertarAlInicio(new Usuario(nombre, contrasenia,
+                        esAdmin));
             }
             
             accesoDB.cerrarConexion(conn, pstmt);

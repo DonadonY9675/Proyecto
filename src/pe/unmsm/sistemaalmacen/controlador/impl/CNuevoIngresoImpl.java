@@ -8,7 +8,7 @@ package pe.unmsm.sistemaalmacen.controlador.impl;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.controlador.CNuevoIngreso;
-import pe.unmsm.sistemaalmacen.util.Constantes;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
 import pe.unmsm.sistemaalmacen.service.impl.RegistroEntradaServiceImpl;
 
@@ -27,8 +27,8 @@ public class CNuevoIngresoImpl extends CPadreNuevoIngresoSalidaImpl implements C
             //REGISTRO EN LA BASE DE DATOS
             RegistroEntrada registroAguardar = new RegistroEntrada(
                     Integer.parseInt(vIngSal.txtFolio.getText()),
-                    Constantes.convertirFechaAdateSQL(vIngSal.txtFecha.getText()),
-                    Constantes.USER.getNombre(),
+                    Utils.convertirFechaAdateSQL(vIngSal.txtFecha.getText()),
+                    Utils.USER.getNombre(),
                     vIngSal.txtProveedor.getText(),
                     vIngSal.miListaProductos,
                     vIngSal.txtObservaciones.getText(),

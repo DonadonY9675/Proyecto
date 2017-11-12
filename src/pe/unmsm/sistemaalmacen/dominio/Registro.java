@@ -18,18 +18,18 @@ public abstract class Registro {
     private Date fecha;
     private String ususario;
 
-    private ListaDoble<EntradaSalida> listaProductos;
+    private ListaDoble<EntradaSalida> listaEntradaSalida;
     private String observaciones;
 
     private float subTotal;// Sub total es el monto sin considerar impuestos
     private float impuestos;
     private float total;
 
-    public Registro(int folio, Date fecha, String ususario, ListaDoble<EntradaSalida> listaProductos, String observaciones, float subTotal, float impuestos, float total) {
+    public Registro(int folio, Date fecha, String ususario, ListaDoble<EntradaSalida> listaEntradaSalida, String observaciones, float subTotal, float impuestos, float total) {
         this.folio = folio;
         this.fecha = fecha;
         this.ususario = ususario;
-        this.listaProductos = listaProductos;
+        this.listaEntradaSalida = listaEntradaSalida;
         this.observaciones = observaciones;
         this.subTotal = subTotal;
         this.impuestos = impuestos;
@@ -70,12 +70,12 @@ public abstract class Registro {
         this.subTotal = subTotal;
     }
 
-    public ListaDoble<EntradaSalida> getListaProductos() {
-        return listaProductos;
+    public ListaDoble<EntradaSalida> getListaEntradaSalida() {
+        return listaEntradaSalida;
     }
 
     public void setListaProductos(ListaDoble<EntradaSalida> listaProductos) {
-        this.listaProductos = listaProductos;
+        this.listaEntradaSalida = listaProductos;
     }
 
     public String getObservaciones() {
