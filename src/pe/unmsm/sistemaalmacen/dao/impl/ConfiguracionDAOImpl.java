@@ -7,7 +7,6 @@ package pe.unmsm.sistemaalmacen.dao.impl;
 
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.daou.ConfiguracionDAO;

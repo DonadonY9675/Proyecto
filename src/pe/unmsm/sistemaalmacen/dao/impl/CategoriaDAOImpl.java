@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pe.unmsm.sistemaalmacen.dao.impl;
 
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.daou.AccesoDB;
@@ -40,11 +34,12 @@ public class CategoriaDAOImpl implements CategoriaDAO{
             conn = accesoDB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "INSERT INTO "+nombreTabla+" ("+campoDescrip+") "
-                    + "VALUES (?);";
+            String query = "INSERT INTO "+nombreTabla+" ("+campoCodCategoria+","
+                    +campoDescrip+") "+ "VALUES (?,?);";
             
             pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, nuevaCat.getDescripcion());
+            pstmt.setInt(1, nuevaCat.getCodigo());
+            pstmt.setString(2, nuevaCat.getDescripcion());
 
             pstmt.executeUpdate();
 
@@ -59,8 +54,34 @@ public class CategoriaDAOImpl implements CategoriaDAO{
     }
 
     @Override
-    public boolean modificar(Categoria e) {
-        return true;
+    public boolean modificar(Categoria elem) {
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "UPDATE "+nombreTabla+" SET ("+campoCodCategoria
+                    +"= ?,"+campoDescrip+"= ? WHERE "+campoCodCategoria+" = ?;";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, elem.getCodigo());
+            pstmt.setString(2, elem.getDescripcion());
+
+            pstmt.executeUpdate();
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
 
     @Override
@@ -141,6 +162,31 @@ public class CategoriaDAOImpl implements CategoriaDAO{
 
     @Override
     public boolean eliminar(Integer id) {
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "DELETE FROM "+nombreTabla+" WHERE "
+                    +campoCodCategoria+" = ?;";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         return false;
     }
 

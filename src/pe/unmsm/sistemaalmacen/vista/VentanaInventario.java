@@ -13,6 +13,18 @@ public class VentanaInventario extends javax.swing.JDialog {
     public VentanaInventario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        //EL usuario no padra modificar ningun textfield
+        txtProducto.setEditable(false);
+        txtCodigo.setEditable(false);
+        txtMarca.setEditable(false);
+        txtModelo.setEditable(false);
+        txtExist.setEditable(false);
+        txtPrecUnit.setEditable(false);
+        txtUnidMed.setEditable(false);
+        txtUbicacion.setEditable(false);
+        txtCantMin.setEditable(false);
+        txtCategoria.setEditable(false);
     }
 
     /**

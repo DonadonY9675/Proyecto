@@ -42,9 +42,5 @@ public class pruebaRegistroEntradaDAO {
         
 //        dao.registrar(registroEntrada);
 
-        DetalleEntradaSalidaDAO otroDao = new DetalleEntradaSalidaDAOImpl(registroEntrada.getFolio());
-        
-//        otroDao.registrar(registroEntrada.getListaEntradaSalida().get(0));
-        otroDao.registrar(registroEntrada.getListaEntradaSalida().get(1));
     }
 }

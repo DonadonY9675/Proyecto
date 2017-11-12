@@ -145,5 +145,10 @@ public class Producto {
     public void setPrecioUnitario(float precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "codigo=" + codigo + ", nombre=" + nombre + ", marca=" + marca + ", modelo=" + modelo + ", unidadDeMedida=" + unidadDeMedida + ", ubicacion=" + ubicacion + ", cantidadMinima=" + cantidadMinima + ", existencia=" + existencia + ", precioUnitario=" + precioUnitario + '}';
+    }
     
 }

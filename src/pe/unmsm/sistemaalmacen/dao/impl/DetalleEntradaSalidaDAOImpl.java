@@ -12,15 +12,17 @@ import pe.unmsm.sistemaalmacen.daou.AccesoDB;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.daou.DetalleEntradaSalidaDAO;
+import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dominio.Producto;
 
 /**
  *
  * @author Josecarlos
  */
-public class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalidaDAO{
+public abstract class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalidaDAO{
     private final AccesoDB accesoDB = new AccesoDB();
     
-    private final String nombreTabla = "DetalleEntrada";
+    private String nombreTabla = "---";
     
     private final String campoCodProducto = "Producto_codigoProducto";
     private final String campoFolio = "RegistroEntrada_folio";
@@ -29,7 +31,8 @@ public class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalidaDAO{
 
     private final int folio;
     
-    public DetalleEntradaSalidaDAOImpl(int folio) {
+    public DetalleEntradaSalidaDAOImpl(String nombreTabla,int folio) {
+        this.nombreTabla = nombreTabla;
         this.folio = folio;
     }
     
@@ -80,12 +83,76 @@ public class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalidaDAO{
 
     @Override
     public ListaDoble<EntradaSalida> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ListaDoble<EntradaSalida> listaEntradaSalida = new ListaDoble<>();
+            
+            ProductoDAO productoDAO = new ProductoDAOImpl();
+            
+            /* Preparamos la conexion hacia la base de datos */
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+campoCodProducto+","+campoCantidad+","
+                    +campoMonto+" FROM "+nombreTabla+" WHERE "+campoFolio
+                    +" = "+folio;
+            
+            pstmt = conn.prepareStatement(query);
+            
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            while (rs.next()) {
+                int codigoProducto = rs.getInt(campoCodProducto);
+                int cantidad = (int) rs.getFloat(campoCantidad);
+                float monto = rs.getFloat(campoMonto);
+                Producto producto = productoDAO.get(codigoProducto);
+                
+                listaEntradaSalida.insertarAlInicio(new EntradaSalida(producto, cantidad, monto));
+            }
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            return listaEntradaSalida;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        /* Si no encontro ningun dato, retornamos null */
+        return null;
     }
 
     @Override
     public boolean eliminar(Integer folio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "DELETE FROM "+nombreTabla+" WHERE "
+                    +campoFolio+" = ?;";
+            
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, folio);
+
+            pstmt.executeUpdate();
+
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
     
 }
