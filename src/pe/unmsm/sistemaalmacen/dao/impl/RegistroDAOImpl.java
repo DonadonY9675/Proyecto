@@ -72,10 +72,10 @@ public abstract class RegistroDAOImpl implements RegistroDAO{
 
             pstmt.executeUpdate();
             
-            DetalleEntradaSalidaDAO detalleDAO = obtenerDetalleDAO(elem.getFolio());
+            DetalleEntradaSalidaDAO detalleDAO = obtenerTipoDetalleDAO(elem.getFolio());
   
-            //FALTA REGISTRAR LOS DETALLESENTRADASALIDA AQUI
-//            detalleDAO.registrar(elem.getListaProductos());
+            //Registra cada detalle entrada salida en la base de datos
+            elem.getListaEntradaSalida().stream().forEach(detalleDAO::registrar);
             
             accesoDB.cerrarConexion(conn, pstmt);
             //Devuelve true si las sentencias se han ejecutado correctamente
@@ -100,7 +100,7 @@ public abstract class RegistroDAOImpl implements RegistroDAO{
     @Override
     public ListaDoble<Registro> getAll() {
 //try     {
-//
+
 //            DetalleEntradaSalidaDAO detalleDAO = null;
 //            
 //            ResultSet rs = null;
@@ -133,8 +133,6 @@ public abstract class RegistroDAOImpl implements RegistroDAO{
 //                float total = rs.getFloat(campoTotal);
 //                
 //                detalleDAO = new DetalleEntradaDAOImpl(folio);
-//                
-//                detalleDAO = new DetalleSalidaDAOImpl(folio);
 //                
 //                ListaDoble<EntradaSalida> listaDetalle = detalleDAO.getAll();
 //                
@@ -185,7 +183,31 @@ public abstract class RegistroDAOImpl implements RegistroDAO{
 
     @Override
     public boolean eliminar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "DELETE FROM "+nombreTabla+" WHERE "
+                    +campoFolio+" = ?;";
+           
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
  
 }

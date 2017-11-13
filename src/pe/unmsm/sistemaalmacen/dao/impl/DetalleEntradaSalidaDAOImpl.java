@@ -65,7 +65,7 @@ public abstract class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalid
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         return false;
@@ -81,10 +81,13 @@ public abstract class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalid
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+    Devuelve todos los detalles entrada salida de un folio
+    */
     @Override
     public ListaDoble<EntradaSalida> getAll() {
         try {
-
+            System.out.println("llamada para folio "+folio);
             ResultSet rs = null;
             Connection conn = null;
             PreparedStatement pstmt = null;
@@ -98,15 +101,18 @@ public abstract class DetalleEntradaSalidaDAOImpl implements DetalleEntradaSalid
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "SELECT "+campoCodProducto+","+campoCantidad+","
                     +campoMonto+" FROM "+nombreTabla+" WHERE "+campoFolio
-                    +" = "+folio;
+                    +" = ?;";
             
             pstmt = conn.prepareStatement(query);
             
+            pstmt.setInt(1, folio);
+            System.out.println(query);
             /* Ejecutamos la sentencias SQL */
             rs = pstmt.executeQuery();
 
             /* Obtenemos los datos seleccionados */
             while (rs.next()) {
+                System.out.println("existe");
                 int codigoProducto = rs.getInt(campoCodProducto);
                 int cantidad = (int) rs.getFloat(campoCantidad);
                 float monto = rs.getFloat(campoMonto);

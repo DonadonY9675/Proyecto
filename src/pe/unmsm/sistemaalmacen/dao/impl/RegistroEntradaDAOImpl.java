@@ -8,7 +8,7 @@ public class RegistroEntradaDAOImpl extends RegistroDAOImpl {
     }
 
     @Override
-    public DetalleEntradaSalidaDAO obtenerDetalleDAO(int folio) {
+    public DetalleEntradaSalidaDAO obtenerTipoDetalleDAO(int folio) {
         return new DetalleEntradaDAOImpl(folio);
     }
 }

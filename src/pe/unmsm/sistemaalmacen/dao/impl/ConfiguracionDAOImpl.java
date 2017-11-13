@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.daou.ConfiguracionDAO;
 import pe.unmsm.sistemaalmacen.dominio.Configuracion;
 import java.net.URL;
+import java.sql.Blob;
 import pe.unmsm.sistemaalmacen.daou.AccesoDB;
 
 /**
@@ -28,6 +29,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
     private final String campoRUC="RUC";
     private final String campoDireccion="direccion";
     private final String campoIgv="IGV";
+    private final String campoImagen="imagen";
     
     @Override
     public boolean modificar(Configuracion elem) {
@@ -42,7 +44,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "UPDATE INTO "+nombreTabla+" ("+campoNombreEmp+","
                     +campoLogo+","+campoRUC+","+campoDireccion+","+campoIgv+") "
-                    + "VALUES (?,?,?,?,?);";
+                    + "VALUES (?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, elem.getNombreEmpresa());
@@ -50,6 +52,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
             pstmt.setString(3, elem.getRUC());
             pstmt.setString(4, elem.getDireccion());
             pstmt.setDouble(5, elem.getIGV());
+            pstmt.setBlob(6, elem.getImagen());
 
             pstmt.executeUpdate();
 
@@ -58,7 +61,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         return false;
@@ -78,11 +81,11 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
 //            Class.forName("com.mysql.jdbc.Driver").newInstance();
 //
 //            /* Preparamos la conexion hacia la base de datos */
-//            conn = DriverManager.getConnection(URL_BASEDEDATOS, USUARIO, PASSWORD);
+//            conn = accesoDB.getConexion();
 //
 //            /* Preparamos la sentencia SQL a ejecutar */
 //            String query = "SELECT "+campoNombreEmp+","+campoLogo+","+campoRUC+
-//                    ","+campoDireccion+","+campoIgv+" FROM "+nombreTabla;
+//                    ","+campoDireccion+","+campoIgv+","+campoImagen+" FROM "+nombreTabla;
 //            
 //            pstmt = conn.prepareStatement(query);
 //            
@@ -96,8 +99,9 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
 //                String direccion = rs.getString(campoDireccion);
 //                String ruc = rs.getString(campoRUC);
 //                float igv = rs.getFloat(campoIgv);
+//                Blob imagen = rs.getBlob(campoImagen);
 //                
-//                configuracion = new Configuracion(logo, nombre, ruc, direccion, igv);
+//                configuracion = new Configuracion(logo, nombre, ruc, direccion, igv,imagen);
 //            }
 //            return configuracion;
 //        } catch (Exception e) {
@@ -132,8 +136,8 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
 
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "INSERT INTO "+nombreTabla+" ("+campoNombreEmp+","
-                    +campoLogo+","+campoRUC+","+campoDireccion+","+campoIgv+") "
-                    + "VALUES (?,?,?,?,?);";
+                    +campoLogo+","+campoRUC+","+campoDireccion+","+campoIgv+","
+                    +campoImagen+") "+ "VALUES (?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, nuevaConf.getNombreEmpresa());
@@ -141,6 +145,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
             pstmt.setString(3, nuevaConf.getRUC());
             pstmt.setString(4, nuevaConf.getDireccion());
             pstmt.setDouble(5, nuevaConf.getIGV());
+            pstmt.setBlob(6, nuevaConf.getImagen());
 
             pstmt.executeUpdate();
 
@@ -149,7 +154,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         return false;

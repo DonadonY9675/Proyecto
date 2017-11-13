@@ -46,7 +46,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;

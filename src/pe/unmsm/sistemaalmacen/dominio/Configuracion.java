@@ -5,17 +5,31 @@
  */
 package pe.unmsm.sistemaalmacen.dominio;
 
+import java.sql.Blob;
+
 /**
  *
  * @author Miguel
  */
 public class Configuracion {
 
+    //BORRAR CUANDO DEJE DE SER NECESARIO
     private String logo;
+    
     private String nombreEmpresa;
     private String RUC;
     private String direccion;
     private double IGV;
+    private Blob imagen;
+
+    public Configuracion(String logo, String nombreEmpresa, String RUC, String direccion, double IGV, Blob imagen) {
+        this.logo = logo;
+        this.nombreEmpresa = nombreEmpresa;
+        this.RUC = RUC;
+        this.direccion = direccion;
+        this.IGV = IGV;
+        this.imagen = imagen;
+    }
 
     public Configuracion(String logo, String nombreEmpresa, String RUC, String direccion, double IGV) {
         this.logo = logo;
@@ -63,6 +77,14 @@ public class Configuracion {
 
     public void setIGV(double IGV) {
         this.IGV = IGV;
+    }
+
+    public Blob getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Blob imagen) {
+        this.imagen = imagen;
     }
 
     

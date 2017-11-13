@@ -45,4 +45,10 @@ public class EntradaSalida {
         this.total = total;
     }
 
+    @Override
+    public String toString() {
+        return "EntradaSalida{" + "producto=" + producto + ", cantidad=" + cantidad + ", total=" + total + '}';
+    }
+
+    
 }

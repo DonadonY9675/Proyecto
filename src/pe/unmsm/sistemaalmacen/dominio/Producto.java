@@ -29,16 +29,9 @@ public class Producto {
     public Producto(int codigo, String nombre, String marca, String modelo,
             String unidadDeMedida, String ubicacion,
             float cantidadMinima, float existencia, float precioUnitario) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.unidadDeMedida = unidadDeMedida;
-        this.ubicacion = ubicacion;
-        this.cantidadMinima = cantidadMinima;
-        this.existencia = existencia;
-        this.precioUnitario = precioUnitario;
-        this.imagen = null;
+        
+        this(codigo,nombre,marca,modelo,null,unidadDeMedida,ubicacion,
+                cantidadMinima,existencia,precioUnitario,null);
     }
 
     public Producto(int codigo, String nombre, String marca, String modelo,
@@ -56,6 +49,11 @@ public class Producto {
         this.existencia = existencia;
         this.precioUnitario = precioUnitario;
         this.imagen = imagen;
+    }
+
+    public Producto(int codigo, String nombre, String marca, String modelo, Categoria cat, String unidadDeMedida, String ubicacion, float cantidadMinima, float existencia, float precioUnitario) {
+        this(codigo,nombre,marca,modelo,cat,unidadDeMedida,ubicacion,
+                cantidadMinima,existencia,precioUnitario,null);
     }
 
     public Blob getImagen() {
@@ -148,7 +146,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "codigo=" + codigo + ", nombre=" + nombre + ", marca=" + marca + ", modelo=" + modelo + ", unidadDeMedida=" + unidadDeMedida + ", ubicacion=" + ubicacion + ", cantidadMinima=" + cantidadMinima + ", existencia=" + existencia + ", precioUnitario=" + precioUnitario + '}';
+        return "Producto{" + "codigo=" + codigo + ", nombre=" + nombre + ", marca=" + marca + ", modelo=" + modelo+", cateloria=" + cat + ", unidadDeMedida=" + unidadDeMedida + ", ubicacion=" + ubicacion + ", cantidadMinima=" + cantidadMinima + ", existencia=" + existencia + ", precioUnitario=" + precioUnitario + '}';
     }
     
 }

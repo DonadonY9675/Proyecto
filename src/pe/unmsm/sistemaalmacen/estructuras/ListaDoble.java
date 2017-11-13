@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  *  cAMBIAR NOMBERE A PAQUTES A pe.unmsm.sistemas...
@@ -298,5 +300,11 @@ public class ListaDoble<T> implements Iterable<T> {
     
     public int size(){
         return tam;
+    }
+    
+    public Stream<T> stream() {
+        Iterator<T> iterator = iterator();
+        Iterable<T> iterable = () -> iterator;
+        return StreamSupport.stream(iterable.spliterator(), false);
     }
 }

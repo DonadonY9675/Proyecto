@@ -5,13 +5,16 @@
  */
 package pe.unmsm.sistemaalmacen.dao.impl;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.daou.AccesoDB;
+import pe.unmsm.sistemaalmacen.daou.CategoriaDAO;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 
 /**
@@ -33,6 +36,7 @@ public class ProductoDAOImpl implements ProductoDAO{
     private final String campoExsist="existencias";
     private final String campoPrecUnit="precioUnitario";
     private final String campoCodCat="codigoCategoria";
+    private final String campoImagen="imagen";
     
     @Override
     public boolean registrar(Producto elem) {
@@ -48,7 +52,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             String query = "INSERT INTO "+nombreTabla+" ("+campoCodigo+","
                     +campoNombre+","+campoMarca+","+campoModelo+","+campoUniMed+
                     ","+campoUbic+","+campoCantMin+","+campoExsist+","
-                    +campoPrecUnit+")VALUES(?,?,?,?,?,?,?,?,?);";
+                    +campoPrecUnit+","+campoImagen+")VALUES(?,?,?,?,?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, elem.getCodigo());
@@ -60,7 +64,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             pstmt.setFloat(7, elem.getCantidadMinima());
             pstmt.setFloat(8, elem.getExistencia());
             pstmt.setFloat(9, elem.getPrecioUnitario());
-            //pstmt.setString(10, elem.());
+            pstmt.setBlob(10, elem.getImagen());
 
             pstmt.executeUpdate();
             
@@ -68,7 +72,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;
@@ -80,6 +84,8 @@ public class ProductoDAOImpl implements ProductoDAO{
         //SELECT
 //        try {
 //
+//            CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
+//            
 //            ResultSet rs = null;
 //            Connection conn = null;
 //            PreparedStatement pstmt = null;
@@ -92,7 +98,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 //            String query = "SELECT "+campoCodigo+","+campoNombre+","+
 //                    campoMarca+","+campoModelo+","+campoUniMed+
 //                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
-//                    +campoPrecUnit+" FROM "
+//                    +campoPrecUnit+","+campoImagen+","+campoCodCat+" FROM "
 //                    +nombreTabla;
 //            
 //            pstmt = conn.prepareStatement(query);
@@ -111,10 +117,14 @@ public class ProductoDAOImpl implements ProductoDAO{
 //                float cantidadMin = rs.getFloat(campoCantMin);
 //                float existencias = rs.getFloat(campoExsist);
 //                float precioUni = rs.getFloat(campoPrecUnit);
+//                Blob imagen = rs.getBlob(campoImagen);
+//                int codigoCategoria = rs.getInt(campoCodCat);
+//                
+//                Categoria categoria = categoriaDAO.get(codigo);
 //                
 //                listaProductos.insertarAlInicio(new Producto(codigo, nombre,
-//                        marca, modelo, unidadMedida, ubicacion, cantidadMin,
-//                        existencias, precioUni));
+//                        marca, modelo, categoria, unidadMedida, ubicacion,
+//                        cantidadMin, existencias, precioUni,imagen));
 //            }
 //            
 //            accesoDB.cerrarConexion(conn, pstmt);
@@ -160,15 +170,17 @@ public class ProductoDAOImpl implements ProductoDAO{
             PreparedStatement pstmt = null;
             Producto producto = null;
             
+            CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
+            
             /* Preparamos la conexion hacia la base de datos */
             conn = accesoDB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "SELECT "+campoCodigo+","+campoNombre+","+
-                    campoMarca+","+campoModelo+","+campoUniMed+
+                    campoMarca+","+campoModelo+","+campoCodCat+","+campoUniMed+
                     ","+campoUbic+","+campoCantMin+","+campoExsist+","
-                    +campoPrecUnit+" FROM "
-                    +nombreTabla+ " WHERE "+campoCodigo+ " = ?";
+                    +campoPrecUnit+","+campoImagen+" FROM " +nombreTabla+ " WHERE "
+                    +campoCodigo+ " = ?";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, ID);
@@ -182,15 +194,19 @@ public class ProductoDAOImpl implements ProductoDAO{
                 String nombre = rs.getString(campoNombre);
                 String marca = rs.getString(campoMarca);
                 String modelo = rs.getString(campoModelo);
+                int codigoCategoria = rs.getInt(campoCodCat);
                 String unidadMedida = rs.getString(campoUniMed);
                 String ubicacion = rs.getString(campoUbic);
                 float cantidadMin = rs.getFloat(campoCantMin);
                 float existencias = rs.getFloat(campoExsist);
                 float precioUni = rs.getFloat(campoPrecUnit);
+                Blob imagen = rs.getBlob(campoImagen);
+                
+                Categoria categoria = categoriaDAO.get(codigoCategoria);
                 
                 producto = new Producto(codigo, nombre,
-                        marca, modelo, unidadMedida, ubicacion, cantidadMin,
-                        existencias, precioUni);
+                        marca, modelo,categoria, unidadMedida, ubicacion, cantidadMin,
+                        existencias, precioUni,imagen);
             }
             
             accesoDB.cerrarConexion(conn, pstmt);

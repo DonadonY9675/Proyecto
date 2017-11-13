@@ -13,5 +13,5 @@ import pe.unmsm.sistemaalmacen.dominio.Registro;
  */
 public interface RegistroDAO extends AbstractDAO<Registro, Integer>{
     
-    public abstract DetalleEntradaSalidaDAO obtenerDetalleDAO(int folio);
+    public abstract DetalleEntradaSalidaDAO obtenerTipoDetalleDAO(int folio);
 }

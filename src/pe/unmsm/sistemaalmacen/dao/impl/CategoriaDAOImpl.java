@@ -47,7 +47,7 @@ public class CategoriaDAOImpl implements CategoriaDAO{
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;
@@ -78,7 +78,7 @@ public class CategoriaDAOImpl implements CategoriaDAO{
             return true;
             
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;
@@ -153,7 +153,7 @@ public class CategoriaDAOImpl implements CategoriaDAO{
             
             return listaCategorias;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         /* Si no encontro ningun dato, retornamos null */
@@ -184,7 +184,7 @@ public class CategoriaDAOImpl implements CategoriaDAO{
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;
