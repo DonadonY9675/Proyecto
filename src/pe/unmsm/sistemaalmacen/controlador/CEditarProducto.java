@@ -5,15 +5,17 @@
  */
 package pe.unmsm.sistemaalmacen.controlador;
 
-import pe.unmsm.sistemaalmacen.dominio.Inventario;
+import java.awt.event.ActionEvent;
+import pe.unmsm.sistemaalmacen.vista.VentanaEditarProducto;
 
 /**
  *
  * @author Miguel
  */
 public interface CEditarProducto extends MantenimientoControlador  {
+    public void setVentanaEditarProducto(VentanaEditarProducto ventana);
     
-    /**
-     * aun no implementada
-     */
+    public void clickBtnEditar(ActionEvent e);
+    
+    public void clickBtnExaminar(ActionEvent evt);
 }

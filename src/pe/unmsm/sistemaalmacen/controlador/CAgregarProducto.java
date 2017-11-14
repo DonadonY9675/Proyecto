@@ -5,16 +5,18 @@
  */
 package pe.unmsm.sistemaalmacen.controlador;
 
-import pe.unmsm.sistemaalmacen.dominio.Categoria;
+import java.awt.event.ActionEvent;
+import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 
 /**
  *
- * @author Miguel
+ * @author Anthony
  */
 public interface CAgregarProducto extends MantenimientoControlador {
-    //prototipo de actionListener de la ventanaAgregarProdcuto van aqui
     
-    /**
-     * esta opcion aun no se encuentra implementada
-     */
+    public void setVentanaAgregarProducto(VentanaAgregarProducto ventana);
+    
+    public void clickBtnAgregar(ActionEvent e);
+    
+    public void clickBtnExaminar(ActionEvent e);
 }

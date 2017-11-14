@@ -132,4 +132,40 @@ public abstract class Utils {
         jTable.setRowSorter(ordenar);
 
     }
+    
+    public Image convertirBlobAImagen(java.sql.Blob b) throws SQLException, IOException{
+        InputStream in = b.getBinaryStream();
+        BufferedImage c = ImageIO.read(in);
+        
+        return c;
+    }
+    
+    public static java.sql.Blob convertirImagenABlob ( Image imagen ) {
+
+      java.sql.Blob imagenBlob = null;
+      BufferedImage bi = new BufferedImage ( imagen.getWidth ( null ), imagen.getHeight ( null ), BufferedImage.TYPE_INT_ARGB );
+      Graphics bg = bi.getGraphics ();
+      bg.drawImage ( imagen, 0, 0, null );
+      bg.dispose ();
+
+      ByteArrayOutputStream baos = new ByteArrayOutputStream ();
+      try {
+         ImageIO.write (bi,".jpg", baos );
+         baos.flush ();
+         baos.close ();
+      } catch ( IOException e ) {
+         e.printStackTrace ();
+      }
+
+      byte [] imagenByte = baos.toByteArray ();
+
+      try {
+         imagenBlob = new SerialBlob ( imagenByte );
+      } catch ( SerialException se ) {
+         se.printStackTrace ();
+      } catch ( SQLException sqle ) {
+         sqle.printStackTrace ();
+      }
+      return imagenBlob;
+   }
 }

@@ -13,6 +13,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import pe.unmsm.sistemaalmacen.controlador.CAgregarProducto;
+import pe.unmsm.sistemaalmacen.controlador.CEditarProducto;
 import pe.unmsm.sistemaalmacen.controlador.CInventario;
 import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
@@ -112,15 +114,31 @@ public class CInventarioImpl implements CInventario {
     @Override
     public void clickBtnAgregar(ActionEvent e) {
         VentanaAgregarProducto vAgregarProducto = new VentanaAgregarProducto(null, true);
+        vAgregarProducto.setListaDeProductos(listProdComp);
+        CAgregarProducto cAgregarProducto = new CAgregarProductoImpl();
+        cAgregarProducto.setVentanaAgregarProducto(vAgregarProducto);
         vAgregarProducto.setLocationRelativeTo(null);
         vAgregarProducto.setVisible(true);
     }
 
     @Override
     public void clickBtnEditar(ActionEvent e) {
-        VentanaEditarProducto vEditarProducto = new VentanaEditarProducto(null, true);
-        vEditarProducto.setLocationRelativeTo(null);
-        vEditarProducto.setVisible(true);
+        int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
+        
+        if(indSelec!=-1){
+            VentanaEditarProducto vEditarProducto = new VentanaEditarProducto(null, true);
+            CEditarProducto cEditarProducto = new CEditarProductoImpl();
+            cEditarProducto.setVentanaEditarProducto(vEditarProducto);
+            Producto producEscogido = listProdFilt.get(indSelec);
+            vEditarProducto.setProducto(producEscogido);
+
+            vEditarProducto.setLocationRelativeTo(null);
+            vEditarProducto.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(miVentanaInventario,
+                    "Debe seleccionar un producto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
     @Override

@@ -124,7 +124,7 @@ public class Producto {
         return cantidadMinima;
     }
 
-    public void setCantidadMinima(int cantidadMinima) {
+    public void setCantidadMinima(float cantidadMinima) {
         this.cantidadMinima = cantidadMinima;
     }
 
@@ -132,7 +132,7 @@ public class Producto {
         return existencia;
     }
 
-    public void setExistencia(int existencia) {
+    public void setExistencia(float existencia) {
         this.existencia = existencia;
     }
 
