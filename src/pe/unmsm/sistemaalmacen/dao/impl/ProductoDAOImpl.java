@@ -65,7 +65,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             pstmt.setFloat(8, elem.getExistencia());
             pstmt.setFloat(9, elem.getPrecioUnitario());
             pstmt.setBlob(10, elem.getImagen());
-            pstmt.setInt(10,elem.getCat()==null? null :elem.getCat().getCodigo());
+            pstmt.setInt(11,elem.getCat()==null? null :elem.getCat().getCodigo());
 
             pstmt.executeUpdate();
             

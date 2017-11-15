@@ -40,29 +40,34 @@ public class IntroducirDatosEnBD {
         //AQUI SOLO QUIERO LOS CODIGOS DE CATEGORIA
         Categoria cat1 = new Categoria(1,"");
         Categoria cat2 = new Categoria(2, "");
+        Categoria cat3 = new Categoria(3,"");
+        Categoria cat4 = new Categoria(4, "");
+        Categoria cat5 = new Categoria(5,"");
         
         miLista.insertarAlInicio(new Producto(1,"Televisor LG 55º","LG","HG002",
-                cat1,"Unidades","ESTAND 01",1,0,730));
+                cat3,"Unidades","ESTAND 01",1,0,730));
         miLista.insertarAlInicio(new Producto(2,"Lavadora","LG","LV002",
-                cat1,"Unidades","ESTAND 02",1,5,650));
+                cat4,"Unidades","ESTAND 02",1,5,650));
          miLista.insertarAlInicio(new Producto(3,"Laptop","Razer","RZ002",
-                cat2,"Unidades","ESTAND 01",1,0,3000));
+                cat3,"Unidades","ESTAND 01",1,0,3000));
         miLista.insertarAlInicio(new Producto(4,"Iphone 8","Apple","SC0001",
-                cat1,"Unidades","ESTAND 03",1,5,3600));
+                cat3,"Unidades","ESTAND 03",1,5,3600));
         miLista.insertarAlInicio(new Producto(5,"Comida para perros","Ricocan","N/A",
-                cat1,"Kg","ESTAND 01",3,5.5f,4.5f));
+                cat5,"Kg","ESTAND 01",3,5.5f,4.5f));
         miLista.insertarAlInicio(new Producto(6,"Cereal","Angel","N/A",
                 cat2,"Bolsas de 50g c/u","ESTAND 02",5,25,4));
          miLista.insertarAlInicio(new Producto(7,"TV Samsung 30º","Samsung","KI000",
-                cat1,"Unidades","ESTAND 01",1,0,3000));
+                cat3,"Unidades","ESTAND 01",1,0,3000));
         miLista.insertarAlInicio(new Producto(8,"Celular","Sony","SG001",
-                cat2,"Unidades","ESTAND 03",5,25,200));
+                cat3,"Unidades","ESTAND 03",5,25,200));
         miLista.insertarAlInicio(new Producto(9,"Arroz","Tarmenito","N/A",
-                cat1,"Bolsas de 10kg c/u","ESTAND 05",10,55,6));
+                cat5,"Bolsas de 10kg c/u","ESTAND 05",10,55,6));
          miLista.insertarAlInicio(new Producto(10,"Leche","Gloria","N/A",
-                cat1,"Tarro 300mL","ESTAND 05",20,35,3));
+                cat5,"Tarro 300mL","ESTAND 05",20,35,3));
         miLista.insertarAlInicio(new Producto(11,"Impresora","Canon","SS02",
-                cat1,"Unidades","ESTAND 02",5,25,200));
+                cat3,"Unidades","ESTAND 02",5,25,200));
+        miLista.insertarAlInicio(new Producto(12,"Detergente","Spolio","N/A",
+                cat3,"Bolsas 30gr","ESTAND 06",5,25,5));
         
         
         ProductoDAOImpl dao = new ProductoDAOImpl();
@@ -70,12 +75,14 @@ public class IntroducirDatosEnBD {
     }
     
     static void introducirCategorias(){
-        Categoria cat1 = new Categoria(1,"Esta es una categoria por defecto");
-        Categoria cat2 = new Categoria(2, "Esta es otra categoria");
-        
         CategoriaDAOImpl dao = new CategoriaDAOImpl();
-        dao.registrar(cat1);
-        dao.registrar(cat2);
+        ListaDoble<Categoria> listaCategorias = new ListaDoble<>();
+        listaCategorias.insertarAlFinal(new Categoria(1, "Productos del hogar"));
+        listaCategorias.insertarAlFinal(new Categoria(2, "Limpieza"));
+        listaCategorias.insertarAlFinal(new Categoria(3, "Tecnologia"));
+        listaCategorias.insertarAlFinal(new Categoria(4, "Electrodomesticos"));
+        listaCategorias.insertarAlFinal(new Categoria(5, "Abarrotes"));
+        listaCategorias.stream().forEach(dao::registrar);
     }
     
     static void introducirRegistrosEntrada(){

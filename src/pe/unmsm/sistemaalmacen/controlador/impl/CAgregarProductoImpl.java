@@ -81,9 +81,6 @@ public class CAgregarProductoImpl implements CAgregarProducto{
 //      HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
 //        daoProducto.registrar(nuevoProducto);
         JOptionPane.showMessageDialog(miVentanaAgregarProducto,"Producto agregado exitosamente");
-        //ACTUALIZAR LISTA 
-//        miVentanaAgregarProducto.listaProductos = daoProducto.getAll();
-        
         miVentanaAgregarProducto.dispose();
     } 
     
