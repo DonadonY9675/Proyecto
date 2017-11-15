@@ -7,6 +7,7 @@ package pe.unmsm.sistemaalmacen.controlador.impl;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,10 +15,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.unmsm.sistemaalmacen.controlador.CAgregarProducto;
+import pe.unmsm.sistemaalmacen.dao.impl.CategoriaDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
+import pe.unmsm.sistemaalmacen.daou.CategoriaDAO;
 import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
-import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 
 /**
@@ -27,12 +30,21 @@ import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 public class CAgregarProductoImpl implements CAgregarProducto{
     private VentanaAgregarProducto miVentanaAgregarProducto;
     private ProductoDAO daoProducto = new ProductoDAOImpl();
-
+    private CategoriaDAO daoCategoria = new CategoriaDAOImpl();
+    
     @Override
     public void setVentanaAgregarProducto(VentanaAgregarProducto ventana) {
         miVentanaAgregarProducto = ventana;
         miVentanaAgregarProducto.BtnAgregar.addActionListener(this::clickBtnAgregar);
         miVentanaAgregarProducto.btnExaminar.addActionListener(this::clickBtnExaminar);
+        
+        miVentanaAgregarProducto.listaCategorias = daoCategoria.getAll();
+        miVentanaAgregarProducto.comboCategoria.addItem("Nueva categoria");
+        miVentanaAgregarProducto.listaCategorias.stream().map(Categoria::getDescripcion)
+                .forEach(miVentanaAgregarProducto.comboCategoria::addItem);
+        
+        miVentanaAgregarProducto.comboCategoria.addItemListener(this::clickCombo);
+        miVentanaAgregarProducto.comboCategoria.setEditable(true);
     }
 
     @Override
@@ -48,8 +60,22 @@ public class CAgregarProductoImpl implements CAgregarProducto{
         float existencia=Float.parseFloat(miVentanaAgregarProducto.txtExistencia.getText());
         float precioUnitario=Float.parseFloat(miVentanaAgregarProducto.txtPrecioUnitario.getText());
         Icon imagen = miVentanaAgregarProducto.labelImagen.getIcon();
-//        
-        Producto nuevoProducto = new Producto(codigo, nombre, marca, modelo, unidadMedida, ubicacion, cantidadMin, existencia, precioUnitario);
+        
+        Categoria categoria = null;
+        int escogido = miVentanaAgregarProducto.comboCategoria.getSelectedIndex();
+        if(escogido>0){
+            categoria = miVentanaAgregarProducto.listaCategorias.buscar
+                (miVentanaAgregarProducto.comboCategoria.getSelectedIndex());
+            
+        }else if(!miVentanaAgregarProducto.comboCategoria.getItemAt(escogido).equals("Nueva categoria")){
+            categoria = new Categoria(miVentanaAgregarProducto.comboCategoria.getItemCount(),
+                    miVentanaAgregarProducto.comboCategoria.getItemAt(escogido));
+            
+            daoCategoria.registrar(categoria);
+        }
+          
+        Producto nuevoProducto = new Producto(codigo, nombre, marca, modelo, categoria,
+                unidadMedida, ubicacion, cantidadMin, existencia, precioUnitario);
         
         miVentanaAgregarProducto.listaProductos.insertarAlFinal(nuevoProducto);
 //      HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
@@ -89,4 +115,14 @@ public class CAgregarProductoImpl implements CAgregarProducto{
         }
 
     }
+    
+    @Override
+    public void clickCombo(ItemEvent evt) {
+        if(miVentanaAgregarProducto.comboCategoria.getSelectedIndex()==0){
+            miVentanaAgregarProducto.comboCategoria.setEditable(true);
+        }else{
+            miVentanaAgregarProducto.comboCategoria.setEditable(false);
+        }
+    }
+    
 }

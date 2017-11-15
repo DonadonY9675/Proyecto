@@ -6,6 +6,7 @@
 package pe.unmsm.sistemaalmacen.controlador;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import pe.unmsm.sistemaalmacen.vista.VentanaEditarProducto;
 
 /**
@@ -18,4 +19,6 @@ public interface CEditarProducto extends MantenimientoControlador  {
     public void clickBtnEditar(ActionEvent e);
     
     public void clickBtnExaminar(ActionEvent evt);
+    
+    public void clickCombo(ItemEvent evt);
 }

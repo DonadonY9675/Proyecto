@@ -6,6 +6,7 @@
 package pe.unmsm.sistemaalmacen.controlador;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 
 /**
@@ -19,4 +20,6 @@ public interface CAgregarProducto extends MantenimientoControlador {
     public void clickBtnAgregar(ActionEvent e);
     
     public void clickBtnExaminar(ActionEvent e);
+    
+    public void clickCombo(ItemEvent evt);
 }

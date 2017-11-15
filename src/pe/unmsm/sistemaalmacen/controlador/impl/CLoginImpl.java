@@ -7,6 +7,8 @@ package pe.unmsm.sistemaalmacen.controlador.impl;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.controlador.CLogin;
 import pe.unmsm.sistemaalmacen.dao.impl.UsuarioDAOImpl;

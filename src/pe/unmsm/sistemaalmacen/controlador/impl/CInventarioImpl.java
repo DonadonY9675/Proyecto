@@ -11,6 +11,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.controlador.CAgregarProducto;
@@ -59,6 +62,12 @@ public class CInventarioImpl implements CInventario {
                 clickjListProductos(e);
             }
         });
+        miVentanaInventario.jListProductos.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                teclaListProductos(e);
+            }
+        });
         
         miVentanaInventario.txtBuscar.addKeyListener(new KeyAdapter(){
             @Override
@@ -80,6 +89,7 @@ public class CInventarioImpl implements CInventario {
             lista.addElement(p.getNombre());
         }
         miVentanaInventario.jListProductos.setModel(lista);
+        miVentanaInventario.limpiarTextField();
     }
 
     @Override
@@ -117,6 +127,13 @@ public class CInventarioImpl implements CInventario {
         vAgregarProducto.setListaDeProductos(listProdComp);
         CAgregarProducto cAgregarProducto = new CAgregarProductoImpl();
         cAgregarProducto.setVentanaAgregarProducto(vAgregarProducto);
+        vAgregarProducto.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e){
+                    listProdFilt=listProdComp;
+                    actualizarJList();
+                }
+                        });
         vAgregarProducto.setLocationRelativeTo(null);
         vAgregarProducto.setVisible(true);
     }
@@ -127,10 +144,17 @@ public class CInventarioImpl implements CInventario {
         
         if(indSelec!=-1){
             VentanaEditarProducto vEditarProducto = new VentanaEditarProducto(null, true);
-            CEditarProducto cEditarProducto = new CEditarProductoImpl();
-            cEditarProducto.setVentanaEditarProducto(vEditarProducto);
             Producto producEscogido = listProdFilt.get(indSelec);
             vEditarProducto.setProducto(producEscogido);
+            CEditarProducto cEditarProducto = new CEditarProductoImpl();
+            cEditarProducto.setVentanaEditarProducto(vEditarProducto);
+            vEditarProducto.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e){
+                    listProdFilt=listProdComp;
+                    actualizarJList();
+                }
+                        });
 
             vEditarProducto.setLocationRelativeTo(null);
             vEditarProducto.setVisible(true);
@@ -150,9 +174,12 @@ public class CInventarioImpl implements CInventario {
         if (opc == 0) {
             
             int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
-            listProdFilt.eliminar(indSelec);
-            
-            actualizarJList();
+//            if(daoProducto.eliminar(listProdFilt.get(indSelec).getCodigo())){
+                listProdFilt.eliminar(indSelec);
+                actualizarJList();
+//            }else{
+//                System.out.println("HA OCURRIDO UN ERROR INESPERADO");
+//            }
         }
     }
 
@@ -160,16 +187,14 @@ public class CInventarioImpl implements CInventario {
     public void clickjListProductos(MouseEvent e) {
         int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
         Producto producEscogido = listProdFilt.get(indSelec);
-
-        miVentanaInventario.txtProducto.setText(producEscogido.getNombre());
-        miVentanaInventario.txtCodigo.setText(producEscogido.getCodigo() + "");
-        miVentanaInventario.txtMarca.setText(producEscogido.getMarca());
-        miVentanaInventario.txtModelo.setText(producEscogido.getModelo());
-        miVentanaInventario.txtExist.setText(producEscogido.getExistencia() + "");
-        miVentanaInventario.txtPrecUnit.setText(producEscogido.getPrecioUnitario() + "");
-        miVentanaInventario.txtUnidMed.setText(producEscogido.getUnidadDeMedida());
-        miVentanaInventario.txtUbicacion.setText(producEscogido.getUbicacion());
-        miVentanaInventario.txtCantMin.setText(producEscogido.getCantidadMinima() + "");
-
+        miVentanaInventario.actualizarCampos(producEscogido);
     }
+    
+    public void teclaListProductos(KeyEvent e){
+        int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
+        Producto producEscogido = listProdFilt.get(indSelec);
+        miVentanaInventario.actualizarCampos(producEscogido);
+    }
+    
+    
 }

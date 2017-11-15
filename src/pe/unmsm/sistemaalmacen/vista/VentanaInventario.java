@@ -5,6 +5,8 @@
  */
 package pe.unmsm.sistemaalmacen.vista;
 
+import pe.unmsm.sistemaalmacen.dominio.Producto;
+
 public class VentanaInventario extends javax.swing.JDialog {
 
     /**
@@ -27,6 +29,34 @@ public class VentanaInventario extends javax.swing.JDialog {
         txtCategoria.setEditable(false);
     }
 
+    public void limpiarTextField(){
+        
+        txtProducto.setText("");
+        txtCodigo.setText("");
+        txtMarca.setText("");
+        txtModelo.setText("");
+        txtCategoria.setText("");
+        txtExist.setText("");
+        txtPrecUnit.setText("");
+        txtUnidMed.setText("");
+        txtUbicacion.setText("");
+        txtCantMin.setText("");
+    }
+    
+    public void actualizarCampos(Producto producEscogido){
+        txtProducto.setText(producEscogido.getNombre());
+        txtCodigo.setText(producEscogido.getCodigo() + "");
+        txtMarca.setText(producEscogido.getMarca());
+        txtModelo.setText(producEscogido.getModelo());
+        txtCategoria.setText(producEscogido.getCat()==null?
+                "Sin categoria":producEscogido.getCat().getDescripcion());
+        
+        txtExist.setText(producEscogido.getExistencia() + "");
+        txtPrecUnit.setText(producEscogido.getPrecioUnitario() + "");
+        txtUnidMed.setText(producEscogido.getUnidadDeMedida());
+        txtUbicacion.setText(producEscogido.getUbicacion());
+        txtCantMin.setText(producEscogido.getCantidadMinima() + "");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +70,6 @@ public class VentanaInventario extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        btnFiltrarCategoria = new javax.swing.JButton();
         btnProxAgot = new javax.swing.JButton();
         btnMostrarTodos = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
@@ -80,8 +109,6 @@ public class VentanaInventario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Mi Inventario");
 
-        btnFiltrarCategoria.setText("Filtrar por Categoria");
-
         btnProxAgot.setText("Proximos en Agotarse");
 
         btnMostrarTodos.setText("Mostrar Todos");
@@ -112,19 +139,19 @@ public class VentanaInventario extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBuscar)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rBtnNombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                 .addComponent(rBtnCodigo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMostrarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtBuscar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnProxAgot, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                            .addComponent(btnFiltrarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(26, 26, 26)
+                                .addGap(38, 38, 38)
+                                .addComponent(btnMostrarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnProxAgot, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(75, 75, 75)))
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,16 +170,15 @@ public class VentanaInventario extends javax.swing.JDialog {
                     .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnProxAgot, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar))
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rBtnNombre)
                             .addComponent(rBtnCodigo)
-                            .addComponent(btnFiltrarCategoria)
                             .addComponent(btnMostrarTodos)
-                            .addComponent(btnBuscar))
+                            .addComponent(btnProxAgot))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -293,7 +319,7 @@ public class VentanaInventario extends javax.swing.JDialog {
                     .addComponent(txtCantMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtExist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrecUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,7 +363,6 @@ public class VentanaInventario extends javax.swing.JDialog {
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
-    public javax.swing.JButton btnFiltrarCategoria;
     public javax.swing.JButton btnMostrarTodos;
     public javax.swing.JButton btnProxAgot;
     private javax.swing.JLabel jLabel1;

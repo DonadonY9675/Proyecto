@@ -52,7 +52,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             String query = "INSERT INTO "+nombreTabla+" ("+campoCodigo+","
                     +campoNombre+","+campoMarca+","+campoModelo+","+campoUniMed+
                     ","+campoUbic+","+campoCantMin+","+campoExsist+","
-                    +campoPrecUnit+","+campoImagen+")VALUES(?,?,?,?,?,?,?,?,?,?);";
+                    +campoPrecUnit+","+campoImagen+","+campoCodCat+")VALUES(?,?,?,?,?,?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, elem.getCodigo());
@@ -65,6 +65,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             pstmt.setFloat(8, elem.getExistencia());
             pstmt.setFloat(9, elem.getPrecioUnitario());
             pstmt.setBlob(10, elem.getImagen());
+            pstmt.setInt(10,elem.getCat()==null? null :elem.getCat().getCodigo());
 
             pstmt.executeUpdate();
             
@@ -139,22 +140,27 @@ public class ProductoDAOImpl implements ProductoDAO{
     
         //prueba
         ListaDoble<Producto> miLista = new ListaDoble();
+        Categoria categoria1 = new Categoria(1, "Productos del hogar");
+        Categoria categoria2 = new Categoria(2, "Limpieza");
+        Categoria categoria3 = new Categoria(3, "Tecnologia");
+        Categoria categoria4 = new Categoria(4, "Electrodomesticos");
+        
         miLista.insertarAlInicio(new Producto(1,"Televisor LG 55º pulgadas","LG","HG002",
-                "Unidades","ESTAND 01",1,0,730));
+                categoria3,"Unidades","ESTAND 01",1,0,730));
         miLista.insertarAlInicio(new Producto(2,"Lavadora","LG","LV002",
-                "Unidades","ESTAND 02",1,5,650));
+                categoria4,"Unidades","ESTAND 02",1,5,650));
          miLista.insertarAlInicio(new Producto(3,"Laptop","Razer","RZ002",
-                "Unidades","ESTAND 01",1,0,3000));
+                categoria3,"Unidades","ESTAND 01",1,0,3000));
         miLista.insertarAlInicio(new Producto(4,"Iphone 8","Apple","SC0001",
-                "Unidades","ESTAND 03",1,5,3600));
+                categoria3,"Unidades","ESTAND 03",1,5,3600));
         miLista.insertarAlInicio(new Producto(5,"Comida para perros","Ricocan","N/A",
-                "Kg","ESTAND 01",3,5.5f,4.5f));
+                categoria1,"Kg","ESTAND 01",3,5.5f,4.5f));
         miLista.insertarAlInicio(new Producto(6,"Cereal","Angel","N/A",
                 "Bolsas de 50g c/u","ESTAND 02",5,25,4));
          miLista.insertarAlInicio(new Producto(7,"Televisor Samsung 30º pulgadas","Samsung","KI000",
-                "Unidades","ESTAND 01",1,0,3000));
+                categoria3,"Unidades","ESTAND 01",1,0,3000));
         miLista.insertarAlInicio(new Producto(8,"Celular","Sony","SG001",
-                "Unidades","ESTAND 03",5,25,200));
+                categoria3,"Unidades","ESTAND 03",5,25,200));
         
         
         return miLista;
@@ -235,7 +241,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             String query = "UPDATE "+nombreTabla+" SET "+campoCodigo+"= ?,"+
                     campoNombre+" = ?,"+campoMarca+" = ?,"+campoModelo+" = ?,"+
                     campoUniMed+" = ?,"+campoUbic+" = ?,"+campoCantMin+" = ?,"+
-                    campoExsist+" = ?,"+campoPrecUnit+" = ? WHERE "+campoCodigo+
+                    campoExsist+" = ?,"+campoPrecUnit+" = ?,"+campoCodCat+" = ? WHERE "+campoCodigo+
                     " = ?;";
             
             pstmt = conn.prepareStatement(query);
@@ -248,6 +254,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             pstmt.setFloat(7, elem.getCantidadMinima());
             pstmt.setFloat(8, elem.getExistencia());
             pstmt.setFloat(9, elem.getPrecioUnitario());
+            pstmt.setInt(10,elem.getCat()==null? null : elem.getCat().getCodigo());
                 
             /* Ejecutamos la sentencias SQL */
             rs = pstmt.executeQuery();

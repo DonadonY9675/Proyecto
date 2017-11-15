@@ -188,8 +188,18 @@ public class ListaDoble<T> implements Iterable<T> {
         }
     }
 
-    public T buscar(int identificador) {
-        return null;
+    public T buscar(int posicion) {
+        T elem = null;
+        if(posicion<=tam && posicion>0){
+            NodoDoble aux =cabecera;
+            int i=1;
+            while(i<posicion && aux.sig!=null){
+                aux=aux.sig;
+                i++;
+            }
+            elem= (T) aux.dato;
+        }
+        return elem;
     }
 
     public T get(int pos) {
