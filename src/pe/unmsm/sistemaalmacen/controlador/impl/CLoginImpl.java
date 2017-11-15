@@ -16,14 +16,14 @@ import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 import pe.unmsm.sistemaalmacen.vista.VentanaLogIn;
 import pe.unmsm.sistemaalmacen.vista.VentanaMenuPrincipal;
-import pe.unmsm.sistemaalmacen.daou.UsuarioDAO;
+import pe.unmsm.sistemaalmacen.daou.UsuarioDao;
 /**
  *
  * @author Miguel
  */
 public class CLoginImpl implements CLogin{
     private VentanaLogIn miVentanaLogIn;
-    private UsuarioDAO usuarioDao = new UsuarioDAOImpl();
+    private UsuarioDao usuarioDao = new UsuarioDAOImpl();
     
     @Override
     public void setVentanaLogin(VentanaLogIn ventana){

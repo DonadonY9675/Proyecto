@@ -46,42 +46,78 @@ public class CAgregarProductoImpl implements CAgregarProducto{
         miVentanaAgregarProducto.comboCategoria.addItemListener(this::clickCombo);
         miVentanaAgregarProducto.comboCategoria.setEditable(true);
     }
-
+    
+    public boolean existeCodigo(){
+        long cantidad=miVentanaAgregarProducto.listaProductos.stream()
+                                                     .filter(p->p.getCodigo()==Integer.parseInt(miVentanaAgregarProducto.txtCodigo.getText()))
+                                                     .count();
+        if(cantidad!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     @Override
     public void clickBtnAgregar(ActionEvent e) {
-        
-        int codigo=Integer.parseInt(miVentanaAgregarProducto.txtCodigo.getText());
+        int codigo=0;
         String nombre=miVentanaAgregarProducto.txtNombre.getText();
         String marca=miVentanaAgregarProducto.txtMarca.getText();
         String modelo=miVentanaAgregarProducto.txtModelo.getText();
         String unidadMedida=miVentanaAgregarProducto.txtUnidadMedida.getText();
-        String ubicacion=miVentanaAgregarProducto.txtUnidadMedida.getText();
-        float cantidadMin=Float.parseFloat(miVentanaAgregarProducto.txtCantidadMinima.getText());
-        float existencia=Float.parseFloat(miVentanaAgregarProducto.txtExistencia.getText());
-        float precioUnitario=Float.parseFloat(miVentanaAgregarProducto.txtPrecioUnitario.getText());
+        String ubicacion=miVentanaAgregarProducto.txtUbicacion.getText();
+        float cantidadMin=(float) 0.0;
+        float existencia=(float) 0.0;
+        float precioUnitario=(float) 0.0;
         Icon imagen = miVentanaAgregarProducto.labelImagen.getIcon();
-        
         Categoria categoria = null;
-        int escogido = miVentanaAgregarProducto.comboCategoria.getSelectedIndex();
-        if(escogido>0){
-            categoria = miVentanaAgregarProducto.listaCategorias.buscar
-                (miVentanaAgregarProducto.comboCategoria.getSelectedIndex());
-            
-        }else if(!miVentanaAgregarProducto.comboCategoria.getItemAt(escogido).equals("Nueva categoria")){
-            categoria = new Categoria(miVentanaAgregarProducto.comboCategoria.getItemCount(),
-                    miVentanaAgregarProducto.comboCategoria.getItemAt(escogido));
-            
-            daoCategoria.registrar(categoria);
-        }
-          
-        Producto nuevoProducto = new Producto(codigo, nombre, marca, modelo, categoria,
-                unidadMedida, ubicacion, cantidadMin, existencia, precioUnitario);
         
-        miVentanaAgregarProducto.listaProductos.insertarAlFinal(nuevoProducto);
-//      HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
-//        daoProducto.registrar(nuevoProducto);
-        JOptionPane.showMessageDialog(miVentanaAgregarProducto,"Producto agregado exitosamente");
-        miVentanaAgregarProducto.dispose();
+        if(!miVentanaAgregarProducto.txtCodigo.getText().isEmpty()&&!miVentanaAgregarProducto.txtCantidadMinima.getText().isEmpty()
+                &&!miVentanaAgregarProducto.txtExistencia.getText().isEmpty()&&!miVentanaAgregarProducto.txtPrecioUnitario.getText().isEmpty()){
+            codigo=Integer.parseInt(miVentanaAgregarProducto.txtCodigo.getText());
+            cantidadMin=Float.parseFloat(miVentanaAgregarProducto.txtCantidadMinima.getText());
+            existencia=Float.parseFloat(miVentanaAgregarProducto.txtExistencia.getText());
+            precioUnitario=Float.parseFloat(miVentanaAgregarProducto.txtPrecioUnitario.getText());
+        }
+        
+        if(!nombre.isEmpty()&&!modelo.isEmpty()&&!unidadMedida.isEmpty()
+                &&!miVentanaAgregarProducto.txtCantidadMinima.getText().isEmpty()&&!miVentanaAgregarProducto.txtPrecioUnitario.getText().isEmpty()){
+            if(!existeCodigo()){
+                if(cantidadMin>=(float) 1.0){
+                marca="N/A";
+                ubicacion="N/A";
+                int escogido = miVentanaAgregarProducto.comboCategoria.getSelectedIndex();
+                if(escogido>0){
+                    categoria = miVentanaAgregarProducto.listaCategorias.buscar
+                        (miVentanaAgregarProducto.comboCategoria.getSelectedIndex());
+
+                }else if(!miVentanaAgregarProducto.comboCategoria.getItemAt(escogido).equals("Nueva categoria")){
+                    categoria = new Categoria(miVentanaAgregarProducto.comboCategoria.getItemCount(),
+                            miVentanaAgregarProducto.comboCategoria.getItemAt(escogido));
+
+                    daoCategoria.registrar(categoria);
+                }
+
+                Producto nuevoProducto = new Producto(codigo, nombre, marca, modelo, categoria,
+                        unidadMedida, ubicacion, cantidadMin, existencia, precioUnitario);
+
+                miVentanaAgregarProducto.listaProductos.insertarAlFinal(nuevoProducto);
+        //      HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
+        //        daoProducto.registrar(nuevoProducto);
+                JOptionPane.showMessageDialog(miVentanaAgregarProducto,"Producto agregado exitosamente");
+                miVentanaAgregarProducto.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(miVentanaAgregarProducto,"La cantidad minima debe ser mayor o igual a 1.");
+                }
+            }else{
+                JOptionPane.showMessageDialog(miVentanaAgregarProducto,"El codigo del producto ya existe. Digite otro codigo de producto.");
+            }
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(miVentanaAgregarProducto,"Por favor, llene todos los datos marcados con '*'.");
+        }
+        
     } 
     
     @Override
@@ -121,5 +157,6 @@ public class CAgregarProductoImpl implements CAgregarProducto{
             miVentanaAgregarProducto.comboCategoria.setEditable(false);
         }
     }
+    
     
 }
