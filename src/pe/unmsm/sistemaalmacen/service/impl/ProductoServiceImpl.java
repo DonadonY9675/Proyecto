@@ -7,7 +7,7 @@ package pe.unmsm.sistemaalmacen.service.impl;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
-import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.service.ProductoService;

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.unmsm.sistemaalmacen.daou;
+package pe.unmsm.sistemaalmacen.dao;
 
 import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroSalida;
+import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
 
 /**
  *
  */
-public interface RegistroSalidaDAO extends AbstractDAO<Registro,Integer>{
-    //faltan llenar atributos, similares a RegistroEntrada
+public interface RegistroEntradaDAO extends AbstractDAO<Registro,Integer>{
+    
 }

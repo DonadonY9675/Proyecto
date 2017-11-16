@@ -1,6 +1,6 @@
 package pe.unmsm.sistemaalmacen.dao.impl;
 
-import pe.unmsm.sistemaalmacen.daou.DetalleEntradaSalidaDAO;
+import pe.unmsm.sistemaalmacen.dao.DetalleEntradaSalidaDAO;
 
 public class RegistroEntradaDAOImpl extends RegistroDAOImpl {
     public RegistroEntradaDAOImpl(){

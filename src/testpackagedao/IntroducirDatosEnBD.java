@@ -11,7 +11,7 @@ import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.RegistroDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.RegistroEntradaDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.UsuarioDAOImpl;
-import pe.unmsm.sistemaalmacen.daou.RegistroDAO;
+import pe.unmsm.sistemaalmacen.dao.RegistroDAO;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.dominio.Producto;

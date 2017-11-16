@@ -17,7 +17,7 @@ import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 import pe.unmsm.sistemaalmacen.vista.VentanaLogIn;
 import pe.unmsm.sistemaalmacen.vista.VentanaMenuPrincipal;
-import pe.unmsm.sistemaalmacen.daou.UsuarioDao;
+import pe.unmsm.sistemaalmacen.dao.UsuarioDao;
 /**
  *
  * @author Miguel

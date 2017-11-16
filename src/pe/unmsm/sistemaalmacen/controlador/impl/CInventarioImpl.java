@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.controlador.CAgregarProducto;
 import pe.unmsm.sistemaalmacen.controlador.CEditarProducto;
 import pe.unmsm.sistemaalmacen.controlador.CInventario;
-import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;

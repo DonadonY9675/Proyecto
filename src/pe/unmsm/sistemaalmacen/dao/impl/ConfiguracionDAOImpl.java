@@ -9,11 +9,11 @@ import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import pe.unmsm.sistemaalmacen.daou.ConfiguracionDAO;
+import pe.unmsm.sistemaalmacen.dao.ConfiguracionDAO;
 import pe.unmsm.sistemaalmacen.dominio.Configuracion;
 import java.net.URL;
 import java.sql.Blob;
-import pe.unmsm.sistemaalmacen.daou.AccesoDB;
+import pe.unmsm.sistemaalmacen.dao.AccesoDB;
 
 /**
  *

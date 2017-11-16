@@ -8,11 +8,11 @@ package pe.unmsm.sistemaalmacen.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import pe.unmsm.sistemaalmacen.daou.AccesoDB;
+import pe.unmsm.sistemaalmacen.dao.AccesoDB;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
-import pe.unmsm.sistemaalmacen.daou.DetalleEntradaSalidaDAO;
-import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dao.DetalleEntradaSalidaDAO;
+import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 
 /**

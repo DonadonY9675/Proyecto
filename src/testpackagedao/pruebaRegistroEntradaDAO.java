@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import pe.unmsm.sistemaalmacen.dao.impl.DetalleEntradaSalidaDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.RegistroEntradaDAOImpl;
-import pe.unmsm.sistemaalmacen.daou.DetalleEntradaSalidaDAO;
+import pe.unmsm.sistemaalmacen.dao.DetalleEntradaSalidaDAO;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;

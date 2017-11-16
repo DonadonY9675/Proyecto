@@ -9,11 +9,11 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import pe.unmsm.sistemaalmacen.daou.AccesoDB;
-import pe.unmsm.sistemaalmacen.daou.CategoriaDAO;
+import pe.unmsm.sistemaalmacen.dao.AccesoDB;
+import pe.unmsm.sistemaalmacen.dao.CategoriaDAO;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
-import pe.unmsm.sistemaalmacen.daou.ProductoDAO;
+import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 

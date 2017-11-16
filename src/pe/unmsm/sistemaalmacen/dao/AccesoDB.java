@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.unmsm.sistemaalmacen.daou;
+package pe.unmsm.sistemaalmacen.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
