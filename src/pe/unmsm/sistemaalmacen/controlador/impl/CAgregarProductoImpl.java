@@ -24,7 +24,11 @@ import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 
 /**
- *
+ * mas estructuras
+ * controlador modificar
+ * service implementar validaciones
+ * controladro no invoca dao
+ * borrar imagen
  * @author Miguel
  */
 public class CAgregarProductoImpl implements CAgregarProducto{
@@ -103,7 +107,7 @@ public class CAgregarProductoImpl implements CAgregarProducto{
 
                 miVentanaAgregarProducto.listaProductos.insertarAlFinal(nuevoProducto);
         //      HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
-        //        daoProducto.registrar(nuevoProducto);
+                daoProducto.registrar(nuevoProducto);
                 JOptionPane.showMessageDialog(miVentanaAgregarProducto,"Producto agregado exitosamente");
                 miVentanaAgregarProducto.dispose();
                 }else{

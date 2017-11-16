@@ -110,13 +110,13 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
 //
 //        /* Si no encontro ningun dato, retornamos null */
 //        return null;
-        
+        //kardeX
         //Logica de buscar por ID
         //SELECT
         //WHERE ID = ELEM
-        URL url = getClass().getResource("pe/unmsm/sistemaalmacen/images/logo.png");
-        System.out.println(url.toExternalForm().replace("file:/", "")); // = C:/Users/... 
-        return new Configuracion(url.toExternalForm().replace("file:/", ""),"UNSMS", "123456789012", "Av. Universitaria /Calle Germán Amézaga 375. Edificio Jorge Basadre Ciudad Universitaria", 0.18);
+//        URL url = getClass().getResource("pe/unmsm/sistemaalmacen/images/logo.png");
+//        System.out.println(url.toExternalForm().replace("file:/", "")); // = C:/Users/... 
+        return new Configuracion("C:\\Users\\Miguel\\Desktop\\Proyecto FINAL\\src\\pe\\unmsm\\sistemaalmacen\\images\\logo.png","UNSMS", "123456789012", "Av. Universitaria /Calle Germán Amézaga 375. Edificio Jorge Basadre Ciudad Universitaria", 0.18);
 //        return new Configuracion("/proy/images/logo.png","UNSMS", "123456789012", "Av. Universitaria /Calle Germán Amézaga 375. Edificio Jorge Basadre Ciudad Universitaria", 0.18);
         
         //ELIMINAR ESTE RETURN, SOLO SE UTILIZA PARA PROBAR LA CARGA INICIAL(EN EL MAIN)

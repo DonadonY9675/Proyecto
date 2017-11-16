@@ -54,10 +54,10 @@ public abstract class Utils {
     public static double IGV;
 
     //redondea un double a 2 decimales readondeando al numero superior
-    public static double redondear(double numero, int cantidad_decimales) {
+    public static double redondear(double numero, int cantidadDecimales) {
         String val = numero + "";
         BigDecimal big = new BigDecimal(val);
-        big = big.setScale(cantidad_decimales, RoundingMode.HALF_UP);
+        big = big.setScale(cantidadDecimales, RoundingMode.HALF_UP);
         return big.doubleValue();
     }
 

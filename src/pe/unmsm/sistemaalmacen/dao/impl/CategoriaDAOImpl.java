@@ -123,49 +123,49 @@ public class CategoriaDAOImpl implements CategoriaDAO{
 
     @Override
     public ListaDoble<Categoria> getAll() {
-//        try {
-//
-//            ResultSet rs = null;
-//            Connection conn = null;
-//            PreparedStatement pstmt = null;
-//            ListaDoble<Categoria> listaCategorias = new ListaDoble<>();
-//            
-//            conn = accesoDB.getConexion();
-//
-//            /* Preparamos la sentencia SQL a ejecutar */
-//            String query = "SELECT "+campoCodCategoria+","+campoDescrip+" FROM "
-//                    +nombreTabla;
-//            
-//            pstmt = conn.prepareStatement(query);
-//            
-//            /* Ejecutamos la sentencias SQL */
-//            rs = pstmt.executeQuery();
-//
-//            /* Obtenemos los datos seleccionados */
-//            while (rs.next()) {
-//                int id = rs.getInt(campoCodCategoria);
-//                String descrip = rs.getString(campoDescrip);
-//                
-//                listaCategorias.insertarAlInicio(new Categoria(id, descrip));
-//            }
-//            
-//            accesoDB.cerrarConexion(conn, pstmt);
-//            
-//            return listaCategorias;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        /* Si no encontro ningun dato, retornamos null */
-//        return null;
+        try {
 
-        ListaDoble<Categoria> listaCategorias = new ListaDoble<>();
-        listaCategorias.insertarAlFinal(new Categoria(1, "Productos del hogar"));
-        listaCategorias.insertarAlFinal(new Categoria(2, "Limpieza"));
-        listaCategorias.insertarAlFinal(new Categoria(3, "Tecnologia"));
-        listaCategorias.insertarAlFinal(new Categoria(4, "Electrodomesticos"));
-        
-        return listaCategorias;
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ListaDoble<Categoria> listaCategorias = new ListaDoble<>();
+            
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+campoCodCategoria+","+campoDescrip+" FROM "
+                    +nombreTabla;
+            
+            pstmt = conn.prepareStatement(query);
+            
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            while (rs.next()) {
+                int id = rs.getInt(campoCodCategoria);
+                String descrip = rs.getString(campoDescrip);
+                
+                listaCategorias.insertarAlInicio(new Categoria(id, descrip));
+            }
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            return listaCategorias;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /* Si no encontro ningun dato, retornamos null */
+        return null;
+
+//        ListaDoble<Categoria> listaCategorias = new ListaDoble<>();
+//        listaCategorias.insertarAlFinal(new Categoria(1, "Productos del hogar"));
+//        listaCategorias.insertarAlFinal(new Categoria(2, "Limpieza"));
+//        listaCategorias.insertarAlFinal(new Categoria(3, "Tecnologia"));
+//        listaCategorias.insertarAlFinal(new Categoria(4, "Electrodomesticos"));
+//        
+//        return listaCategorias;
     }
 
     @Override

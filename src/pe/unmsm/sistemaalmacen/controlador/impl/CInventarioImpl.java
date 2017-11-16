@@ -174,12 +174,12 @@ public class CInventarioImpl implements CInventario {
         if (opc == 0) {
             
             int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
-//            if(daoProducto.eliminar(listProdFilt.get(indSelec).getCodigo())){
+            if(daoProducto.eliminar(listProdFilt.get(indSelec).getCodigo())){
                 listProdFilt.eliminar(indSelec);
                 actualizarJList();
-//            }else{
-//                System.out.println("HA OCURRIDO UN ERROR INESPERADO");
-//            }
+            }else{
+                System.out.println("HA OCURRIDO UN ERROR INESPERADO");
+            }
         }
     }
 

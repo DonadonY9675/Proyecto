@@ -472,6 +472,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
             txtNroRegistros.setText(miListaRegistrosFiltrado.size() + "");
 
             if (miListaRegistrosFiltrado.get(pos) instanceof RegistroEntrada) {
+                System.out.println(((RegistroEntrada) miListaRegistrosFiltrado.get(pos)).getProveedor());
                 txtProveedorCliente.setText(((RegistroEntrada) miListaRegistrosFiltrado.get(pos)).getProveedor());
             } else {
                 txtProveedorCliente.setText(((RegistroSalida) miListaRegistrosFiltrado.get(pos)).getCliente());

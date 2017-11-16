@@ -26,8 +26,8 @@ public class ProductoDAOImpl implements ProductoDAO{
     // Nombre de la tabla y sus campos en la base de datos
     private final String nombreTabla="producto";
     
-    private final String campoCodigo="codigoProducto";
-    private final String campoNombre="nombre";
+    private static  final String CAMPO_CODIGO="codigoProducto";
+    private static final String CAMPO_NOMBRE="nombre";//coregir!!!
     private final String campoMarca="marca";
     private final String campoModelo="modelo";
     private final String campoUniMed="unidadDeMedida";
@@ -49,8 +49,8 @@ public class ProductoDAOImpl implements ProductoDAO{
             conn = accesoDB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "INSERT INTO "+nombreTabla+" ("+campoCodigo+","
-                    +campoNombre+","+campoMarca+","+campoModelo+","+campoUniMed+
+            String query = "INSERT INTO "+nombreTabla+" ("+CAMPO_CODIGO+","
+                    +CAMPO_NOMBRE+","+campoMarca+","+campoModelo+","+campoUniMed+
                     ","+campoUbic+","+campoCantMin+","+campoExsist+","
                     +campoPrecUnit+","+campoImagen+","+campoCodCat+")VALUES(?,?,?,?,?,?,?,?,?,?,?);";
             
@@ -83,87 +83,87 @@ public class ProductoDAOImpl implements ProductoDAO{
     public ListaDoble<Producto> getAll() {
         //Logica para buscar todos
         //SELECT
-//        try {
-//
-//            CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
-//            
-//            ResultSet rs = null;
-//            Connection conn = null;
-//            PreparedStatement pstmt = null;
-//            ListaDoble<Producto> listaProductos = new ListaDoble<>();
-//            
-//            /* Preparamos la conexion hacia la base de datos */
-//            conn = accesoDB.getConexion();
-//
-//            /* Preparamos la sentencia SQL a ejecutar */
-//            String query = "SELECT "+campoCodigo+","+campoNombre+","+
-//                    campoMarca+","+campoModelo+","+campoUniMed+
-//                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
-//                    +campoPrecUnit+","+campoImagen+","+campoCodCat+" FROM "
-//                    +nombreTabla;
-//            
-//            pstmt = conn.prepareStatement(query);
-//            
-//            /* Ejecutamos la sentencias SQL */
-//            rs = pstmt.executeQuery();
-//
-//            /* Obtenemos los datos seleccionados */
-//            while (rs.next()) {
-//                int codigo  = rs.getInt(campoCodigo);
-//                String nombre = rs.getString(campoNombre);
-//                String marca = rs.getString(campoMarca);
-//                String modelo = rs.getString(campoModelo);
-//                String unidadMedida = rs.getString(campoUniMed);
-//                String ubicacion = rs.getString(campoUbic);
-//                float cantidadMin = rs.getFloat(campoCantMin);
-//                float existencias = rs.getFloat(campoExsist);
-//                float precioUni = rs.getFloat(campoPrecUnit);
-//                Blob imagen = rs.getBlob(campoImagen);
-//                int codigoCategoria = rs.getInt(campoCodCat);
-//                
-//                Categoria categoria = categoriaDAO.get(codigo);
-//                
-//                listaProductos.insertarAlInicio(new Producto(codigo, nombre,
-//                        marca, modelo, categoria, unidadMedida, ubicacion,
-//                        cantidadMin, existencias, precioUni,imagen));
-//            }
-//            
-//            accesoDB.cerrarConexion(conn, pstmt);
-//            
-//            return listaProductos;
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//
-//        /* Si no encontro ningun dato, retornamos null */
-//        return null;
+        try {
+
+            CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
+            
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ListaDoble<Producto> listaProductos = new ListaDoble<>();
+            
+            /* Preparamos la conexion hacia la base de datos */
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+CAMPO_CODIGO+","+CAMPO_NOMBRE+","+
+                    campoMarca+","+campoModelo+","+campoUniMed+
+                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
+                    +campoPrecUnit+","+campoImagen+","+campoCodCat+" FROM "
+                    +nombreTabla;
+            
+            pstmt = conn.prepareStatement(query);
+            
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            while (rs.next()) {
+                int codigo  = rs.getInt(CAMPO_CODIGO);
+                String nombre = rs.getString(CAMPO_NOMBRE);
+                String marca = rs.getString(campoMarca);
+                String modelo = rs.getString(campoModelo);
+                String unidadMedida = rs.getString(campoUniMed);
+                String ubicacion = rs.getString(campoUbic);
+                float cantidadMin = rs.getFloat(campoCantMin);
+                float existencias = rs.getFloat(campoExsist);
+                float precioUni = rs.getFloat(campoPrecUnit);
+                Blob imagen = rs.getBlob(campoImagen);
+                int codigoCategoria = rs.getInt(campoCodCat);
+                
+                Categoria categoria = categoriaDAO.get(codigo);
+                
+                listaProductos.insertarAlInicio(new Producto(codigo, nombre,
+                        marca, modelo, categoria, unidadMedida, ubicacion,
+                        cantidadMin, existencias, precioUni,imagen));
+            }
+            
+            accesoDB.cerrarConexion(conn, pstmt);
+            
+            return listaProductos;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        /* Si no encontro ningun dato, retornamos null */
+        return null;
     
         //prueba
-        ListaDoble<Producto> miLista = new ListaDoble();
-        Categoria categoria1 = new Categoria(1, "Productos del hogar");
-        Categoria categoria2 = new Categoria(2, "Limpieza");
-        Categoria categoria3 = new Categoria(3, "Tecnologia");
-        Categoria categoria4 = new Categoria(4, "Electrodomesticos");
-        
-        miLista.insertarAlInicio(new Producto(1,"Televisor LG 55º pulgadas","LG","HG002",
-                categoria3,"Unidades","ESTAND 01",1,0,730));
-        miLista.insertarAlInicio(new Producto(2,"Lavadora","LG","LV002",
-                categoria4,"Unidades","ESTAND 02",1,5,650));
-         miLista.insertarAlInicio(new Producto(3,"Laptop","Razer","RZ002",
-                categoria3,"Unidades","ESTAND 01",1,0,3000));
-        miLista.insertarAlInicio(new Producto(4,"Iphone 8","Apple","SC0001",
-                categoria3,"Unidades","ESTAND 03",1,5,3600));
-        miLista.insertarAlInicio(new Producto(5,"Comida para perros","Ricocan","N/A",
-                categoria1,"Kg","ESTAND 01",3,5.5f,4.5f));
-        miLista.insertarAlInicio(new Producto(6,"Cereal","Angel","N/A",
-                "Bolsas de 50g c/u","ESTAND 02",5,25,4));
-         miLista.insertarAlInicio(new Producto(7,"Televisor Samsung 30º pulgadas","Samsung","KI000",
-                categoria3,"Unidades","ESTAND 01",1,0,3000));
-        miLista.insertarAlInicio(new Producto(8,"Celular","Sony","SG001",
-                categoria3,"Unidades","ESTAND 03",5,25,200));
-        
-        
-        return miLista;
+//        ListaDoble<Producto> miLista = new ListaDoble();
+//        Categoria categoria1 = new Categoria(1, "Productos del hogar");
+//        Categoria categoria2 = new Categoria(2, "Limpieza");
+//        Categoria categoria3 = new Categoria(3, "Tecnologia");
+//        Categoria categoria4 = new Categoria(4, "Electrodomesticos");
+//        
+//        miLista.insertarAlInicio(new Producto(1,"Televisor LG 55º pulgadas","LG","HG002",
+//                categoria3,"Unidades","ESTAND 01",1,0,730));
+//        miLista.insertarAlInicio(new Producto(2,"Lavadora","LG","LV002",
+//                categoria4,"Unidades","ESTAND 02",1,5,650));
+//         miLista.insertarAlInicio(new Producto(3,"Laptop","Razer","RZ002",
+//                categoria3,"Unidades","ESTAND 01",1,0,3000));
+//        miLista.insertarAlInicio(new Producto(4,"Iphone 8","Apple","SC0001",
+//                categoria3,"Unidades","ESTAND 03",1,5,3600));
+//        miLista.insertarAlInicio(new Producto(5,"Comida para perros","Ricocan","N/A",
+//                categoria1,"Kg","ESTAND 01",3,5.5f,4.5f));
+//        miLista.insertarAlInicio(new Producto(6,"Cereal","Angel","N/A",
+//                "Bolsas de 50g c/u","ESTAND 02",5,25,4));
+//         miLista.insertarAlInicio(new Producto(7,"Televisor Samsung 30º pulgadas","Samsung","KI000",
+//                categoria3,"Unidades","ESTAND 01",1,0,3000));
+//        miLista.insertarAlInicio(new Producto(8,"Celular","Sony","SG001",
+//                categoria3,"Unidades","ESTAND 03",5,25,200));
+//        
+//        
+//        return miLista;
         
     }
 
@@ -182,11 +182,11 @@ public class ProductoDAOImpl implements ProductoDAO{
             conn = accesoDB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "SELECT "+campoCodigo+","+campoNombre+","+
+            String query = "SELECT "+CAMPO_CODIGO+","+CAMPO_NOMBRE+","+
                     campoMarca+","+campoModelo+","+campoCodCat+","+campoUniMed+
                     ","+campoUbic+","+campoCantMin+","+campoExsist+","
                     +campoPrecUnit+","+campoImagen+" FROM " +nombreTabla+ " WHERE "
-                    +campoCodigo+ " = ?";
+                    +CAMPO_CODIGO+ " = ?";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, ID);
@@ -196,8 +196,8 @@ public class ProductoDAOImpl implements ProductoDAO{
 
             /* Obtenemos los datos seleccionados */
             if (rs.next()) {
-                int codigo  = rs.getInt(campoCodigo);
-                String nombre = rs.getString(campoNombre);
+                int codigo  = rs.getInt(CAMPO_CODIGO);
+                String nombre = rs.getString(CAMPO_NOMBRE);
                 String marca = rs.getString(campoMarca);
                 String modelo = rs.getString(campoModelo);
                 int codigoCategoria = rs.getInt(campoCodCat);
@@ -229,19 +229,17 @@ public class ProductoDAOImpl implements ProductoDAO{
     public boolean modificar(Producto elem) {
         try {
 
-            ResultSet rs = null;
             Connection conn = null;
             PreparedStatement pstmt = null;
-            Producto producto = null;
             
             /* Preparamos la conexion hacia la base de datos */
             conn = accesoDB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "UPDATE "+nombreTabla+" SET "+campoCodigo+"= ?,"+
-                    campoNombre+" = ?,"+campoMarca+" = ?,"+campoModelo+" = ?,"+
+            String query = "UPDATE "+nombreTabla+" SET "+CAMPO_CODIGO+"= ?,"+
+                    CAMPO_NOMBRE+" = ?,"+campoMarca+" = ?,"+campoModelo+" = ?,"+
                     campoUniMed+" = ?,"+campoUbic+" = ?,"+campoCantMin+" = ?,"+
-                    campoExsist+" = ?,"+campoPrecUnit+" = ?,"+campoCodCat+" = ? WHERE "+campoCodigo+
+                    campoExsist+" = ?,"+campoPrecUnit+" = ?,"+campoCodCat+" = ? WHERE "+CAMPO_CODIGO+
                     " = ?;";
             
             pstmt = conn.prepareStatement(query);
@@ -254,16 +252,20 @@ public class ProductoDAOImpl implements ProductoDAO{
             pstmt.setFloat(7, elem.getCantidadMinima());
             pstmt.setFloat(8, elem.getExistencia());
             pstmt.setFloat(9, elem.getPrecioUnitario());
+
+            System.out.println(elem.getCat().getDescripcion());
             pstmt.setInt(10,elem.getCat()==null? null : elem.getCat().getCodigo());
+            
+            pstmt.setInt(11,elem.getCodigo());
                 
             /* Ejecutamos la sentencias SQL */
-            rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
             
             accesoDB.cerrarConexion(conn, pstmt);
             
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         return false;
@@ -282,7 +284,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "DELETE FROM "+nombreTabla+" WHERE "
-                    +campoCodigo+" = ?;";
+                    +CAMPO_CODIGO+" = ?;";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, ID);

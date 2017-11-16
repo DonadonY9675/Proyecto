@@ -42,7 +42,6 @@ public class CEditarProductoImpl implements CEditarProducto {
         miVentanaEditarProducto.listaCategorias = daoCategoria.getAll();
         miVentanaEditarProducto.comboCategoria.addItem("Nueva categoria");
         
-        int i = 0;
         miVentanaEditarProducto.listaCategorias.stream().map(Categoria::getDescripcion)
                 .forEach((c)->{miVentanaEditarProducto.comboCategoria.addItem(c);
                 if(miVentanaEditarProducto.producto.getCat()!=null && 
@@ -71,25 +70,28 @@ public class CEditarProductoImpl implements CEditarProducto {
         
         Categoria categoria = null;
         int escogido = miVentanaEditarProducto.comboCategoria.getSelectedIndex();
+        System.out.println("es: "+escogido+"-"+miVentanaEditarProducto.comboCategoria.getItemAt(escogido));
         if(escogido>0){
             categoria = miVentanaEditarProducto.listaCategorias.buscar
-                (miVentanaEditarProducto.comboCategoria.getSelectedIndex());
-        }else if(!miVentanaEditarProducto.comboCategoria.getItemAt(escogido).equals("Nueva categoria")){
-            categoria = new Categoria(miVentanaEditarProducto.comboCategoria.getItemCount(),
-                    miVentanaEditarProducto.comboCategoria.getItemAt(escogido));
-            
-            daoCategoria.registrar(categoria);
+                (miVentanaEditarProducto.comboCategoria.getItemAt(escogido),Categoria::getDescripcion);
+            miVentanaEditarProducto.producto.setCat(categoria);
         }
+//        else if(!miVentanaEditarProducto.comboCategoria.getItemAt(escogido).equals("Nueva categoria")){
+//            categoria = new Categoria(miVentanaEditarProducto.comboCategoria.getItemCount(),
+//                    miVentanaEditarProducto.comboCategoria.getItemAt(escogido));
+//            
+//            daoCategoria.registrar(categoria);
+//        }
         
         //HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
-//        if(daoProducto.modificar(miVentanaEditarProducto.producto)){
+        if(daoProducto.modificar(miVentanaEditarProducto.producto)){
             JOptionPane.showMessageDialog(miVentanaEditarProducto,
                         "Cambios guardados exitosamente", "", JOptionPane.INFORMATION_MESSAGE);
             miVentanaEditarProducto.dispose();
-//        }else{
-//            JOptionPane.showMessageDialog(miVentanaEditarProducto,
-//                        "Error al modificar el producto", "Error", JOptionPane.ERROR_MESSAGE);
-//        }    
+        }else{
+            JOptionPane.showMessageDialog(miVentanaEditarProducto,
+                        "Error al modificar el producto", "Error", JOptionPane.ERROR_MESSAGE);
+        }    
         
         
     }

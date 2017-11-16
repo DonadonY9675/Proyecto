@@ -36,7 +36,7 @@ public class CNuevoIngresoImpl extends CPadreNuevoIngresoSalidaImpl implements C
                     Float.parseFloat(vIngSal.txtImpuesto.getText()),
                     Float.parseFloat(vIngSal.txtTotal.getText())
             );
-            //        validacionRegistroDAO.registrar(registroAguardar);
+                    validacionRegistroDAO.registrar(registroAguardar);
             JOptionPane.showMessageDialog(vIngSal, "Se realizo un nuevo registro de entrada", "Guardado exitoso!!!", JOptionPane.INFORMATION_MESSAGE);
             super.vIngSal.dispose();
         } else {

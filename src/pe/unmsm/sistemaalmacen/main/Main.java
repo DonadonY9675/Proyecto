@@ -27,7 +27,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main principal = new Main();
-//        principal.cargarConfiguracionInicial();
+        principal.cargarConfiguracionInicial();
         principal.iniciar();
         
        

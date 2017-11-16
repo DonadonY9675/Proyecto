@@ -16,7 +16,7 @@ import pe.unmsm.sistemaalmacen.service.RegistroEntradaService;
  * @author Miguel
  */
 public class RegistroEntradaServiceImpl implements RegistroEntradaService{
-
+//CORREGIR
     RegistroEntradaDAOImpl registroEntradaDAO  = new RegistroEntradaDAOImpl();
     
     @Override

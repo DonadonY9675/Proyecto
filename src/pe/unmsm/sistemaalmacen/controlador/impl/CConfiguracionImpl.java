@@ -40,7 +40,7 @@ public class CConfiguracionImpl implements CConfiguracion {
 
     @Override
     public void clickBtnGuardar(ActionEvent evt) {
-        configService.modificar(vConf);
+//        configService.modificar(vConf);
         Utils.logo = vConf.txtLogo.getText();
         Utils.cargarLogo(vMenuPrincipal, vMenuPrincipal.lblLogo);
         vConf.dispose();
