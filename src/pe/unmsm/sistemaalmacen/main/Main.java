@@ -52,9 +52,9 @@ public class Main {
 
     public void cargarConfiguracionInicial() {
 
-        Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get("1");
-        Utils.IGV = miConfiguracionInicial.getIGV();
-        Utils.logo = miConfiguracionInicial.getLogo();
+//        Configuracion miConfiguracionInicial = new ConfiguracionDAOImpl().get("1");
+//        Utils.IGV = miConfiguracionInicial.getIGV();
+//        Utils.logo = miConfiguracionInicial.getLogo();
 
     }
 }

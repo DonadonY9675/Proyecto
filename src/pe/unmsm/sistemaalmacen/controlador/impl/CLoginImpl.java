@@ -17,14 +17,14 @@ import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 import pe.unmsm.sistemaalmacen.vista.VentanaLogIn;
 import pe.unmsm.sistemaalmacen.vista.VentanaMenuPrincipal;
-import pe.unmsm.sistemaalmacen.dao.UsuarioDao;
+import pe.unmsm.sistemaalmacen.dao.UsuarioDAO;
 /**
  *
  * @author Miguel
  */
 public class CLoginImpl implements CLogin{
     private VentanaLogIn miVentanaLogIn;
-    private UsuarioDao usuarioDao = new UsuarioDAOImpl();
+    private UsuarioDAO usuarioDao = new UsuarioDAOImpl();
     
     @Override
     public void setVentanaLogin(VentanaLogIn ventana){
@@ -63,6 +63,8 @@ public class CLoginImpl implements CLogin{
             VentanaMenuPrincipal ventanaPrincipal = new VentanaMenuPrincipal();
             CMenuPrincipalImpl coordinadorVentPrinc = new CMenuPrincipalImpl();
             coordinadorVentPrinc.setVentanaMenuPrincipal(ventanaPrincipal);
+            Thread t1 = new Thread(ventanaPrincipal);
+            t1.start();
             ventanaPrincipal.setLocationRelativeTo(null);
             ventanaPrincipal.setVisible(true);
             miVentanaLogIn.dispose();

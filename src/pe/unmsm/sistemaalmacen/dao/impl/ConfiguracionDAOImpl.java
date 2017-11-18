@@ -71,52 +71,50 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
     @Override
     public Configuracion get(String ID) {
     // Aqui el id no interesa, solo habra una configurracion en la base de datos 
-//        try {
-//
-//            ResultSet rs = null;
-//            Connection conn = null;
-//            PreparedStatement pstmt = null;
-//            Configuracion configuracion = null;
-//            
-//            Class.forName("com.mysql.jdbc.Driver").newInstance();
-//
-//            /* Preparamos la conexion hacia la base de datos */
-//            conn = accesoDB.getConexion();
-//
-//            /* Preparamos la sentencia SQL a ejecutar */
-//            String query = "SELECT "+campoNombreEmp+","+campoLogo+","+campoRUC+
-//                    ","+campoDireccion+","+campoIgv+","+campoImagen+" FROM "+nombreTabla;
-//            
-//            pstmt = conn.prepareStatement(query);
-//            
-//            /* Ejecutamos la sentencias SQL */
-//            rs = pstmt.executeQuery();
-//
-//            /* Obtenemos los datos seleccionados */
-//            if (rs.next()) {
-//                String nombre = rs.getString(campoNombreEmp);
-//                String logo = rs.getString(campoLogo);
-//                String direccion = rs.getString(campoDireccion);
-//                String ruc = rs.getString(campoRUC);
-//                float igv = rs.getFloat(campoIgv);
-//                Blob imagen = rs.getBlob(campoImagen);
-//                
-//                configuracion = new Configuracion(logo, nombre, ruc, direccion, igv,imagen);
-//            }
-//            return configuracion;
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//
-//        /* Si no encontro ningun dato, retornamos null */
-//        return null;
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            Configuracion configuracion = null;
+            
+            
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "SELECT "+campoNombreEmp+","+campoLogo+","+campoRUC+
+                    ","+campoDireccion+","+campoIgv+","+campoImagen+" FROM "+nombreTabla;
+            
+            pstmt = conn.prepareStatement(query);
+            
+            /* Ejecutamos la sentencias SQL */
+            rs = pstmt.executeQuery();
+
+            /* Obtenemos los datos seleccionados */
+            if (rs.next()) {
+                String nombre = rs.getString(campoNombreEmp);
+                String logo = rs.getString(campoLogo);
+                String direccion = rs.getString(campoDireccion);
+                String ruc = rs.getString(campoRUC);
+                float igv = rs.getFloat(campoIgv);
+                Blob imagen = rs.getBlob(campoImagen);
+                
+                configuracion = new Configuracion(logo, nombre, ruc, direccion, igv,imagen);
+            }
+            return configuracion;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        /* Si no encontro ningun dato, retornamos null */
+        return null;
         //kardeX
         //Logica de buscar por ID
         //SELECT
         //WHERE ID = ELEM
 //        URL url = getClass().getResource("pe/unmsm/sistemaalmacen/images/logo.png");
 //        System.out.println(url.toExternalForm().replace("file:/", "")); // = C:/Users/... 
-        return new Configuracion("C:\\Users\\Miguel\\Desktop\\Proyecto FINAL\\src\\pe\\unmsm\\sistemaalmacen\\images\\logo.png","UNSMS", "123456789012", "Av. Universitaria /Calle Germán Amézaga 375. Edificio Jorge Basadre Ciudad Universitaria", 0.18);
+//        return new Configuracion("C:\\Users\\Miguel\\Desktop\\Proyecto FINAL\\src\\pe\\unmsm\\sistemaalmacen\\images\\logo.png","UNSMS", "123456789012", "Av. Universitaria /Calle Germán Amézaga 375. Edificio Jorge Basadre Ciudad Universitaria", 0.18);
 //        return new Configuracion("/proy/images/logo.png","UNSMS", "123456789012", "Av. Universitaria /Calle Germán Amézaga 375. Edificio Jorge Basadre Ciudad Universitaria", 0.18);
         
         //ELIMINAR ESTE RETURN, SOLO SE UTILIZA PARA PROBAR LA CARGA INICIAL(EN EL MAIN)
@@ -137,7 +135,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO{
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "INSERT INTO "+nombreTabla+" ("+campoNombreEmp+","
                     +campoLogo+","+campoRUC+","+campoDireccion+","+campoIgv+","
-                    +campoImagen+") "+ "VALUES (?,?,?,?,?);";
+                    +campoImagen+") "+ "VALUES (?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, nuevaConf.getNombreEmpresa());

@@ -21,22 +21,22 @@ import pe.unmsm.sistemaalmacen.dominio.Usuario;
  * 
  */
 public class ProductoDAOImpl implements ProductoDAO{
-    private final AccesoDB accesoDB = new AccesoDB();
+    private final AccesoDB ACCESO_DB = new AccesoDB();
     
     // Nombre de la tabla y sus campos en la base de datos
-    private final String nombreTabla="producto";
+    private final String NOMBRE_TABLA="producto";
     
     private static  final String CAMPO_CODIGO="codigoProducto";
-    private static final String CAMPO_NOMBRE="nombre";//coregir!!!
-    private final String campoMarca="marca";
-    private final String campoModelo="modelo";
-    private final String campoUniMed="unidadDeMedida";
-    private final String campoUbic="ubicacion";
-    private final String campoCantMin="cantidadMinima";
-    private final String campoExsist="existencias";
-    private final String campoPrecUnit="precioUnitario";
-    private final String campoCodCat="codigoCategoria";
-    private final String campoImagen="imagen";
+    private static final String CAMPO_NOMBRE="nombre";
+    private static final String CAMPO_MARCA="marca";
+    private static final String CAMPO_MODELO="modelo";
+    private static final String CAMPO_UIND_MED="unidadDeMedida";
+    private static final String CAMPO_UBIC="ubicacion";
+    private static final String CAMPO_CANT_MIN="cantidadMinima";
+    private static final String CAMPO_EXIST="existencias";
+    private static final String CAMPO_PREC_UNI="precioUnitario";
+    private static final String CAMPO_COD_CAT="codigoCategoria";
+    private static final String CAMPO_IMAGEN="imagen";
     
     @Override
     public boolean registrar(Producto elem) {
@@ -46,13 +46,13 @@ public class ProductoDAOImpl implements ProductoDAO{
             Connection conn = null;
             PreparedStatement pstmt = null;
 
-            conn = accesoDB.getConexion();
+            conn = ACCESO_DB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "INSERT INTO "+nombreTabla+" ("+CAMPO_CODIGO+","
-                    +CAMPO_NOMBRE+","+campoMarca+","+campoModelo+","+campoUniMed+
-                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
-                    +campoPrecUnit+","+campoImagen+","+campoCodCat+")VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+            String query = "INSERT INTO "+NOMBRE_TABLA+" ("+CAMPO_CODIGO+","
+                    +CAMPO_NOMBRE+","+CAMPO_MARCA+","+CAMPO_MODELO+","+CAMPO_UIND_MED+
+                    ","+CAMPO_UBIC+","+CAMPO_CANT_MIN+","+CAMPO_EXIST+","
+                    +CAMPO_PREC_UNI+","+CAMPO_IMAGEN+","+CAMPO_COD_CAT+")VALUES(?,?,?,?,?,?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, elem.getCodigo());
@@ -69,7 +69,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 
             pstmt.executeUpdate();
             
-            accesoDB.cerrarConexion(conn, pstmt);
+            ACCESO_DB.cerrarConexion(conn, pstmt);
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
         } catch (Exception e) {
@@ -93,14 +93,14 @@ public class ProductoDAOImpl implements ProductoDAO{
             ListaDoble<Producto> listaProductos = new ListaDoble<>();
             
             /* Preparamos la conexion hacia la base de datos */
-            conn = accesoDB.getConexion();
+            conn = ACCESO_DB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "SELECT "+CAMPO_CODIGO+","+CAMPO_NOMBRE+","+
-                    campoMarca+","+campoModelo+","+campoUniMed+
-                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
-                    +campoPrecUnit+","+campoImagen+","+campoCodCat+" FROM "
-                    +nombreTabla;
+                    CAMPO_MARCA+","+CAMPO_MODELO+","+CAMPO_UIND_MED+
+                    ","+CAMPO_UBIC+","+CAMPO_CANT_MIN+","+CAMPO_EXIST+","
+                    +CAMPO_PREC_UNI+","+CAMPO_IMAGEN+","+CAMPO_COD_CAT+" FROM "
+                    +NOMBRE_TABLA;
             
             pstmt = conn.prepareStatement(query);
             
@@ -111,24 +111,24 @@ public class ProductoDAOImpl implements ProductoDAO{
             while (rs.next()) {
                 int codigo  = rs.getInt(CAMPO_CODIGO);
                 String nombre = rs.getString(CAMPO_NOMBRE);
-                String marca = rs.getString(campoMarca);
-                String modelo = rs.getString(campoModelo);
-                String unidadMedida = rs.getString(campoUniMed);
-                String ubicacion = rs.getString(campoUbic);
-                float cantidadMin = rs.getFloat(campoCantMin);
-                float existencias = rs.getFloat(campoExsist);
-                float precioUni = rs.getFloat(campoPrecUnit);
-                Blob imagen = rs.getBlob(campoImagen);
-                int codigoCategoria = rs.getInt(campoCodCat);
+                String marca = rs.getString(CAMPO_MARCA);
+                String modelo = rs.getString(CAMPO_MODELO);
+                String unidadMedida = rs.getString(CAMPO_UIND_MED);
+                String ubicacion = rs.getString(CAMPO_UBIC);
+                float cantidadMin = rs.getFloat(CAMPO_CANT_MIN);
+                float existencias = rs.getFloat(CAMPO_EXIST);
+                float precioUni = rs.getFloat(CAMPO_PREC_UNI);
+                Blob imagen = rs.getBlob(CAMPO_IMAGEN);
+                int codigoCategoria = rs.getInt(CAMPO_COD_CAT);
                 
-                Categoria categoria = categoriaDAO.get(codigo);
+                Categoria categoria = categoriaDAO.get(codigoCategoria);
                 
                 listaProductos.insertarAlInicio(new Producto(codigo, nombre,
                         marca, modelo, categoria, unidadMedida, ubicacion,
                         cantidadMin, existencias, precioUni,imagen));
             }
             
-            accesoDB.cerrarConexion(conn, pstmt);
+            ACCESO_DB.cerrarConexion(conn, pstmt);
             
             return listaProductos;
         } catch (Exception e) {
@@ -179,13 +179,13 @@ public class ProductoDAOImpl implements ProductoDAO{
             CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
             
             /* Preparamos la conexion hacia la base de datos */
-            conn = accesoDB.getConexion();
+            conn = ACCESO_DB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
             String query = "SELECT "+CAMPO_CODIGO+","+CAMPO_NOMBRE+","+
-                    campoMarca+","+campoModelo+","+campoCodCat+","+campoUniMed+
-                    ","+campoUbic+","+campoCantMin+","+campoExsist+","
-                    +campoPrecUnit+","+campoImagen+" FROM " +nombreTabla+ " WHERE "
+                    CAMPO_MARCA+","+CAMPO_MODELO+","+CAMPO_COD_CAT+","+CAMPO_UIND_MED+
+                    ","+CAMPO_UBIC+","+CAMPO_CANT_MIN+","+CAMPO_EXIST+","
+                    +CAMPO_PREC_UNI+","+CAMPO_IMAGEN+" FROM " +NOMBRE_TABLA+ " WHERE "
                     +CAMPO_CODIGO+ " = ?";
             
             pstmt = conn.prepareStatement(query);
@@ -198,15 +198,15 @@ public class ProductoDAOImpl implements ProductoDAO{
             if (rs.next()) {
                 int codigo  = rs.getInt(CAMPO_CODIGO);
                 String nombre = rs.getString(CAMPO_NOMBRE);
-                String marca = rs.getString(campoMarca);
-                String modelo = rs.getString(campoModelo);
-                int codigoCategoria = rs.getInt(campoCodCat);
-                String unidadMedida = rs.getString(campoUniMed);
-                String ubicacion = rs.getString(campoUbic);
-                float cantidadMin = rs.getFloat(campoCantMin);
-                float existencias = rs.getFloat(campoExsist);
-                float precioUni = rs.getFloat(campoPrecUnit);
-                Blob imagen = rs.getBlob(campoImagen);
+                String marca = rs.getString(CAMPO_MARCA);
+                String modelo = rs.getString(CAMPO_MODELO);
+                int codigoCategoria = rs.getInt(CAMPO_COD_CAT);
+                String unidadMedida = rs.getString(CAMPO_UIND_MED);
+                String ubicacion = rs.getString(CAMPO_UBIC);
+                float cantidadMin = rs.getFloat(CAMPO_CANT_MIN);
+                float existencias = rs.getFloat(CAMPO_EXIST);
+                float precioUni = rs.getFloat(CAMPO_PREC_UNI);
+                Blob imagen = rs.getBlob(CAMPO_IMAGEN);
                 
                 Categoria categoria = categoriaDAO.get(codigoCategoria);
                 
@@ -215,7 +215,7 @@ public class ProductoDAOImpl implements ProductoDAO{
                         existencias, precioUni,imagen);
             }
             
-            accesoDB.cerrarConexion(conn, pstmt);
+            ACCESO_DB.cerrarConexion(conn, pstmt);
             
             return producto;
         } catch (Exception e) {
@@ -233,13 +233,13 @@ public class ProductoDAOImpl implements ProductoDAO{
             PreparedStatement pstmt = null;
             
             /* Preparamos la conexion hacia la base de datos */
-            conn = accesoDB.getConexion();
+            conn = ACCESO_DB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "UPDATE "+nombreTabla+" SET "+CAMPO_CODIGO+"= ?,"+
-                    CAMPO_NOMBRE+" = ?,"+campoMarca+" = ?,"+campoModelo+" = ?,"+
-                    campoUniMed+" = ?,"+campoUbic+" = ?,"+campoCantMin+" = ?,"+
-                    campoExsist+" = ?,"+campoPrecUnit+" = ?,"+campoCodCat+" = ? WHERE "+CAMPO_CODIGO+
+            String query = "UPDATE "+NOMBRE_TABLA+" SET "+CAMPO_CODIGO+"= ?,"+
+                    CAMPO_NOMBRE+" = ?,"+CAMPO_MARCA+" = ?,"+CAMPO_MODELO+" = ?,"+
+                    CAMPO_UIND_MED+" = ?,"+CAMPO_UBIC+" = ?,"+CAMPO_CANT_MIN+" = ?,"+
+                    CAMPO_EXIST+" = ?,"+CAMPO_PREC_UNI+" = ?,"+CAMPO_COD_CAT+" = ? WHERE "+CAMPO_CODIGO+
                     " = ?;";
             
             pstmt = conn.prepareStatement(query);
@@ -261,7 +261,7 @@ public class ProductoDAOImpl implements ProductoDAO{
             /* Ejecutamos la sentencias SQL */
             pstmt.executeUpdate();
             
-            accesoDB.cerrarConexion(conn, pstmt);
+            ACCESO_DB.cerrarConexion(conn, pstmt);
             
             return true;
         } catch (Exception e) {
@@ -280,10 +280,10 @@ public class ProductoDAOImpl implements ProductoDAO{
             Connection conn = null;
             PreparedStatement pstmt = null;
 
-            conn = accesoDB.getConexion();
+            conn = ACCESO_DB.getConexion();
 
             /* Preparamos la sentencia SQL a ejecutar */
-            String query = "DELETE FROM "+nombreTabla+" WHERE "
+            String query = "DELETE FROM "+NOMBRE_TABLA+" WHERE "
                     +CAMPO_CODIGO+" = ?;";
             
             pstmt = conn.prepareStatement(query);
@@ -291,7 +291,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 
             pstmt.executeUpdate();
 
-            accesoDB.cerrarConexion(conn, pstmt);
+            ACCESO_DB.cerrarConexion(conn, pstmt);
             
             //Devuelve true si las sentencias se han ejecutado correctamente
             return true;
@@ -322,27 +322,4 @@ public class ProductoDAOImpl implements ProductoDAO{
 //        return lsProducto;    
 //    }
      
-    /**
-     * Realiza una consulta de productos por nombre
-     * nombre: Nombre de producto a buscar en la base de datos
-     * return: Lista de productos que contienen el nombre buscado
-     */
-    public ListaDoble<Producto> consultarProductosPorNombre(String nombre){
-        //Logica de buscar por NOMBRE
-        //SELECT
-        //WHERE nombre = nombre
-        
-        return null;
-    }
-    
-    /**
-     * Realiza una buqueda de un producto por codigo en la base de datos,
-     * devuelve solo el producto con dicho codigo (no existe duplicado de codigos)
-     * @param cod: codigo a buscar
-     * @return : Producto con codigo = cod
-     */
-    public Producto consultarProductoPorCodigo(int cod) {
-        return null;
-    }
-    
 }

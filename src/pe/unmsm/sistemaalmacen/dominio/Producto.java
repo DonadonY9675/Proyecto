@@ -26,6 +26,10 @@ public class Producto {
     private Blob imagen;
     //private  imagen;
 
+    public Producto(int codigo) {
+        this.codigo = codigo;
+    }
+
     public Producto(int codigo, String nombre, String marca, String modelo,
             String unidadDeMedida, String ubicacion,
             float cantidadMinima, float existencia, float precioUnitario) {

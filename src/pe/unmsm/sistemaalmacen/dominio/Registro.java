@@ -12,38 +12,37 @@ import java.sql.Date;
  *
  * @author Miguel
  */
-public abstract class Registro {
+public class Registro {
 
-    private int folio;
+    private String codigo;
     private Date fecha;
     private String ususario;
-
-    private ListaDoble<EntradaSalida> listaEntradaSalida;
+    private String agente;
+    private ListaDoble<DetalleRegistro> listaDetalleRegistro;
     private String observaciones;
 
     private float subTotal;// Sub total es el monto sin considerar impuestos
     private float impuestos;
     private float total;
 
-    public Registro(int folio, Date fecha, String ususario, ListaDoble<EntradaSalida> listaEntradaSalida, String observaciones, float subTotal, float impuestos, float total) {
-        this.folio = folio;
+    public Registro(String codigo, Date fecha, String usuario, String agente, ListaDoble<DetalleRegistro> listaDetalleRegistro, String observaciones, float subTotal, float impuestos, float total) {
+        this.codigo = codigo;
         this.fecha = fecha;
-        this.ususario = ususario;
-        this.listaEntradaSalida = listaEntradaSalida;
+        this.ususario = usuario;
+        this.agente = agente;
+        this.listaDetalleRegistro = listaDetalleRegistro;
         this.observaciones = observaciones;
         this.subTotal = subTotal;
         this.impuestos = impuestos;
         this.total = total;
     }
 
-    
-
-    public int getFolio() {
-        return folio;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setFolio(int folio) {
-        this.folio = folio;
+    public void setCodigo(String folio) {
+        this.codigo = folio;
     }
 
     public Date getFecha() {
@@ -70,12 +69,12 @@ public abstract class Registro {
         this.subTotal = subTotal;
     }
 
-    public ListaDoble<EntradaSalida> getListaEntradaSalida() {
-        return listaEntradaSalida;
+    public ListaDoble<DetalleRegistro> getDetalleRegistro() {
+        return listaDetalleRegistro;
     }
 
-    public void setListaProductos(ListaDoble<EntradaSalida> listaProductos) {
-        this.listaEntradaSalida = listaProductos;
+    public void setDetalleRegistros(ListaDoble<DetalleRegistro> listaProductos) {
+        this.listaDetalleRegistro = listaProductos;
     }
 
     public String getObservaciones() {
@@ -101,5 +100,20 @@ public abstract class Registro {
     public void setTotal(float total) {
         this.total = total;
     }
+
+    public String getAgente() {
+        return agente;
+    }
+
+    public void setAgente(String cliente) {
+        this.agente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Registro{" + "codigo=" + codigo + ", fecha=" + fecha + ", ususario=" + ususario + ", agente=" + agente + ", listaDetalleRegistro=" + listaDetalleRegistro + ", observaciones=" + observaciones + ", subTotal=" + subTotal + ", impuestos=" + impuestos + ", total=" + total + '}';
+    }
+    
+    
 
 }

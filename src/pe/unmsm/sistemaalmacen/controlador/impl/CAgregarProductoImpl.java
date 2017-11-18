@@ -9,32 +9,29 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
+import java.sql.Blob;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.unmsm.sistemaalmacen.controlador.CAgregarProducto;
-import pe.unmsm.sistemaalmacen.dao.impl.CategoriaDAOImpl;
-import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
-import pe.unmsm.sistemaalmacen.dao.CategoriaDAO;
-import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
+import pe.unmsm.sistemaalmacen.service.CategoriaService;
+import pe.unmsm.sistemaalmacen.service.ProductoService;
+import pe.unmsm.sistemaalmacen.service.impl.CategoriaServiceImpl;
+import pe.unmsm.sistemaalmacen.service.impl.ProductoServiceImpl;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 
 /**
- * mas estructuras
- * controlador modificar
- * service implementar validaciones
- * controladro no invoca dao
- * borrar imagen
  * @author Miguel
  */
 public class CAgregarProductoImpl implements CAgregarProducto{
     private VentanaAgregarProducto miVentanaAgregarProducto;
-    private ProductoDAO daoProducto = new ProductoDAOImpl();
-    private CategoriaDAO daoCategoria = new CategoriaDAOImpl();
+    private ProductoService serviceProducto = new ProductoServiceImpl();
+    private CategoriaService serviceCategoria = new CategoriaServiceImpl();
     
     @Override
     public void setVentanaAgregarProducto(VentanaAgregarProducto ventana) {
@@ -42,7 +39,8 @@ public class CAgregarProductoImpl implements CAgregarProducto{
         miVentanaAgregarProducto.BtnAgregar.addActionListener(this::clickBtnAgregar);
         miVentanaAgregarProducto.btnExaminar.addActionListener(this::clickBtnExaminar);
         
-        miVentanaAgregarProducto.listaCategorias = daoCategoria.getAll();
+        miVentanaAgregarProducto.listaCategorias = serviceCategoria.getAll();
+        
         miVentanaAgregarProducto.comboCategoria.addItem("Nueva categoria");
         miVentanaAgregarProducto.listaCategorias.stream().map(Categoria::getDescripcion)
                 .forEach(miVentanaAgregarProducto.comboCategoria::addItem);
@@ -52,14 +50,9 @@ public class CAgregarProductoImpl implements CAgregarProducto{
     }
     
     public boolean existeCodigo(){
-        long cantidad=miVentanaAgregarProducto.listaProductos.stream()
-                                                     .filter(p->p.getCodigo()==Integer.parseInt(miVentanaAgregarProducto.txtCodigo.getText()))
-                                                     .count();
-        if(cantidad!=0){
-            return true;
-        }else{
-            return false;
-        }
+        return miVentanaAgregarProducto.listaProductos.stream()
+                                                     .anyMatch(p->p.getCodigo()==Integer.parseInt(miVentanaAgregarProducto.txtCodigo.getText()));
+            
     }
     
     @Override
@@ -99,7 +92,7 @@ public class CAgregarProductoImpl implements CAgregarProducto{
                     categoria = new Categoria(miVentanaAgregarProducto.comboCategoria.getItemCount(),
                             miVentanaAgregarProducto.comboCategoria.getItemAt(escogido));
 
-                    daoCategoria.registrar(categoria);
+                    serviceCategoria.registrar(categoria);
                 }
 
                 Producto nuevoProducto = new Producto(codigo, nombre, marca, modelo, categoria,
@@ -107,7 +100,7 @@ public class CAgregarProductoImpl implements CAgregarProducto{
 
                 miVentanaAgregarProducto.listaProductos.insertarAlFinal(nuevoProducto);
         //      HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
-                daoProducto.registrar(nuevoProducto);
+                serviceProducto.registrar(nuevoProducto);
                 JOptionPane.showMessageDialog(miVentanaAgregarProducto,"Producto agregado exitosamente");
                 miVentanaAgregarProducto.dispose();
                 }else{
@@ -148,19 +141,18 @@ public class CAgregarProductoImpl implements CAgregarProducto{
             Image imagen = miVentanaAgregarProducto.getToolkit().getImage(cadenaRuta);
             imagen = imagen.getScaledInstance(240, 240, Image.SCALE_DEFAULT);
             
+              
             miVentanaAgregarProducto.labelImagen.setIcon(new ImageIcon(imagen));
+            
         }
 
     }
     
     @Override
     public void clickCombo(ItemEvent evt) {
-        if(miVentanaAgregarProducto.comboCategoria.getSelectedIndex()==0){
-            miVentanaAgregarProducto.comboCategoria.setEditable(true);
-        }else{
-            miVentanaAgregarProducto.comboCategoria.setEditable(false);
-        }
+            miVentanaAgregarProducto.comboCategoria.setEditable(
+                    miVentanaAgregarProducto.comboCategoria.getSelectedIndex()==0);
+        
     }
-    
     
 }

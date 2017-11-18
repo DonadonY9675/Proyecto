@@ -11,26 +11,25 @@ import javax.swing.JFrame;
 import pe.unmsm.sistemaalmacen.dao.impl.ConfiguracionDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.dominio.Configuracion;
-import pe.unmsm.sistemaalmacen.service.CategoriaService;
+import pe.unmsm.sistemaalmacen.service.ConfiguracionService;
 import pe.unmsm.sistemaalmacen.vista.VentanaConfiguracion;
 
 /**
  *
  * @author Miguel
  */
-public class ConfiguracionServiceImpl implements CategoriaService {
+public class ConfiguracionServiceImpl implements ConfiguracionService {
 
-    ConfiguracionDAOImpl configuracionDAOImpl = new ConfiguracionDAOImpl();
+    ConfiguracionDAOImpl configuracionDAO = new ConfiguracionDAOImpl();
     
     @Override
-    public boolean registrar(Categoria e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+    public boolean registrar(Configuracion e) {
+        return configuracionDAO.registrar(e);
     }
 
     @Override
-    public boolean modificar(Categoria e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean modificar(Configuracion e) {
+        return configuracionDAO.modificar(e);
     }
 
     public boolean modificar(VentanaConfiguracion v) {
@@ -46,7 +45,7 @@ public class ConfiguracionServiceImpl implements CategoriaService {
             double igv = Double.parseDouble(v.txtIgv.getText());
             Configuracion miConfiguracion = new Configuracion(logo, nombre, ruc, direccion, igv);
             
-            configuracionDAOImpl.modificar(miConfiguracion);
+            configuracionDAO.modificar(miConfiguracion);
             
             return true;
         } else {
@@ -55,18 +54,18 @@ public class ConfiguracionServiceImpl implements CategoriaService {
     }
 
     @Override
-    public Categoria get(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Configuracion get(String id) {
+        return configuracionDAO.get(id);
     }
 
     @Override
-    public ListaDoble<Categoria> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ListaDoble<Configuracion> getAll() {
+        return configuracionDAO.getAll();
     }
 
     @Override
-    public boolean eliminar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean eliminar(String id) {
+        return configuracionDAO.eliminar(id);
     }
 
 }

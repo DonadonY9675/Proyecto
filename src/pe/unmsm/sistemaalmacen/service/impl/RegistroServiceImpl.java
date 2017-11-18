@@ -5,23 +5,23 @@
  */
 package pe.unmsm.sistemaalmacen.service.impl;
 
-import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
-import pe.unmsm.sistemaalmacen.dao.impl.RegistroSalidaDAOImpl;
+import pe.unmsm.sistemaalmacen.dao.impl.RegistroDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroSalida;
-import pe.unmsm.sistemaalmacen.service.RegistroSalidaService;
+import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
+import pe.unmsm.sistemaalmacen.service.RegistroService;
 
 /**
  *
  * @author Miguel
  */
-public class RegistroSalidaServiceImpl implements RegistroSalidaService{
+public class RegistroServiceImpl implements RegistroService{
 
-    RegistroSalidaDAOImpl registroSalidaDAO = new RegistroSalidaDAOImpl();
-            
+    RegistroDAOImpl registroDao = new RegistroDAOImpl();
+    
     @Override
     public boolean registrar(Registro e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        registroDao.registrar(e);
+        return true;
     }
 
     @Override
@@ -30,24 +30,20 @@ public class RegistroSalidaServiceImpl implements RegistroSalidaService{
     }
 
     @Override
-    public Registro get(Integer id) {
+    public Registro get(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public ListaDoble<Registro> getAll() {
-        /**
-         * validaciones
-         * 
-         */
-        return registroSalidaDAO.getAll();
+        
+        
+        return  new RegistroDAOImpl().getAll();
     }
 
     @Override
-    public boolean eliminar(Integer id) {
+    public boolean eliminar(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
     
 }

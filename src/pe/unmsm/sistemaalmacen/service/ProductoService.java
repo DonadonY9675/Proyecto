@@ -14,9 +14,5 @@ import pe.unmsm.sistemaalmacen.dominio.Producto;
  * @author Miguel
  */
 public interface ProductoService extends MantenimientoService<Producto, Integer>{
-    //aqui van los prototipoa de los metodos de ProductoServiceImpl
-    public ListaDoble<Producto> consultarProductosPorNombre(String nombre);
-    public Producto consultarProductoPorCodigo(int cod);
-         ListaDoble<Producto> buscarConCategoria();
-
+   
 }

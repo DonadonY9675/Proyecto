@@ -257,6 +257,44 @@ public class ListaDoble<T> implements Iterable<T> {
     }
     
     /*
+        Busca y elimina un elemento de la lista doble que tiene como llave el
+        valor especificado como primer parametro, el segundo parametro es la
+        funcion que aplicada al generico del que esta conformado la lista doble
+        resulta ser la llave de ese objeto.
+    */
+    public <K> void eliminar(K key, Function<T,K> funcion) {
+        
+        int pos=0;
+        NodoDoble<T> aux = cabecera;
+        while(!key.equals(funcion.apply(aux.dato))){
+            aux=aux.sig;
+            pos++;
+        }
+        
+        if (pos == 0) {                     //eliminar primer elemento
+                if (tam != 1) {                 //si tiene mas de un elemento
+                    cabecera = cabecera.sig;
+                    cabecera.ant.sig = null;
+                    cabecera.ant = null;
+                } else {                        //si tiene 1 elemento
+                    cabecera = null;
+                }
+            } else if (pos == tam - 1) {        //si se quiere eliminar el ultimo elemento
+                ultimo = ultimo.ant;
+                ultimo.sig.ant = null;
+                ultimo.sig = null;
+            } else {                            //eliminar elemento intermedio
+                aux.ant.sig = aux.sig;
+                aux.sig.ant = aux.ant;
+                aux.ant = null;
+                aux.sig = null;
+
+            }
+            tam--;
+    }
+    
+    
+    /*
         Devuelve una sub lista doble donde cada elemento de esta cumple el requisito
         especificado como argumento. IMPORTANTE! Es solo una sublista con
         referencias a los objetos originales. Cualquier cambio en esta sublista
@@ -294,18 +332,6 @@ public class ListaDoble<T> implements Iterable<T> {
         }
         
         return null;
-    }
-    
-    /*
-    Imitacion del forEach de stream
-    */
-    public void paraCada(Consumer<T> accion){
-        NodoDoble<T> aux = cabecera;
-                
-        while(aux!=null){
-            accion.accept(aux.dato);
-            aux=aux.sig;
-        }
     }
     
     public int size(){

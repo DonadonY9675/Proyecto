@@ -5,13 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.dao.AccesoDB;
-import pe.unmsm.sistemaalmacen.dao.UsuarioDao;
+import pe.unmsm.sistemaalmacen.dao.UsuarioDAO;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 /**
  *
  * @author Josecarlos
  */
-public class UsuarioDAOImpl implements UsuarioDao{
+public class UsuarioDAOImpl implements UsuarioDAO{
 
     private final AccesoDB accesoDB = new AccesoDB();
     

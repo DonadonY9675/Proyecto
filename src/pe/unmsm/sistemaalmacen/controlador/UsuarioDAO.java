@@ -5,12 +5,12 @@
  */
 package pe.unmsm.sistemaalmacen.dao;
 
-import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
+import pe.unmsm.sistemaalmacen.dominio.Usuario;
 
 /**
  *
+ * @author Josecarlos
  */
-public interface RegistroEntradaDAO extends AbstractDAO<Registro,Integer>{
+public interface UsuarioDAO extends AbstractDAO<Usuario, String>{
     
 }

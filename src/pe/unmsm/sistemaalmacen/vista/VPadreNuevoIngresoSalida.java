@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import pe.unmsm.sistemaalmacen.controlador.impl.CPadreNuevoIngresoSalidaImpl;
+import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 
@@ -44,7 +46,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         pnlDatos = new javax.swing.JPanel();
         lblFolio = new javax.swing.JLabel();
-        txtFolio = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         lblFecha = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
         lblUsuario = new javax.swing.JLabel();
@@ -88,10 +90,10 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
 
         pnlDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 24))); // NOI18N
 
-        lblFolio.setText("Folio");
+        lblFolio.setText("Código");
 
-        txtFolio.setEditable(false);
-        txtFolio.setText("0");
+        txtCodigo.setEditable(false);
+        txtCodigo.setText("0");
 
         lblFecha.setText("Fecha");
 
@@ -126,7 +128,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
                             .addComponent(lblFolio, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtFolio)
+                            .addComponent(txtCodigo)
                             .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosLayout.createSequentialGroup()
@@ -147,7 +149,7 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
                     .addGroup(pnlDatosLayout.createSequentialGroup()
                         .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFolio)
-                            .addComponent(txtFolio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFecha)
@@ -318,6 +320,8 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
         txtUsuario.setText(Utils.USER.getNombre());   
         txtFecha.setText(Utils.fechaActual());
         Utils.cargarLogo(this,lblLogo);
+        
+        
     }
 
     public void actualizarDatos() {
@@ -341,14 +345,16 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
 
     public double calcularSubTotal(){
         double subTotal = 0;
-        for(EntradaSalida p : miListaProductos){
-            subTotal += p.getTotal();
+        for(DetalleRegistro p : miListaProductos){
+            subTotal += p.getMonto();
         }
         return subTotal;
     }
+
+    
     
     public boolean estaGuardado = false;
-    public ListaDoble<EntradaSalida> miListaProductos = new ListaDoble();
+    public ListaDoble<DetalleRegistro> miListaProductos = new ListaDoble();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnEliminar;
@@ -372,13 +378,15 @@ public abstract class VPadreNuevoIngresoSalida extends javax.swing.JDialog {
     private javax.swing.JPanel pnlDatos;
     private javax.swing.JPanel pnlDatos2;
     private javax.swing.JPanel pnlTabla;
+    public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtFecha;
-    public javax.swing.JTextField txtFolio;
     public javax.swing.JTextField txtImpuesto;
     public javax.swing.JTextArea txtObservaciones;
     public javax.swing.JTextField txtProveedor;
     public javax.swing.JTextField txtSubTotal;
     public javax.swing.JTextField txtTotal;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    
 }

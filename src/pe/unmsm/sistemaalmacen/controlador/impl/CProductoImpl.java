@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import pe.unmsm.sistemaalmacen.vista.VentanaProductos;
 import pe.unmsm.sistemaalmacen.controlador.CProductos;
+import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.vista.VPadreNuevoIngresoSalida;
@@ -131,23 +132,24 @@ public class CProductoImpl implements CProductos {
 
     public void clickBtnAgregar(ActionEvent evt) {
         Producto prodSelec = vProd.listaProductos.get(vProd.lstProductos.getSelectedIndex());
-        int cant = Integer.parseInt(vProd.txtCantidad.getText());
+        double  cant = Integer.parseInt(vProd.txtCantidad.getText());
         double total = Double.parseDouble(vProd.txtTotal.getText());
 
         //validando si ya existe algun producto en la listaProducto
         boolean existe = false;
-        for (EntradaSalida p : vIngSal.miListaProductos) {
+        for (DetalleRegistro p : vIngSal.miListaProductos) {
             if (p.getProducto().getCodigo() == prodSelec.getCodigo()) {
-                p.setCant(p.getCantidad() + cant);
-                p.setTotal(p.getTotal() + total);
+                p.setCantidad(p.getCantidad() + cant);
+                p.setMonto(p.getMonto()+ total);
                 existe = true;
                 break;
             }
         }
 
         if (!existe) {
+            System.out.println("cant = " + cant + " TOTAL = " + total);
             vIngSal.miListaProductos.insertarAlInicio(
-                    new EntradaSalida(prodSelec, cant, total));
+                    new DetalleRegistro(prodSelec, cant, total));
         }
         vIngSal.actualizarDatos();
         

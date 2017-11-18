@@ -5,6 +5,8 @@
  */
 package pe.unmsm.sistemaalmacen.service.impl;
 
+import pe.unmsm.sistemaalmacen.dao.CategoriaDAO;
+import pe.unmsm.sistemaalmacen.dao.impl.CategoriaDAOImpl;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
 import pe.unmsm.sistemaalmacen.service.CategoriaService;
@@ -14,29 +16,31 @@ import pe.unmsm.sistemaalmacen.service.CategoriaService;
  */
 public class CategoriaServiceImpl implements CategoriaService{
 
+    CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
+    
     @Override
     public boolean registrar(Categoria e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return categoriaDAO.registrar(e);
     }
 
     @Override
     public boolean modificar(Categoria e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return categoriaDAO.modificar(e);
     }
 
     @Override
     public Categoria get(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return categoriaDAO.get(id);
     }
 
     @Override
     public ListaDoble<Categoria> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return categoriaDAO.getAll();
     }
 
     @Override
     public boolean eliminar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return categoriaDAO.eliminar(id);
     }
     
 }

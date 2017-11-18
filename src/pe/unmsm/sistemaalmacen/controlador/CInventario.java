@@ -5,15 +5,9 @@
  */
 package pe.unmsm.sistemaalmacen.controlador;
 
-import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.DefaultListModel;
-import pe.unmsm.sistemaalmacen.dominio.Producto;
-import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
-import pe.unmsm.sistemaalmacen.vista.VentanaEditarProducto;
 import pe.unmsm.sistemaalmacen.vista.VentanaInventario;
 
 /**
@@ -22,8 +16,6 @@ import pe.unmsm.sistemaalmacen.vista.VentanaInventario;
 public interface CInventario extends MantenimientoControlador {
 
     public void setVentanaInventario(VentanaInventario ventana);
-
-    public void actualizarJList();
 
     public void clickBtnBuscar(KeyEvent e);
 

@@ -9,13 +9,20 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import pe.unmsm.sistemaalmacen.util.Utils;
 
 /**
  *
  */
-public class VentanaMenuPrincipal extends javax.swing.JFrame {
+public class VentanaMenuPrincipal extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form VentanaMenuPrincipal
@@ -23,7 +30,24 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     public VentanaMenuPrincipal() {
         initComponents();
         iniciarComponentes();
+        lblFecha.setText(Utils.obtenerFechaDetallada());
     }
+
+    @Override
+    public void run() {
+        Thread ct = Thread.currentThread();
+        while(true) {   
+            Date ahora = new Date();
+                
+            SimpleDateFormat formateador = new SimpleDateFormat("hh:mm:ss");
+            lblHora.setText(formateador.format(ahora));
+            try {
+               Thread.sleep(1000);
+              }
+            catch(InterruptedException e) {}
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +70,8 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         btnReportesDeEntrada = new javax.swing.JButton();
         btnReportesDeSalida = new javax.swing.JButton();
         btnNuevaSalida = new javax.swing.JButton();
+        lblHora = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         mnBarPrincipal = new javax.swing.JMenuBar();
         mnClientes = new javax.swing.JMenu();
         mnItmRegistroClientes = new javax.swing.JMenuItem();
@@ -149,6 +175,12 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblHora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblHora.setText("HORA");
+
+        lblFecha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblFecha.setText("FEcha");
+
         mnClientes.setText("Clientes");
 
         mnItmRegistroClientes.setText("Registro de clientes");
@@ -194,27 +226,38 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGap(50, 50, 50)
+                        .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 103, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -262,6 +305,8 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public javax.swing.JLabel lblFecha;
+    public javax.swing.JLabel lblHora;
     public javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblP;
     private javax.swing.JLabel lblPermisos;
@@ -274,7 +319,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem mnItmDatos;
     private javax.swing.JMenuItem mnItmProveedores;
     private javax.swing.JMenuItem mnItmRegistroClientes;
-    private javax.swing.JMenuItem mnItmRegistroUsuarios;
+    public javax.swing.JMenuItem mnItmRegistroUsuarios;
     private javax.swing.JMenuItem mnItmSalir;
     private javax.swing.JMenu mnProveedores;
     private javax.swing.JMenu mnUsuarios;

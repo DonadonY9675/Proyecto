@@ -17,8 +17,6 @@ import javax.swing.JTextField;
 import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
-import pe.unmsm.sistemaalmacen.dominio.RegistroSalida;
 
 /**
  *
@@ -399,12 +397,14 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void mostrarTxtBuscar(){
+    public void mostrarTxtBuscar() {
         panelFecha.removeAll();
         panelFecha.add(txtBuscar);
         panelFecha.setVisible(false);
         panelFecha.setVisible(true);
-    }    public void mostrarJDateChooser(){
+    }
+
+    public void mostrarJDateChooser() {
         panelFecha.removeAll();
         panelFecha.add(jDateFecha);
         panelFecha.setVisible(false);
@@ -412,15 +412,14 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     }
 
     public void iniciarComponentes() {
-        
+
         txtBuscar = new JTextField();
         jDateFecha = new JDateChooser();
-        panelFecha.setLayout(new GridLayout(1, 1)); 
+        panelFecha.setLayout(new GridLayout(1, 1));
 //        inicialmente el panel contiene txtBuscar, posteriormente cambiara entre
 //        txtBuscar(JTextField) y jDateFecha(JDateChooser), segun la opcion que 
 //        escoja el usuario
-        panelFecha.add(txtBuscar); 
-        
+        panelFecha.add(txtBuscar);
 
         actualizarLista();
         rbtnUsuario.setSelected(true);
@@ -431,13 +430,9 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
 
     public void actualizarLista() {
         DefaultListModel lista = new DefaultListModel();
-        for (Registro r : miListaRegistrosFiltrado) {
-            if (r instanceof RegistroEntrada) {
-                lista.addElement(((RegistroEntrada) r).getProveedor());
-            } else {
-                lista.addElement(((RegistroSalida) r).getCliente());
-            }
-        }
+
+        miListaRegistrosFiltrado.stream().forEach(r -> lista.addElement(r.getAgente()));
+
         lstProductos.setModel(lista);
 
         if (miListaRegistrosFiltrado.size() != 0) {
@@ -450,7 +445,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         int pos = lstProductos.getSelectedIndex();
 
         if (pos != -1) {
-            Utils.llenarTabla(jTable, miListaRegistrosFiltrado.get(pos).getListaEntradaSalida());
+            Utils.llenarTabla(jTable, miListaRegistrosFiltrado.get(pos).getDetalleRegistro());
         } else {
             Utils.llenarTabla(jTable, new ListaDoble<>());
         }
@@ -460,7 +455,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
         int pos = lstProductos.getSelectedIndex();
         if (pos != -1) {
             DecimalFormat df = new DecimalFormat("0.00");
-            txtFolio.setText(miListaRegistrosFiltrado.get(pos).getFolio() + "");
+            txtFolio.setText(miListaRegistrosFiltrado.get(pos).getCodigo() + "");
             txtTotal.setText(miListaRegistrosFiltrado.get(pos).getTotal() + "");
             txtUsuario.setText(miListaRegistrosFiltrado.get(pos).getUsusario());
             txtFecha.setText(Utils.convertirDateSQLaString(miListaRegistrosFiltrado.get(pos).getFecha()));
@@ -471,12 +466,8 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
 
             txtNroRegistros.setText(miListaRegistrosFiltrado.size() + "");
 
-            if (miListaRegistrosFiltrado.get(pos) instanceof RegistroEntrada) {
-                System.out.println(((RegistroEntrada) miListaRegistrosFiltrado.get(pos)).getProveedor());
-                txtProveedorCliente.setText(((RegistroEntrada) miListaRegistrosFiltrado.get(pos)).getProveedor());
-            } else {
-                txtProveedorCliente.setText(((RegistroSalida) miListaRegistrosFiltrado.get(pos)).getCliente());
-            }
+            txtProveedorCliente.setText((miListaRegistrosFiltrado.get(pos)).getAgente());
+
         } else {
             txtFolio.setText("");
             txtTotal.setText("");

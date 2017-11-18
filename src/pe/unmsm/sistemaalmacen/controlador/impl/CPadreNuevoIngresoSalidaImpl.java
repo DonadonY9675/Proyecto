@@ -7,12 +7,19 @@ package pe.unmsm.sistemaalmacen.controlador.impl;
 
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
+import java.util.Optional;
 import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.vista.VPadreNuevoIngresoSalida;
 import pe.unmsm.sistemaalmacen.controlador.CModeloNuevoIngresoSalida;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
+import pe.unmsm.sistemaalmacen.dominio.Registro;
+import pe.unmsm.sistemaalmacen.service.RegistroService;
+import pe.unmsm.sistemaalmacen.service.impl.DetalleRegistroServiceImpl;
+import pe.unmsm.sistemaalmacen.service.impl.RegistroServiceImpl;
+import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.vista.VentanaNuevaSalida;
+import pe.unmsm.sistemaalmacen.vista.VentanaNuevoIngreso;
 import pe.unmsm.sistemaalmacen.vista.VentanaProductos;
 
 /**
@@ -33,6 +40,7 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
         miModeloIngSal.btnIncluirImpuesto.addActionListener(this::clickBtnIncluirImpuesto);
         miModeloIngSal.btnGuardar.addActionListener(this::clickBtnGuardar);
         miModeloIngSal.btnCancelar.addActionListener(this::clickBtnCancelar);
+        vIngSal.txtCodigo.setText(generarCodigo());
     }
 
     @Override
@@ -68,8 +76,8 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
             vIngSal.miListaProductos.eliminar(seleccion);
             vIngSal.actualizarDatos();
         }
-        
-        if(vIngSal.miListaProductos.size()==0){
+
+        if (vIngSal.miListaProductos.size() == 0) {
             vIngSal.btnGuardar.setEnabled(false);
             vIngSal.btnEliminar.setEnabled(false);
         }
@@ -84,10 +92,50 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
         } else {
             vIngSal.btnIncluirImpuesto.setText("Incluir impuestos");
         }
+
     }
 
-    
-    public abstract void clickBtnGuardar(ActionEvent evt);
+    public void clickBtnGuardar(ActionEvent evt) {
+        if (!vIngSal.txtProveedor.getText().equals("")) {
+            RegistroService serviceRegistro = new RegistroServiceImpl();
+            DetalleRegistroServiceImpl serviceDetalleRegistro = new DetalleRegistroServiceImpl();
+            vIngSal.estaGuardado = true;
+
+            float impuesto = 0;
+            if(vIngSal.txtImpuesto.getText().equals("-")){
+                impuesto = Float.parseFloat(vIngSal.txtImpuesto.getText());
+            }
+            
+            Registro registro = new Registro(
+                    vIngSal.txtCodigo.getText(),
+                    Utils.convertirFechaAdateSQL(vIngSal.txtFecha.getText()),
+                    vIngSal.txtUsuario.getText(),
+                    vIngSal.txtProveedor.getText(),
+                    null,
+                    vIngSal.txtObservaciones.getText(),
+                    Float.parseFloat(vIngSal.txtSubTotal.getText()),
+                    
+                    impuesto,
+                    
+                    Float.parseFloat(vIngSal.txtTotal.getText()));
+
+            System.out.println(registro);
+            vIngSal.miListaProductos.stream().forEach(r->r.setCodigo(vIngSal.txtCodigo.getText()));
+            vIngSal.miListaProductos.stream().forEach(System.out::println);
+            serviceRegistro.registrar(registro);
+
+            vIngSal.miListaProductos.stream().forEach(serviceDetalleRegistro::registrar);
+                        
+
+            
+            //REGISTRO EN LA BASE DE DATOS
+            JOptionPane.showMessageDialog(vIngSal, "Se realizo un nuevo registro de entrada", "Guardado exitoso!!!", JOptionPane.INFORMATION_MESSAGE);
+            vIngSal.dispose();
+        } else {
+            JOptionPane.showMessageDialog(vIngSal, "ERROR!! Debe ingresar un nombre proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+            vIngSal.txtProveedor.requestFocus();
+        }
+    }
 
     @Override
     public void clickBtnCancelar(ActionEvent evt) {
@@ -106,4 +154,28 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
 
     }
 
+    public String generarCodigo() {
+
+        
+        ListaDoble<Registro> listaRegistro = new RegistroServiceImpl().getAll();
+
+        if (vIngSal instanceof VentanaNuevoIngreso) {
+            Optional<String> max = listaRegistro.stream()
+                    .map(r -> r.getCodigo())
+                    .filter(c -> c.contains("RE"))
+                    .max((t1, t2) -> t1.compareTo(t2));
+            int valor = Integer.parseInt(max.get().substring(2)) + 1;
+
+            return "RE" + String.format("%04d", valor);
+        } else {
+            Optional<String> max = listaRegistro.stream()
+                    .map(r -> r.getCodigo())
+                    .filter(c -> c.contains("RS"))
+                    .max((t1, t2) -> t1.compareTo(t2));
+            int valor = Integer.parseInt(max.get().substring(2)) + 1;
+
+            return "RS" + String.format("%04d", valor);
+        }
+
+    }
 }

@@ -27,4 +27,6 @@ public interface CMenuPrincipal extends MantenimientoControlador {
     void clickBtnReportesDeSalida(ActionEvent evt);
 
     public void clickBtnConfiguracion(ActionEvent evt);
+    
+    public void clickBtnRegistroUsuario(ActionEvent evt);
 }

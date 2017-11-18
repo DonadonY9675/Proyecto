@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.unmsm.sistemaalmacen.dao;
+package pe.unmsm.sistemaalmacen.service;
 
-import pe.unmsm.sistemaalmacen.dominio.Registro;
+import pe.unmsm.sistemaalmacen.dominio.Usuario;
 
 /**
  *
- * @author Josecarlos
+ * @author Anthony
  */
-public interface RegistroDAO extends AbstractDAO<Registro, Integer>{
+public interface UsuarioService extends MantenimientoService<Usuario,String> {
     
 }

@@ -15,8 +15,7 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
-import pe.unmsm.sistemaalmacen.dominio.RegistroSalida;
+
 import pe.unmsm.sistemaalmacen.vista.VPadreReportesIngresoSalida;
 import pe.unmsm.sistemaalmacen.vista.VentanaReporteEntrada;
 
@@ -33,7 +32,7 @@ public abstract class CPadreReportesIngresoSalidaImpl {
         vRepIngSal.btnBuscar.addActionListener(this::clickBtnBuscar);
         vRepIngSal.btnEliminar.addActionListener(this::clickBtnEliminar);
         vRepIngSal.btnTodos.addActionListener(this::clickBtnTodos);
-        
+
         //evento de JList
         vRepIngSal.lstProductos.addMouseListener(new MouseAdapter() {
             @Override
@@ -59,7 +58,7 @@ public abstract class CPadreReportesIngresoSalidaImpl {
         } else if (vRepIngSal.rbrnFecha.isSelected()) {
             buscarPorFecha();
         } else if (vRepIngSal.rbtnFolio.isSelected()) {
-            buscarPorFolio();
+            buscarPorCodigo();
         }
         vRepIngSal.actualizarLista();
         vRepIngSal.actualizarDatos();
@@ -73,10 +72,10 @@ public abstract class CPadreReportesIngresoSalidaImpl {
                 contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
     }
 
-    private void buscarPorFolio() {
-        if(!vRepIngSal.txtBuscar.getText().equals("")){   
-        vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                .filtrar(u -> u.getFolio() == Integer.parseInt(vRepIngSal.txtBuscar.getText()));
+    private void buscarPorCodigo() {
+        if (!vRepIngSal.txtBuscar.getText().equals("")) {
+            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
+                    .filtrar(u -> u.getCodigo().toUpperCase().contains(vRepIngSal.txtBuscar.getText().toUpperCase()));
         } else {
             vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta;
         }
@@ -94,17 +93,11 @@ public abstract class CPadreReportesIngresoSalidaImpl {
     }
 
     private void buscarPorClienteProveedor() {
-        if (vRepIngSal instanceof VentanaReporteEntrada) {
-            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                    .filtrar((Registro r) -> (r instanceof RegistroEntrada))
-                    .filtrar((Registro r) -> ((RegistroEntrada) r).getProveedor().toLowerCase().
-                    contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
-        } else {
-            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                    .filtrar((Registro r) -> (r instanceof RegistroSalida))
-                    .filtrar((Registro r) -> ((RegistroSalida) r).getCliente().toLowerCase().
-                    contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
-        }
+
+        vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
+                .filtrar(r -> r.getAgente().toLowerCase().
+                contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
+
     }
 
     public void clickRdbnFecha(ItemEvent e) {
@@ -124,41 +117,21 @@ public abstract class CPadreReportesIngresoSalidaImpl {
     public void clickBtnBuscar(ActionEvent e) {
 
         if (vRepIngSal.rbtnUsuario.isSelected()) {
-            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                    .filtrar((Registro r) -> r.getUsusario().toLowerCase().
-                    contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
+            buscarPorUsuario();
         } else if (vRepIngSal.rbtnProveedor.isSelected()) {
-            if (vRepIngSal instanceof VentanaReporteEntrada) {
-                vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                        .filtrar((Registro r) -> (r instanceof RegistroEntrada))
-                        .filtrar((Registro r) -> ((RegistroEntrada) r).getProveedor().toLowerCase().
-                        contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
-            } else {
-                vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                        .filtrar((Registro r) -> (r instanceof RegistroSalida))
-                        .filtrar((Registro r) -> ((RegistroSalida) r).getCliente().toLowerCase().
-                        contains(vRepIngSal.txtBuscar.getText().toLowerCase()));
-            }
-
+            buscarPorClienteProveedor();
         } else if (vRepIngSal.rbrnFecha.isSelected()) {
-            if (vRepIngSal.jDateFecha.getDate() == null) {
-                JOptionPane.showMessageDialog(vRepIngSal, "ERROR!!!, Seleccione una fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else {
-                String fecha = Utils.convertirDateSQLaString(
-                        new java.sql.Date(vRepIngSal.jDateFecha.getDate().getTime()));
-                vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                        .filtrar(u -> Utils.convertirDateSQLaString(u.getFecha()).equals(fecha));
-            }
+            buscarPorFecha();
         } else if (vRepIngSal.rbtnFolio.isSelected()) {
-            vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta
-                    .filtrar(u -> u.getFolio() == Integer.parseInt(vRepIngSal.txtFolio.getText()));
+            buscarPorCodigo();
         }
         vRepIngSal.actualizarLista();
         vRepIngSal.actualizarDatos();
         vRepIngSal.actualizarTabla();
 
     }
-    public void clickBtnTodos(ActionEvent e){
+
+    public void clickBtnTodos(ActionEvent e) {
         vRepIngSal.miListaRegistrosFiltrado = vRepIngSal.miListaRegistroCompleta;
         vRepIngSal.actualizarLista();
         vRepIngSal.actualizarDatos();

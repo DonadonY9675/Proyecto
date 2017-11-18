@@ -9,14 +9,15 @@ import java.sql.Date;
 import pe.unmsm.sistemaalmacen.dao.impl.CategoriaDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.impl.RegistroDAOImpl;
-import pe.unmsm.sistemaalmacen.dao.impl.RegistroEntradaDAOImpl;
+
 import pe.unmsm.sistemaalmacen.dao.impl.UsuarioDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.RegistroDAO;
+import pe.unmsm.sistemaalmacen.dao.impl.DetalleRegistroDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
+import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 
@@ -85,77 +86,50 @@ public class IntroducirDatosEnBD {
         listaCategorias.stream().forEach(dao::registrar);
     }
     
-    static void introducirRegistrosEntrada(){
-        RegistroDAO dao = new RegistroEntradaDAOImpl();
+    static void introducirDetalleRegistros(){
         
-        ListaDoble<Registro> listaRegistroEntrada = new ListaDoble();
-        ListaDoble<EntradaSalida> listaIngreso1 = new ListaDoble();
+        DetalleRegistroDAOImpl dao = new DetalleRegistroDAOImpl();
         
-        ListaDoble<EntradaSalida> listaIngreso2 = new ListaDoble();
-        ListaDoble<Producto> miLista = new ListaDoble();
+        ListaDoble<DetalleRegistro> listaDetalleRegistro = new ListaDoble<>();
         
-        ListaDoble<EntradaSalida> listaIngreso3 = new ListaDoble();
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0001",new Producto(1),32.0,2));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0001",new Producto(2),132.0,3));
         
-        ListaDoble<EntradaSalida> listaIngreso4 = new ListaDoble();
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RS0001",new Producto(4),31.0,4));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RS0001",new Producto(5),54.0,1));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RS0001",new Producto(1),515.0,2));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RS0001",new Producto(2),512.0,4));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0002",new Producto(4),2323.0,4));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0002",new Producto(3),53.0,2));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0002",new Producto(6),2345.0,4));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0003",new Producto(1),23.0,2));
+        listaDetalleRegistro.insertarAlFinal(new DetalleRegistro("RE0003",new Producto(2),2543.0,1));
         
-        //AQUI SOLO IMPORTAN LOS CODIGOS DE LOS PRODUCTOS
-        Producto prod1 = new Producto(1, "", "", "",
-                "", "", 0, 0, 0);
-        Producto prod2 = new Producto(2, "", "", "",
-                "", "", 0, 0, 00);
-        Producto prod3 = new Producto(3, "", "", "",
-                "", "", 1, 0, 3000);
-        Producto prod4 = new Producto(4, "", "", "",
-                "", "", 1, 5, 3600);
-        Producto prod5 = new Producto(5, "", "", "",
-                "", "", 0, 0, 0);
-        Producto prod6 = new Producto(6, "", "", "",
-                "", "", 0, 0, 0);
-        Producto prod7 = new Producto(7, "", "", "",
-                "", "", 0, 0, 00);
-        Producto prod8 = new Producto(8, "", "", "",
-                "", "", 1, 0, 3000);
-        Producto prod9 = new Producto(9, "", "", "",
-                "", "", 1, 5, 3600);
-        Producto prod510 = new Producto(10, "", "", "",
-                "", "", 0, 0, 0);
-        Producto prod511 = new Producto(11, "", "", "",
-                "", "", 0, 0, 0);
-                
-        listaIngreso1.insertarAlFinal(new EntradaSalida(prod1, 32, 12331));
-        listaIngreso1.insertarAlFinal(new EntradaSalida(prod2, 3, 3245));
-        listaIngreso1.insertarAlFinal(new EntradaSalida(prod3, 32, 12231));
-        listaIngreso1.insertarAlFinal(new EntradaSalida(prod4, 3, 3245));
-        
-        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(1, new Date(7,8,9), "admin", "Proveedor1",  listaIngreso1,"Observacion 1",1234f, 12312.0f,123123.0f));
-        
-        listaIngreso2.insertarAlFinal(new EntradaSalida(prod3, 2, 5477));
-        listaIngreso2.insertarAlFinal(new EntradaSalida(prod4, 13, 1331));
-        listaIngreso2.insertarAlFinal(new EntradaSalida(prod1, 23, 321));
-        
-        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(2, new Date(10,11,12), "empleado01", "Proveedor2",  listaIngreso2,"Observacion 2",21234f, 123.0f,3123.0f));
+        listaDetalleRegistro.stream().forEach(dao::registrar);
 
-        listaIngreso3.insertarAlFinal(new EntradaSalida(prod5, 32, 12331));
-        listaIngreso3.insertarAlFinal(new EntradaSalida(prod6, 3, 3245));
-        listaIngreso3.insertarAlFinal(new EntradaSalida(prod2, 32, 12231));
-        listaIngreso3.insertarAlFinal(new EntradaSalida(prod8, 34, 3245));
-        
-        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(3, new Date(10,11,12), "empleado01", "Proveedor2",  listaIngreso3,"Observacion 2",21234f, 123.0f,3123.0f));
-
-        listaIngreso4.insertarAlFinal(new EntradaSalida(prod9, 32, 12331));
-        listaIngreso4.insertarAlFinal(new EntradaSalida(prod2, 3, 3245));
-        listaIngreso4.insertarAlFinal(new EntradaSalida(prod7, 32, 12231));
-        listaIngreso4.insertarAlFinal(new EntradaSalida(prod1, 34, 3245));
-        
-        listaRegistroEntrada.insertarAlFinal(new RegistroEntrada(4, new Date(10,11,12), "empleado01", "Proveedor2",  listaIngreso4,"Observacion 2",21234f, 123.0f,3123.0f));
-
-        listaRegistroEntrada.stream().forEach(dao::registrar);
     }
     
+    static void introducirRegistros(){
+        
+        RegistroDAOImpl dao = new RegistroDAOImpl();
+        ListaDoble<Registro> listaRegistros = new ListaDoble<>();
+        listaRegistros.insertarAlFinal(new Registro("RE0001", new Date(1,2,3), "admin", "ProveedorPrueba1", null, "Observacion 1", 1234f, 12312.0f,123123.0f));
+                                                
+        listaRegistros.insertarAlFinal(new Registro("RS0001", new Date(4,5,6), "admin", "ProveedorPrueba2", null, "Observacion 2", 132, 323.0f,123123.0f));
+        listaRegistros.insertarAlFinal(new Registro("RE0002", new Date(7,8,9), "admin", "ProveedorPrueba1", null, "Observacion 3", 123, 2313.0f,3123132.0f));
+        listaRegistros.insertarAlFinal(new Registro("RE0003", new Date(10,11,12), "admin", "ProveedorPrueba3", null, "Observacion 4", 132, 321.0f,132123.0f));
+        
+        listaRegistros.stream().forEach(dao::registrar);
+    }
+        
+    
     public static void main(String[] args) {
+        
         introducirUsuarios();
         introducirCategorias();
         introducirProductos();
-        introducirRegistrosEntrada();
+        introducirRegistros();
+        introducirDetalleRegistros();
+
     }
 }

@@ -8,18 +8,19 @@ package pe.unmsm.sistemaalmacen.controlador.impl;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.unmsm.sistemaalmacen.controlador.CEditarProducto;
-import pe.unmsm.sistemaalmacen.dao.impl.CategoriaDAOImpl;
-import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
-import pe.unmsm.sistemaalmacen.dao.CategoriaDAO;
-import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.dominio.Categoria;
-import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
+import pe.unmsm.sistemaalmacen.service.CategoriaService;
+import pe.unmsm.sistemaalmacen.service.ProductoService;
+import pe.unmsm.sistemaalmacen.service.impl.CategoriaServiceImpl;
+import pe.unmsm.sistemaalmacen.service.impl.ProductoServiceImpl;
 import pe.unmsm.sistemaalmacen.vista.VentanaEditarProducto;
 
 /**
@@ -28,8 +29,8 @@ import pe.unmsm.sistemaalmacen.vista.VentanaEditarProducto;
  */
 public class CEditarProductoImpl implements CEditarProducto {
     private VentanaEditarProducto miVentanaEditarProducto;
-    private ProductoDAO daoProducto = new ProductoDAOImpl();
-    private CategoriaDAO daoCategoria = new CategoriaDAOImpl();
+    private ProductoService serviceProducto = new ProductoServiceImpl();
+    private CategoriaService serviceCategoria = new CategoriaServiceImpl();
 
     @Override
     public void setVentanaEditarProducto(VentanaEditarProducto ventana) {
@@ -38,9 +39,15 @@ public class CEditarProductoImpl implements CEditarProducto {
         miVentanaEditarProducto.BtnEditar.addActionListener(this::clickBtnEditar);
         miVentanaEditarProducto.btnExaminar.addActionListener(this::clickBtnExaminar);
         miVentanaEditarProducto.comboCategoria.addItemListener(this::clickCombo);
+        miVentanaEditarProducto.comboCategoria.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                teclaNuevaCategoria(e);
+            }
+        });
         
-        miVentanaEditarProducto.listaCategorias = daoCategoria.getAll();
+        miVentanaEditarProducto.listaCategorias = serviceCategoria.getAll();
         miVentanaEditarProducto.comboCategoria.addItem("Nueva categoria");
+        
         
         miVentanaEditarProducto.listaCategorias.stream().map(Categoria::getDescripcion)
                 .forEach((c)->{miVentanaEditarProducto.comboCategoria.addItem(c);
@@ -70,21 +77,24 @@ public class CEditarProductoImpl implements CEditarProducto {
         
         Categoria categoria = null;
         int escogido = miVentanaEditarProducto.comboCategoria.getSelectedIndex();
-        System.out.println("es: "+escogido+"-"+miVentanaEditarProducto.comboCategoria.getItemAt(escogido));
+        
         if(escogido>0){
             categoria = miVentanaEditarProducto.listaCategorias.buscar
                 (miVentanaEditarProducto.comboCategoria.getItemAt(escogido),Categoria::getDescripcion);
             miVentanaEditarProducto.producto.setCat(categoria);
         }
-//        else if(!miVentanaEditarProducto.comboCategoria.getItemAt(escogido).equals("Nueva categoria")){
-//            categoria = new Categoria(miVentanaEditarProducto.comboCategoria.getItemCount(),
-//                    miVentanaEditarProducto.comboCategoria.getItemAt(escogido));
-//            
-//            daoCategoria.registrar(categoria);
-//        }
+        else if(escogido==-1){
+            System.out.println("Nueva categoria: "+miVentanaEditarProducto.comboCategoria.getEditor().getItem().toString());
+            
+            categoria = new Categoria(miVentanaEditarProducto.comboCategoria.getItemCount(),
+                    miVentanaEditarProducto.comboCategoria.getEditor().getItem().toString());
+            
+            serviceCategoria.registrar(categoria);
+            miVentanaEditarProducto.producto.setCat(categoria);
+        }
         
         //HABILITAR CUANDO TODOS TENGAN LA BASE DE DATOS
-        if(daoProducto.modificar(miVentanaEditarProducto.producto)){
+        if(serviceProducto.modificar(miVentanaEditarProducto.producto)){
             JOptionPane.showMessageDialog(miVentanaEditarProducto,
                         "Cambios guardados exitosamente", "", JOptionPane.INFORMATION_MESSAGE);
             miVentanaEditarProducto.dispose();
@@ -126,11 +136,13 @@ public class CEditarProductoImpl implements CEditarProducto {
     
     @Override
     public void clickCombo(ItemEvent evt) {
-        if(miVentanaEditarProducto.comboCategoria.getSelectedIndex()==0){
-            miVentanaEditarProducto.comboCategoria.setEditable(true);
-        }else{
-            miVentanaEditarProducto.comboCategoria.setEditable(false);
-        }
+        miVentanaEditarProducto.comboCategoria.setEditable(miVentanaEditarProducto.comboCategoria.getSelectedIndex()==0);
+    }
+    
+    public void teclaNuevaCategoria(KeyEvent e){
+        System.out.println("invocando");
+        miVentanaEditarProducto.comboCategoria.getEditor().getItem().toString();
+        
     }
 }
 

@@ -7,15 +7,15 @@ package pe.unmsm.sistemaalmacen.controlador.impl;
 
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
+import pe.unmsm.sistemaalmacen.controlador.CAgregarUsuarios;
 import pe.unmsm.sistemaalmacen.controlador.CConfiguracion;
 import pe.unmsm.sistemaalmacen.vista.VentanaMenuPrincipal;
 import pe.unmsm.sistemaalmacen.vista.VentanaNuevaSalida;
 import pe.unmsm.sistemaalmacen.vista.VentanaNuevoIngreso;
 import pe.unmsm.sistemaalmacen.controlador.CMenuPrincipal;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
-import pe.unmsm.sistemaalmacen.dominio.RegistroEntrada;
-import pe.unmsm.sistemaalmacen.service.impl.RegistroEntradaServiceImpl;
-import pe.unmsm.sistemaalmacen.service.impl.RegistroSalidaServiceImpl;
+import pe.unmsm.sistemaalmacen.service.impl.RegistroServiceImpl;
+import pe.unmsm.sistemaalmacen.vista.VentanaAgregarUsuarios;
 import pe.unmsm.sistemaalmacen.vista.VentanaConfiguracion;
 import pe.unmsm.sistemaalmacen.vista.VentanaInventario;
 import pe.unmsm.sistemaalmacen.vista.VentanaReporteEntrada;
@@ -38,7 +38,9 @@ public class CMenuPrincipalImpl implements CMenuPrincipal {
         ventPrincipal.btnReportesDeEntrada.addActionListener((evt) -> this.clickBtnReportesDeEntrada(evt));
         ventPrincipal.btnReportesDeSalida.addActionListener((evt) -> this.clickBtnReportesDeSalida(evt));
         ventPrincipal.mnItmDatos.addActionListener(this::clickBtnConfiguracion);
+        ventPrincipal.mnItmRegistroUsuarios.addActionListener(this::clickBtnRegistroUsuario);
     }
+    
     
     @Override
     public void clickBtnNuevaEntrada(ActionEvent evt) {
@@ -59,6 +61,7 @@ public class CMenuPrincipalImpl implements CMenuPrincipal {
         ventanaNuevaSalida.setVisible(true);
     }
     
+    
     @Override
     public void clickBtnMiInventario(ActionEvent evt) {
         VentanaInventario ventanaInventario = new VentanaInventario(ventPrincipal, true);
@@ -67,11 +70,13 @@ public class CMenuPrincipalImpl implements CMenuPrincipal {
         ventanaInventario.setLocationRelativeTo(null);
         ventanaInventario.setVisible(true);
     }
-    
     @Override
     public void clickBtnReportesDeEntrada(ActionEvent evt) {
-        ListaDoble<Registro> listaRegistrosEntrada = new RegistroEntradaServiceImpl().getAll();
+        ListaDoble<Registro> listaRegistros = new RegistroServiceImpl().getAll();
         
+        ListaDoble<Registro> listaRegistrosEntrada = listaRegistros
+                .filtrar(r->r.getCodigo().contains("RE"));
+
         VentanaReporteEntrada vReporteEntrada = new VentanaReporteEntrada(ventPrincipal, true, listaRegistrosEntrada);
         CReporteEntradaImpl coorReporteEntrada = new CReporteEntradaImpl();
         coorReporteEntrada.setVPadreReportesIngresoSalida(vReporteEntrada);
@@ -81,7 +86,10 @@ public class CMenuPrincipalImpl implements CMenuPrincipal {
     
     @Override
     public void clickBtnReportesDeSalida(ActionEvent evt) {
-        ListaDoble<Registro> listaRegistroSalida = new RegistroSalidaServiceImpl().getAll();
+        ListaDoble<Registro> listaRegistros = new RegistroServiceImpl().getAll();
+        
+        ListaDoble<Registro> listaRegistroSalida = listaRegistros
+                .filtrar(r->r.getCodigo().contains("RS"));
         
         VentanaReporteSalida vReporteSalida = new VentanaReporteSalida(ventPrincipal, true, listaRegistroSalida);
         CReporteSalidaImpl coorReporteSalida = new CReporteSalidaImpl();
@@ -98,6 +106,16 @@ public class CMenuPrincipalImpl implements CMenuPrincipal {
         coordinadorVConfiguracion.setVConfiguracion(ventanaConfiguracion, ventPrincipal);
         ventanaConfiguracion.setLocationRelativeTo(null);
         ventanaConfiguracion.setVisible(true);
+    }
+
+    @Override
+    public void clickBtnRegistroUsuario(ActionEvent evt) {
+        VentanaAgregarUsuarios ventanaAgregarUsuarios = new VentanaAgregarUsuarios(ventPrincipal,true);
+        CAgregarUsuarios coordinadorVAgregarUsuarios = new CAgregarUsuariosImpl();
+        System.out.println("seteando ventPriciapl");
+        coordinadorVAgregarUsuarios.setVAgregarUsuarios(ventanaAgregarUsuarios, ventPrincipal);
+        ventanaAgregarUsuarios.setLocationRelativeTo(null);
+        ventanaAgregarUsuarios.setVisible(true);
     }
     
 }

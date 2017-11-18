@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.unmsm.sistemaalmacen.dao;
+package pe.unmsm.sistemaalmacen.service;
 
+import pe.unmsm.sistemaalmacen.dao.impl.DetalleRegistroDAOImpl;
+import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
-import pe.unmsm.sistemaalmacen.dominio.Producto;
 
 /**
  *
  * @author Miguel
  */
-public interface ProductoDAO extends AbstractDAO<Producto,Integer> {
+public interface DetalleRegistroService extends MantenimientoService<DetalleRegistro,String>{
 
+
+    
 }

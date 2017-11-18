@@ -5,34 +5,41 @@
  */
 package pe.unmsm.sistemaalmacen.util;
 
-import com.mysql.jdbc.Blob;
-import java.awt.Graphics;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chapter;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Image;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.imageio.ImageIO;
-import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import pe.unmsm.sistemaalmacen.dominio.Configuracion;
+import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.dominio.EntradaSalida;
 import pe.unmsm.sistemaalmacen.dominio.Usuario;
 
@@ -66,7 +73,7 @@ public abstract class Utils {
     public static String redondearStr(double numero) {
         DecimalFormat df = new DecimalFormat("0.00");
         double num = redondear(numero, 2);
-        return df.format(num);
+        return df.format(num).replace(",", ".");
     }
 
     /**
@@ -105,7 +112,7 @@ public abstract class Utils {
         lblLogo.setIcon(new ImageIcon(imagen));
     }
 
-    public static void llenarTabla(JTable jTable, ListaDoble<EntradaSalida> miListaProductos) {
+    public static void llenarTabla(JTable jTable, ListaDoble<DetalleRegistro> miListaProductos) {
 
         String Titulo[] = {"Código", "Nombre", "Marca", "Modelo",
             "Precio Unitario", "Cantidad", "Total"};
@@ -117,14 +124,15 @@ public abstract class Utils {
             }
         };
         DecimalFormat df = new DecimalFormat("0.00");
-        for (EntradaSalida p : miListaProductos) {
+        for (DetalleRegistro p : miListaProductos) {
+            
             registro[0] = String.valueOf(p.getProducto().getCodigo());
             registro[1] = p.getProducto().getNombre();
             registro[2] = p.getProducto().getMarca();
             registro[3] = p.getProducto().getModelo();
-            registro[4] = df.format(p.getProducto().getPrecioUnitario());
+            registro[4] = df.format(p.getProducto().getPrecioUnitario()).replace(",", ".");
             registro[5] = String.valueOf(p.getCantidad());
-            registro[6] = df.format(p.getTotal());
+            registro[6] = df.format(p.getMonto()).replace(",", ".");
             modelo.addRow(registro);
         }
         jTable.setModel(modelo);
@@ -133,39 +141,194 @@ public abstract class Utils {
 
     }
     
-    public Image convertirBlobAImagen(java.sql.Blob b) throws SQLException, IOException{
-        InputStream in = b.getBinaryStream();
-        BufferedImage c = ImageIO.read(in);
+    public static ImageIcon convertirBlobAImagen(java.sql.Blob blob){
+        ImageIcon icono = null;
+        if(blob != null){
+           try{
+          byte[] data = blob.getBytes(1, (int)blob.length());
+          BufferedImage img = null;
+
+          try{
+            img = ImageIO.read(new ByteArrayInputStream(data));
+          }
+          catch(Exception ex){
+          System.out.println(ex.getMessage());
+          }
+
+            icono = new ImageIcon(img);
+         
+          }catch(Exception ex){
+           //No hay imagen
+          }
+        }
+        else{
+         //No hay imagen
+        }
         
-        return c;
+        return icono;
     }
     
-    public static java.sql.Blob convertirImagenABlob ( Image imagen ) {
+    public static void createPDF(String titulo, File pdfNewFile, Configuracion configuracion, JTable tabla){
+        Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLDITALIC);
+        Font configuracionFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
 
-      java.sql.Blob imagenBlob = null;
-      BufferedImage bi = new BufferedImage ( imagen.getWidth ( null ), imagen.getHeight ( null ), BufferedImage.TYPE_INT_ARGB );
-      Graphics bg = bi.getGraphics ();
-      bg.drawImage ( imagen, 0, 0, null );
-      bg.dispose ();
+        Font categoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD, BaseColor.GRAY);
+        Font dateFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+        Font blueFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);    
+        Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+    
+        try {
+            com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream(pdfNewFile));
+            } catch (FileNotFoundException fileNotFoundException) {
+                System.out.println("No such file was found to generate the PDF "
+                        + "(No se encontró el fichero para generar el pdf)" + fileNotFoundException);
+            }
+            document.open();
 
-      ByteArrayOutputStream baos = new ByteArrayOutputStream ();
-      try {
-         ImageIO.write (bi,".jpg", baos );
-         baos.flush ();
-         baos.close ();
-      } catch ( IOException e ) {
-         e.printStackTrace ();
-      }
-
-      byte [] imagenByte = baos.toByteArray ();
-
-      try {
-         imagenBlob = new SerialBlob ( imagenByte );
-      } catch ( SerialException se ) {
-         se.printStackTrace ();
-      } catch ( SQLException sqle ) {
-         sqle.printStackTrace ();
-      }
-      return imagenBlob;
-   }
+            // Añadimos los metadatos del PDF
+            document.addTitle("Table export to PDF (Exportamos la tabla a PDF)");
+            document.addSubject("Using iText (usando iText)");
+            document.addKeywords("Java, PDF, iText");
+            document.addAuthor("Código Xules");
+            document.addCreator("Código Xules");
+            
+            // Primera página 
+            Chunk chunk = new Chunk(titulo, chapterFont);
+            chunk.setBackground(BaseColor.GRAY);
+            // Let's create de first Chapter (Creemos el primer capítulo)
+            Chapter chapter = new Chapter(new Paragraph(chunk), 1);
+            chapter.setNumberDepth(0);
+            chapter.add(new Paragraph(configuracion.getNombreEmpresa(), configuracionFont));
+            chapter.add(new Paragraph("RUC: "+configuracion.getRUC(), configuracionFont));
+            chapter.add(new Paragraph(configuracion.getDireccion(), configuracionFont));
+            chapter.add(new Paragraph("Fecha de reporte: "+Utils.fechaActual(), dateFont));
+            // We add an image (Añadimos una imagen)
+            
+            //SI QUEREMOS AÑADIR IMAGENES
+//            Image image;
+//            try {
+//                image = Image.getInstance(iTextExampleImage);  
+//                image.setAbsolutePosition(2, 150);
+//                chapter.add(image);
+//            } catch (BadElementException ex) {
+//                System.out.println("Image BadElementException" +  ex);
+//            } catch (IOException ex) {
+//                System.out.println("Image IOException " +  ex);
+//            }
+            
+            // Utilización de PdfPTable
+ 
+            Section paragraphMore = chapter.addSection("");
+            
+            Integer numColumns = tabla.getColumnCount();
+            Integer numRows = tabla.getRowCount();
+            // We create the table (Creamos la tabla).
+            PdfPTable table = new PdfPTable(numColumns); 
+            // Now we fill the PDF table 
+            // Ahora llenamos la tabla del PDF
+            PdfPCell columnHeader;
+            // Fill table rows (rellenamos las filas de la tabla).                
+            for (int column = 0; column < numColumns; column++) {
+                columnHeader = new PdfPCell(new Phrase(tabla.getColumnName(column)));
+                columnHeader.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                table.addCell(columnHeader);
+            }
+            table.setHeaderRows(1);
+            // Fill table rows (rellenamos las filas de la tabla).
+            
+            for (int row = 0; row < numRows; row++) {
+                for (int column = 0; column < numColumns; column++) {
+                    table.addCell(tabla.getValueAt(row, column).toString());
+                }
+            }
+            // We add the table (Añadimos la tabla)
+            paragraphMore.add(table);
+            // We add the paragraph with the table (Añadimos el elemento con la tabla).
+            document.add(chapter);
+            document.close();
+            
+            System.out.println("Your PDF file has been generated!(¡Se ha generado tu hoja PDF!");
+        } catch (DocumentException documentException) {
+            System.out.println("The file not exists (Se ha producido un error al generar un documento): " + documentException);
+        }
+        
+    }
+    
+     public static String obtenerFechaDetallada(){
+         Calendar c = Calendar.getInstance();
+        int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+        int diaMes = c.get(Calendar.DAY_OF_MONTH);
+        int mes = c.get(Calendar.MONTH)+1;;
+        int anio = c.get(Calendar.YEAR);
+        
+        String cadFecha = "";
+        
+        switch(diaSemana){
+            case 2:
+                cadFecha+="Lunes";
+                break;
+            case 3:
+                cadFecha+="Martes";
+                break;
+            case 4:
+                cadFecha+="Miercoles";
+                break;
+            case 5:
+                cadFecha+="Jueves";
+                break;
+            case 6:
+                cadFecha+="Viernes";
+                break;
+            case 7:
+                cadFecha+="Sabado";
+                break;
+            case 1:
+                cadFecha+="Domingo";
+                break;
+        }
+        cadFecha += " "+diaMes+" de ";
+        switch(mes){
+            case 1:
+                cadFecha+="Enero";
+                break;
+            case 2:
+                cadFecha+="Febrero";
+                break;
+            case 3:
+                cadFecha+="Marzo";
+                break;
+            case 4:
+                cadFecha+="Abril";
+                break;
+            case 5:
+                cadFecha+="Mayo";
+                break;
+            case 6:
+                cadFecha+="Junio";
+                break;
+            case 7:
+                cadFecha+="Julio";
+                break;
+            case 8:
+                cadFecha+="Agosto";
+                break;
+            case 9:
+                cadFecha+="Setiembre";
+                break;
+            case 10:
+                cadFecha+="Octubre";
+                break;
+            case 11:
+                cadFecha+="Noviembre";
+                break;
+            case 12:
+                cadFecha+="Diciembre";
+                break;
+        }
+        cadFecha += ", "+anio;
+        return cadFecha;
+    }
+ 
 }

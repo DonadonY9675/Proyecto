@@ -5,7 +5,6 @@
  */
 package pe.unmsm.sistemaalmacen.controlador.impl;
 
-import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,18 +12,28 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import javax.swing.DefaultListModel;
+import java.io.File;
+import java.net.URL;
+import java.text.DecimalFormat;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import pe.unmsm.sistemaalmacen.controlador.CAgregarProducto;
 import pe.unmsm.sistemaalmacen.controlador.CEditarProducto;
 import pe.unmsm.sistemaalmacen.controlador.CInventario;
-import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
-import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
+import pe.unmsm.sistemaalmacen.dominio.Configuracion;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
+import pe.unmsm.sistemaalmacen.service.ConfiguracionService;
+import pe.unmsm.sistemaalmacen.service.ProductoService;
+import pe.unmsm.sistemaalmacen.service.impl.ConfiguracionServiceImpl;
+import pe.unmsm.sistemaalmacen.service.impl.ProductoServiceImpl;
 import pe.unmsm.sistemaalmacen.vista.VentanaAgregarProducto;
 import pe.unmsm.sistemaalmacen.vista.VentanaEditarProducto;
 import pe.unmsm.sistemaalmacen.vista.VentanaInventario;
+import pe.unmsm.sistemaalmacen.util.Utils;
 
 /**
  *
@@ -33,15 +42,9 @@ import pe.unmsm.sistemaalmacen.vista.VentanaInventario;
 public class CInventarioImpl implements CInventario {
 
     private VentanaInventario miVentanaInventario;
-    private ProductoDAO daoProducto = new ProductoDAOImpl();
+    private ProductoService serviceProducto = new ProductoServiceImpl();
 
-    //listProdComp cargara la informacion de todos los productos almacenados en
-    //la base de datos
-    private ListaDoble<Producto> listProdComp = new ListaDoble<>();
-    //Sin embargo es  la listProdFilt, que es una sublista filtrada de la
-    //original, la unica que se mostrara  al usuario
-    private ListaDoble<Producto> listProdFilt;
-
+    
     public void setVentanaInventario(VentanaInventario ventana) {
         miVentanaInventario = ventana;
 
@@ -50,6 +53,7 @@ public class CInventarioImpl implements CInventario {
         miVentanaInventario.btnAgregar.addActionListener(this::clickBtnAgregar);
         miVentanaInventario.btnEditar.addActionListener(this::clickBtnEditar);
         miVentanaInventario.btnEliminar.addActionListener(this::clickBtnEliminar);
+        miVentanaInventario.btnExportar.addActionListener(this::clickBtnExportar);
 
         miVentanaInventario.rBtnGroup.add(miVentanaInventario.rBtnNombre);
         miVentanaInventario.rBtnGroup.add(miVentanaInventario.rBtnCodigo);
@@ -76,62 +80,47 @@ public class CInventarioImpl implements CInventario {
             }
         });
         
-        listProdComp = daoProducto.getAll();
-        //Al iniciar no hay filtros por lo que ambas listas se hacen iguales
-        listProdFilt = listProdComp;
-        actualizarJList();
-    }
-
-    @Override
-    public void actualizarJList() {
-        DefaultListModel lista = new DefaultListModel();
-        for (Producto p : listProdFilt) {
-            lista.addElement(p.getNombre());
-        }
-        miVentanaInventario.jListProductos.setModel(lista);
-        miVentanaInventario.limpiarTextField();
+        miVentanaInventario.setListProdComp(serviceProducto.getAll());
+        miVentanaInventario.actualizarJListFiltrada((t)->true);
     }
 
     @Override
     public void clickBtnBuscar(KeyEvent e) {
         String entrada = miVentanaInventario.txtBuscar.getText();
 
+        
         if (miVentanaInventario.rBtnNombre.isSelected()) {
-            listProdFilt = listProdComp.filtrar(
-                    (t) -> t.getNombre().toLowerCase().contains(entrada.toLowerCase()));
+            miVentanaInventario.actualizarJListFiltrada(
+                    (p) -> p.getNombre().toLowerCase().contains(entrada.toLowerCase()));
         }
         if (miVentanaInventario.rBtnCodigo.isSelected()) {
-            listProdFilt = listProdComp.filtrar(
-                    (t) -> String.valueOf(t.getCodigo()).equals(entrada));
+            miVentanaInventario.actualizarJListFiltrada(
+                    (p) -> String.valueOf(p.getCodigo()).equals(entrada));
         }
 
-        actualizarJList();
     }
 
     @Override
     public void clickBtnMostrarTodos(ActionEvent e) {
-        listProdFilt = listProdComp;
-        actualizarJList();
+        miVentanaInventario.actualizarJListFiltrada((p)->true);
     }
 
     @Override
     public void clickBtnProxAgot(ActionEvent e) {
-        listProdFilt = listProdComp.filtrar(
+        miVentanaInventario.actualizarJListFiltrada(
                 (t) -> t.getExistencia() <= 2*t.getCantidadMinima());
-        actualizarJList();
     }
 
     @Override
     public void clickBtnAgregar(ActionEvent e) {
         VentanaAgregarProducto vAgregarProducto = new VentanaAgregarProducto(null, true);
-        vAgregarProducto.setListaDeProductos(listProdComp);
+        vAgregarProducto.setListaDeProductos(miVentanaInventario.getListProdComp());
         CAgregarProducto cAgregarProducto = new CAgregarProductoImpl();
         cAgregarProducto.setVentanaAgregarProducto(vAgregarProducto);
         vAgregarProducto.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e){
-                    listProdFilt=listProdComp;
-                    actualizarJList();
+                    miVentanaInventario.actualizarJListFiltrada((t)->true);
                 }
                         });
         vAgregarProducto.setLocationRelativeTo(null);
@@ -144,15 +133,14 @@ public class CInventarioImpl implements CInventario {
         
         if(indSelec!=-1){
             VentanaEditarProducto vEditarProducto = new VentanaEditarProducto(null, true);
-            Producto producEscogido = listProdFilt.get(indSelec);
-            vEditarProducto.setProducto(producEscogido);
+            vEditarProducto.setProducto(miVentanaInventario.obtenerProductoSeleccionado());
             CEditarProducto cEditarProducto = new CEditarProductoImpl();
             cEditarProducto.setVentanaEditarProducto(vEditarProducto);
+            
             vEditarProducto.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e){
-                    listProdFilt=listProdComp;
-                    actualizarJList();
+                    miVentanaInventario.actualizarJListFiltrada((t)->true);
                 }
                         });
 
@@ -174,26 +162,73 @@ public class CInventarioImpl implements CInventario {
         if (opc == 0) {
             
             int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
-            if(daoProducto.eliminar(listProdFilt.get(indSelec).getCodigo())){
-                listProdFilt.eliminar(indSelec);
-                actualizarJList();
+            Producto productoElim = miVentanaInventario.obtenerProductoSeleccionado();
+            
+            if(serviceProducto.eliminar(productoElim.getCodigo())){
+                miVentanaInventario.getListProdComp().eliminar(productoElim.getCodigo(),Producto::getCodigo);
+                miVentanaInventario.actualizarJListFiltrada((t)->true);
             }else{
                 System.out.println("HA OCURRIDO UN ERROR INESPERADO");
             }
         }
     }
 
+    public void clickBtnExportar(ActionEvent e){
+        String titulo = "Lista de productos";
+        ConfiguracionService configuracionService = new ConfiguracionServiceImpl();
+        Configuracion configuracion = configuracionService.get("");
+        JTable jTable = new JTable();
+        
+        String Titulo[] = {"Código", "Nombre", "Marca", "Modelo","Categoria",
+            "Precio Unitario", "Existencia", "Cant. min."};
+        String registro[] = new String[8];
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, Titulo) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        
+        DecimalFormat df = new DecimalFormat("0.00");
+        for (Producto p : miVentanaInventario.getListProdComp()) {
+            registro[0] = String.valueOf(p.getCodigo());
+            registro[1] = p.getNombre();
+            registro[2] = p.getMarca();
+            registro[3] = p.getModelo();
+            registro[4] = p.getCat()!=null? p.getCat().getDescripcion() : "Sin categoria";
+            registro[5] = df.format(p.getPrecioUnitario());
+            registro[6] = p.getExistencia()+"";
+            registro[7] = df.format(p.getCantidadMinima());
+            modelo.addRow(registro);
+        }
+        
+        jTable.setModel(modelo);
+        TableRowSorter<TableModel> ordenar = new TableRowSorter<>(modelo);
+        jTable.setRowSorter(ordenar);
+        
+        JFileChooser archivo = new JFileChooser();
+
+        archivo.setDialogTitle("Escoger ruta donde exportar");
+        File ruta = new File("C:/");
+
+        archivo.setCurrentDirectory(ruta);
+
+        int ventana = archivo.showOpenDialog(miVentanaInventario);
+
+        if (ventana == JFileChooser.APPROVE_OPTION) {
+            File file = archivo.getSelectedFile();
+            Utils.createPDF(titulo, file, configuracion, jTable);
+        }
+    }
+    
     @Override
     public void clickjListProductos(MouseEvent e) {
-        int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
-        Producto producEscogido = listProdFilt.get(indSelec);
-        miVentanaInventario.actualizarCampos(producEscogido);
+        miVentanaInventario.actualizarCampos();
     }
     
     public void teclaListProductos(KeyEvent e){
-        int indSelec = miVentanaInventario.jListProductos.getSelectedIndex();
-        Producto producEscogido = listProdFilt.get(indSelec);
-        miVentanaInventario.actualizarCampos(producEscogido);
+        miVentanaInventario.actualizarCampos();
     }
     
     

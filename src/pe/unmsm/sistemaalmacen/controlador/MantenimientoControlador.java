@@ -10,6 +10,5 @@ package pe.unmsm.sistemaalmacen.controlador;
  * @author Miguel
  */
 public interface MantenimientoControlador {
-   double igv = 0.18;
 //Prototipo de funciones comunes o constantes de todas las interfaces Controlador
 }

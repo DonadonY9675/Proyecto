@@ -5,7 +5,7 @@
  */
 package pe.unmsm.sistemaalmacen.service.impl;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
 import pe.unmsm.sistemaalmacen.dao.ProductoDAO;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
@@ -18,50 +18,29 @@ import pe.unmsm.sistemaalmacen.service.ProductoService;
 public class ProductoServiceImpl implements ProductoService{
 
     ProductoDAO productoDAO = new ProductoDAOImpl();
-            
-    @Override
-    public ListaDoble<Producto> consultarProductosPorNombre(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Producto consultarProductoPorCodigo(int cod) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
+    
     public boolean registrar(Producto e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return productoDAO.registrar(e);
     }
 
     @Override
     public boolean modificar(Producto e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return productoDAO.modificar(e);
     }
 
     @Override
     public Producto get(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return productoDAO.get(id);
     }
 
     @Override
     public ListaDoble<Producto> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return productoDAO.getAll();
     }
 
     @Override
     public boolean eliminar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+        return productoDAO.eliminar(id);
     }
-
-    @Override
-    public ListaDoble<Producto> buscarConCategoria() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-
-   
     
 }
