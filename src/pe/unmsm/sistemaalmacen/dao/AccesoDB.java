@@ -14,12 +14,11 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Lab02-Pc11
  */
 public class AccesoDB {
    
     private static final String USUARIO = "root";
-    private static final String PASWORD = "root";
+    private static final String PASWORD = "";
     private static final String HOST = "localhost:3306";
     private static final String BD = "almacen";
     Connection conexion;

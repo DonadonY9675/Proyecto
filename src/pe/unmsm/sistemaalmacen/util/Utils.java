@@ -58,7 +58,7 @@ public abstract class Utils {
     //USER SE INSTANCIÓ DE PRUEBA, BORRAR CUANDO SEA NECESARIO
     public static Usuario USER = new Usuario("Timoteo", "123456", true);
     public static String logo;
-    public static double IGV;
+    public static double IGV=0.18;
 
     //redondea un double a 2 decimales readondeando al numero superior
     public static double redondear(double numero, int cantidadDecimales) {

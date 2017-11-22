@@ -5,6 +5,10 @@
  */
 package pe.unmsm.sistemaalmacen.service.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import pe.unmsm.sistemaalmacen.dao.RegistroDAO;
 import pe.unmsm.sistemaalmacen.dao.impl.RegistroDAOImpl;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
 import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
@@ -16,7 +20,7 @@ import pe.unmsm.sistemaalmacen.service.RegistroService;
  */
 public class RegistroServiceImpl implements RegistroService{
 
-    RegistroDAOImpl registroDao = new RegistroDAOImpl();
+    RegistroDAO registroDao = new RegistroDAOImpl();
     
     @Override
     public boolean registrar(Registro e) {
@@ -43,7 +47,13 @@ public class RegistroServiceImpl implements RegistroService{
 
     @Override
     public boolean eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        //eliminando los detalles de registro
+        
+        new DetalleRegistroServiceImpl().eliminar(id);
+        
+        registroDao.eliminar(id);
+        return true;
     }
     
 }

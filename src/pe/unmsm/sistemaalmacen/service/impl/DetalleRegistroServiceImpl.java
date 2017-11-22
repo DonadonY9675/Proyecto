@@ -42,7 +42,8 @@ public class DetalleRegistroServiceImpl implements DetalleRegistroService{
 
     @Override
     public boolean eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.eliminar(id);
+        return true;
     }
     
 }

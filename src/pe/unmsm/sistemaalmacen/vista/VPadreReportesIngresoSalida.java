@@ -495,7 +495,7 @@ public class VPadreReportesIngresoSalida extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable;
+    public javax.swing.JTable jTable;
     private javax.swing.JPanel jpBuscarPor;
     private javax.swing.JPanel jpRegistros;
     private javax.swing.JLabel lblFecha;

@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pe.unmsm.sistemaalmacen.dao.AccesoDB;
+import pe.unmsm.sistemaalmacen.dao.DetalleRegistroDAO;
 import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
@@ -19,7 +20,7 @@ import pe.unmsm.sistemaalmacen.estructuras.ListaDoble;
  *
  * @author Miguel
  */
-public class DetalleRegistroDAOImpl {
+public class DetalleRegistroDAOImpl implements DetalleRegistroDAO{
 
     private static final AccesoDB accesoDB = new AccesoDB();
 
@@ -30,6 +31,7 @@ public class DetalleRegistroDAOImpl {
     private static final String CAMPO_MONTO = "monto";
     private static final String CAMPO_CANTIDAD = "cantidad";
 
+    @Override
     public boolean registrar(DetalleRegistro elem) {
 
         try {
@@ -65,18 +67,21 @@ public class DetalleRegistroDAOImpl {
 
     }
 
+    @Override
     public boolean modificar(DetalleRegistro e) {
         return true;
     }
 
+    @Override
     public DetalleRegistro get(String id) {
         return null;
     }
 
+    @Override
     public ListaDoble<DetalleRegistro> getAll() {
-        
+
         try {
- 
+
             ResultSet rs = null;
             Connection conn = null;
             PreparedStatement pstmt = null;
@@ -89,7 +94,6 @@ public class DetalleRegistroDAOImpl {
             String query = "SELECT " + CAMPO_CODIGO_REGISTRO + ","
                     + CAMPO_CODIGO_PRODUCTO + "," + CAMPO_MONTO + "," + CAMPO_CANTIDAD
                     + " FROM " + nombreTabla;
-           
 
             pstmt = conn.prepareStatement(query);
 
@@ -97,7 +101,6 @@ public class DetalleRegistroDAOImpl {
             rs = pstmt.executeQuery();
 
             /* Obtenemos los datos seleccionados */
-            
             while (rs.next()) {
                 String codigoDetalle = rs.getString(CAMPO_CODIGO_REGISTRO);
                 int codigoProducto = rs.getInt(CAMPO_CODIGO_PRODUCTO);
@@ -110,7 +113,7 @@ public class DetalleRegistroDAOImpl {
             }
 
             accesoDB.cerrarConexion(conn, pstmt);
-            
+
             return listaRegistro;
         } catch (Exception e) {
             System.out.println(e);
@@ -120,7 +123,34 @@ public class DetalleRegistroDAOImpl {
         return null;
     }//fin
 
+    @Override
     public boolean eliminar(String id) {
-        return true;
+        try {
+
+            ResultSet rs = null;
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+
+            conn = accesoDB.getConexion();
+
+            /* Preparamos la sentencia SQL a ejecutar */
+            String query = "DELETE FROM " + nombreTabla + " WHERE "
+                    + CAMPO_CODIGO_REGISTRO + " = ?;";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, id);
+
+            pstmt.executeUpdate();
+
+            accesoDB.cerrarConexion(conn, pstmt);
+
+            //Devuelve true si las sentencias se han ejecutado correctamente
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
     }
+
 }

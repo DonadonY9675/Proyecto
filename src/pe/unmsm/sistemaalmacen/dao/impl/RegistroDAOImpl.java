@@ -81,7 +81,7 @@ public class RegistroDAOImpl implements RegistroDAO {
     }
 
     @Override
-    public Registro get(Integer id) {
+    public Registro get(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -168,7 +168,9 @@ public class RegistroDAOImpl implements RegistroDAO {
     }
 
     @Override
-    public boolean eliminar(Integer id) {
+    public boolean eliminar(String id) {
+        
+        
         try {
 
             ResultSet rs = null;
@@ -182,7 +184,7 @@ public class RegistroDAOImpl implements RegistroDAO {
                     + campoCodigo + " = ?;";
 
             pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, id);
+            pstmt.setString(1, id);
 
             pstmt.executeUpdate();
 

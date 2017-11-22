@@ -12,10 +12,13 @@ import javax.swing.JOptionPane;
 import pe.unmsm.sistemaalmacen.vista.VPadreNuevoIngresoSalida;
 import pe.unmsm.sistemaalmacen.controlador.CModeloNuevoIngresoSalida;
 import pe.unmsm.sistemaalmacen.dao.impl.ProductoDAOImpl;
+import pe.unmsm.sistemaalmacen.dominio.DetalleRegistro;
 import pe.unmsm.sistemaalmacen.dominio.Producto;
 import pe.unmsm.sistemaalmacen.dominio.Registro;
+import pe.unmsm.sistemaalmacen.service.ProductoService;
 import pe.unmsm.sistemaalmacen.service.RegistroService;
 import pe.unmsm.sistemaalmacen.service.impl.DetalleRegistroServiceImpl;
+import pe.unmsm.sistemaalmacen.service.impl.ProductoServiceImpl;
 import pe.unmsm.sistemaalmacen.service.impl.RegistroServiceImpl;
 import pe.unmsm.sistemaalmacen.util.Utils;
 import pe.unmsm.sistemaalmacen.vista.VentanaNuevaSalida;
@@ -102,10 +105,10 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
             vIngSal.estaGuardado = true;
 
             float impuesto = 0;
-            if(vIngSal.txtImpuesto.getText().equals("-")){
+            if (vIngSal.txtImpuesto.getText().equals("-")) {
                 impuesto = Float.parseFloat(vIngSal.txtImpuesto.getText());
             }
-            
+
             Registro registro = new Registro(
                     vIngSal.txtCodigo.getText(),
                     Utils.convertirFechaAdateSQL(vIngSal.txtFecha.getText()),
@@ -114,26 +117,46 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
                     null,
                     vIngSal.txtObservaciones.getText(),
                     Float.parseFloat(vIngSal.txtSubTotal.getText()),
-                    
                     impuesto,
-                    
                     Float.parseFloat(vIngSal.txtTotal.getText()));
 
             System.out.println(registro);
-            vIngSal.miListaProductos.stream().forEach(r->r.setCodigo(vIngSal.txtCodigo.getText()));
+            vIngSal.miListaProductos.stream().forEach(r -> r.setCodigo(vIngSal.txtCodigo.getText()));
             vIngSal.miListaProductos.stream().forEach(System.out::println);
-            serviceRegistro.registrar(registro);
-
-            vIngSal.miListaProductos.stream().forEach(serviceDetalleRegistro::registrar);
-                        
-
-            
             //REGISTRO EN LA BASE DE DATOS
+
+            serviceRegistro.registrar(registro);
+            vIngSal.miListaProductos.stream().forEach(serviceDetalleRegistro::registrar);
+
+            actualizarStockProductos();
+
             JOptionPane.showMessageDialog(vIngSal, "Se realizo un nuevo registro de entrada", "Guardado exitoso!!!", JOptionPane.INFORMATION_MESSAGE);
             vIngSal.dispose();
         } else {
             JOptionPane.showMessageDialog(vIngSal, "ERROR!! Debe ingresar un nombre proveedor", "Error", JOptionPane.ERROR_MESSAGE);
             vIngSal.txtProveedor.requestFocus();
+        }
+    }
+
+    private void actualizarStockProductos() {
+        if (vIngSal instanceof VentanaNuevoIngreso) {
+            ProductoService service = new ProductoServiceImpl();
+            for (DetalleRegistro d : vIngSal.miListaProductos) {
+                //consultado de la bd
+                Producto prodBd = service.get(d.getProducto().getCodigo());
+
+                d.getProducto().setExistencia(prodBd.getExistencia() + (float) d.getCantidad());
+                service.modificar(d.getProducto());
+            }
+        }else {
+            ProductoService service = new ProductoServiceImpl();
+            for (DetalleRegistro d : vIngSal.miListaProductos) {
+                //consultado de la bd
+                Producto prodBd = service.get(d.getProducto().getCodigo());
+
+                d.getProducto().setExistencia(prodBd.getExistencia() - (float) d.getCantidad());
+                service.modificar(d.getProducto());
+            }
         }
     }
 
@@ -156,7 +179,6 @@ public abstract class CPadreNuevoIngresoSalidaImpl implements CModeloNuevoIngres
 
     public String generarCodigo() {
 
-        
         ListaDoble<Registro> listaRegistro = new RegistroServiceImpl().getAll();
 
         if (vIngSal instanceof VentanaNuevoIngreso) {
